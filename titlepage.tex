@@ -1,0 +1,84 @@
+%% titlepage.tex
+%%
+
+% Coordinates for the bg shape on the titlepage
+\newcommand{\xone}{-15}
+\newcommand{\xtwo}{\textwidth+15}
+\newcommand{\yone}{15}
+\newcommand{\ytwo}{-195}
+\newcommand{\ythree}{-205}
+\newcommand{\yfour}{-253}
+\newcommand{\rounded}{2}	% radius of rounded corners
+
+% Colors:
+\definecolor{nct_blue}{rgb}{0,0.09,0.43}
+\definecolor{nct_light_blue}{rgb}{0.2,0.45,0.76}
+
+\begin{titlepage}
+	
+	\begin{tikzpicture}[overlay]
+%	\draw[color=nct_blue, semithick]
+%		(\xone mm + \rounded mm, \yone mm)
+%		-- (\xtwo mm - \rounded mm, \yone mm);
+%		arc(0:90:\rounded);
+%		(\xtwo mm, \yfour mm)
+%		-- (\xone mm, \yfour mm)
+%		-- (\xone mm, \yone mm);
+	\draw[color=nct_blue, semithick, rounded corners=\rounded mm]
+		(\xone mm, \yone mm) rectangle (\xtwo mm, \yfour mm);
+	\draw[color=nct_blue, semithick]
+		(\xone mm + 10 mm, \ytwo mm)
+		--(\xtwo mm - 10 mm, \ytwo mm);
+	\end{tikzpicture}
+	
+
+	\changefont{phv}{m}{n}	% helvetica
+	\vspace*{2.5cm}
+	\begin{center}
+		\Huge{\mytitle}
+		\vspace*{1.5cm}
+		\\
+		\Large{
+			\iflanguage{english}{Master Thesis}												  {Masterarbeit}
+		}\\
+		\vspace*{1cm}
+		\huge{\myname}
+		\\
+		\vspace*{1cm}
+		\Large{
+			\iflanguage{english}{Division Translational Surgical Oncology\\NCT Dresden}
+								{Abteilung Translationale Chirurgische Onkologie\\NCT Dresden}
+		}
+		
+	\end{center}
+	\vspace*{1cm}
+	\Large{
+	\begin{center}
+	\begin{tabular}[ht]{l c l}
+	  % Gutachter sind die Professoren, die die Arbeit bewerten.
+	  \iflanguage{english}{Reviewer}{Erstgutachter}: & \hfill  & \reviewerone\\
+	  \iflanguage{english}{Second reviewer}{Zweitgutachter}: & \hfill  & \reviewertwo\\
+	  \iflanguage{english}{Advisor}{Betreuender Mitarbeiter}: & \hfill  & \advisor\\
+	  % Uncomment the following line if there is a second advisor:
+	  %\iflanguage{english}{Second advisor}{Zweiter betreuender Mitarbeiter}: & \hfill  & \advisortwo\\
+	\end{tabular}
+	\end{center}
+	}
+	
+	\begin{center}
+	\vspace{\baselineskip}
+	\large{\iflanguage{english}{Duration}{Bearbeitungszeit}: \timestart \hspace*{0.25cm} -- \hspace*{0.25cm} \timeend}
+	\end{center}	
+	
+	\begin{textblock}{10}[0,0](4.1,13.9)
+		\includegraphics[width=.65\textwidth]{NCT_Dresden_Logo_High.pdf}
+	\end{textblock}
+	\begin{textblock}{10}[0,0](11.7,13.9)
+		%\raggedleft		% Shift to the left
+		\includegraphics[width=.4\textwidth]{TU_Dresden_Logo_HKS41.pdf}
+	\end{textblock}
+
+	%\begin{textblock}[0,0](4,12)
+	%\end{textblock}
+
+\end{titlepage}

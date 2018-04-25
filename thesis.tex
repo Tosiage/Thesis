@@ -1,0 +1,154 @@
+\documentclass{thesisclass}
+
+% Based on thesisclass.cls of Timo Rohrberg, 2009
+% ----------------------------------------------------------------
+% Thesis - Main document
+% ----------------------------------------------------------------
+
+
+%% -------------------------------
+%% |  Information for PDF file   |
+%% -------------------------------
+\hypersetup{
+ pdfauthor={},
+ pdftitle={},
+ pdfsubject={Not set},
+ pdfkeywords={Not set}
+}
+
+\newcommand{\tm}{\textsuperscript{\scriptsize\texttrademark}}
+\newcommand{\reg}{\textsuperscript{\scriptsize\textregistered}}
+%\newcommand{\copy}{\textsuperscript{\scriptsize\textcopyright}}
+
+%% ---------------------------------
+%% | Information about the thesis  |
+%% ---------------------------------
+
+\newcommand{\myname}{Firstname Surname}
+\newcommand{\mytitle}{This is the Title of your\\very Awesome Thesis\\It's long to test line breaking}
+
+\newcommand{\reviewerone}{Prof. Dr.-Ing. Stefanie Speidel}
+\newcommand{\reviewertwo}{xxxxxx}
+\newcommand{\advisor}{xxxxxx}
+% If there is a second advisor, uncomment in titlepage.tex!
+\newcommand{\advisortwo}{?}
+
+\newcommand{\timestart}{December 19, 20XX}
+\newcommand{\timeend}{June 19, 20XX}
+\newcommand{\submissiontime}{19. Monat 20XX}
+
+
+%% ---------------------------------
+%% | ToDo Marker - only for draft! |
+%% ---------------------------------
+% Remove this section for final version!
+%\setlength{\marginparwidth}{20mm}
+
+
+%% --------------------------------
+%% | Settings for word separation |
+%% --------------------------------
+% Help for separation:
+% In german package the following hints are additionally available:
+% "- = Additional separation
+% "| = Suppress ligation and possible separation (e.g. Schaf"|fell)
+% "~ = Hyphenation without separation (e.g. bergauf und "~ab)
+% "= = Hyphenation with separation before and after
+% "" = Separation without a hyphenation (e.g. und/""oder)
+
+% Describe separation hints here:
+\hyphenation{
+% Pro-to-koll-in-stan-zen
+% Ma-na-ge-ment  Netz-werk-ele-men-ten
+% Netz-werk Netz-werk-re-ser-vie-rung
+% Netz-werk-adap-ter Fein-ju-stier-ung
+% Da-ten-strom-spe-zi-fi-ka-tion Pa-ket-rumpf
+% Kon-troll-in-stanz
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Here, main documents begins %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% Remove the following line for German text
+%\selectlanguage{english}
+\frontmatter
+\pagenumbering{roman}
+\include{titlepage}
+\blankpage
+
+\thispagestyle{empty}
+$\mbox{}$\vspace{15cm}$\mbox{}$\\
+Ich versichere hiermit, die vorliegende Arbeit selbstständig angefertigt zu haben. Die verwendeten Hilfsmittel und Quellen sind im Literaturverzeichnis
+vollständig aufgeführt.\\
+$\mbox{}$\vspace{2cm}$\mbox{}$\\
+Dresden, den YY Monat, 20XX\\
+$\mbox{}$\vspace{1cm}$\mbox{}$\\
+$\mbox{}$\hfill \\
+$\mbox{}$
+
+
+\clearpage
+
+% blank page
+\newpage
+\hfill
+\thispagestyle{empty}
+
+% abstract
+\newpage
+\thispagestyle{empty}
+\chapter*{\centering \iflanguage{english}{Abstract}{Zusammenfassung}}
+
+Short description of motivation, methods, results and discussion
+
+
+\newpage
+
+\newpage
+\hfill
+\thispagestyle{empty}
+
+% toc
+\newpage
+\thispagestyle{empty}
+\tableofcontents
+\newpage
+\setcounter{page}{1}
+
+% blank page
+\newpage
+\hfill
+\thispagestyle{empty}
+\hfill
+\newpage
+
+%% -----------------
+%% |   Main part   |
+%% -----------------
+%add content here
+%it is preferable to create a file for each chapter of the document
+\mainmatter
+\pagenumbering{arabic}
+\include{chapters/introduction}
+\include{chapters/state_of_art}
+\include{chapters/methods}
+\include{chapters/evaluation}
+\include{chapters/conclusion}
+
+\cleardoublepage
+\listoffigures
+\addcontentsline{toc}{chapter}{List of Figures}
+\listofalgorithms
+\addcontentsline{toc}{chapter}{List of Algorithms}
+\cleardoublepage
+
+%% --------------------
+%% |   Bibliography   |
+%% --------------------
+\newpage
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{bibliography}
+\bibliographystyle{IEEEtran}
+\end{document}
