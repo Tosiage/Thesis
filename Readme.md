@@ -4,7 +4,7 @@ TSO Thesis Latex Template
 TSO Thesis 
 Compilation:
 
-	pdflatex myarticle
-	bibtex myarticle
-	pdflatex myarticle
-	pdflatex myarticle
+	pdflatex thesis
+	bibtex thesis
+	pdflatex thesis
+	pdflatex thesis
