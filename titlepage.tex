@@ -1,13 +1,10 @@
-%% titlepage.tex
-%%
 
 % Coordinates for the bg shape on the titlepage
 \newcommand{\xone}{-15}
 \newcommand{\xtwo}{\textwidth+15}
 \newcommand{\yone}{15}
-\newcommand{\ytwo}{-195}
-\newcommand{\ythree}{-205}
-\newcommand{\yfour}{-253}
+\newcommand{\ytwo}{-212}
+\newcommand{\ythree}{-253}
 \newcommand{\rounded}{2}	% radius of rounded corners
 
 % Colors:
@@ -17,18 +14,8 @@
 \begin{titlepage}
 	
 	\begin{tikzpicture}[overlay]
-%	\draw[color=nct_blue, semithick]
-%		(\xone mm + \rounded mm, \yone mm)
-%		-- (\xtwo mm - \rounded mm, \yone mm);
-%		arc(0:90:\rounded);
-%		(\xtwo mm, \yfour mm)
-%		-- (\xone mm, \yfour mm)
-%		-- (\xone mm, \yone mm);
 	\draw[color=nct_blue, semithick, rounded corners=\rounded mm]
-		(\xone mm, \yone mm) rectangle (\xtwo mm, \yfour mm);
-	\draw[color=nct_blue, semithick]
-		(\xone mm + 10 mm, \ytwo mm)
-		--(\xtwo mm - 10 mm, \ytwo mm);
+		(\xone mm, \yone mm) rectangle (\xtwo mm, \ythree mm);
 	\end{tikzpicture}
 	
 
@@ -70,15 +57,12 @@
 	\large{\iflanguage{english}{Duration}{Bearbeitungszeit}: \timestart \hspace*{0.25cm} -- \hspace*{0.25cm} \timeend}
 	\end{center}	
 	
-	\begin{textblock}{10}[0,0](4.1,13.9)
-		\includegraphics[width=.65\textwidth]{images/logos/NCT_Dresden_Logo_High.pdf}
+	\begin{textblock}{10}[0,0](4.1,14.8)
+		\includegraphics[width=.65\textwidth]{images/logos/NCT_Dresden_zweispaltig_englisch.pdf}
 	\end{textblock}
-	\begin{textblock}{10}[0,0](11.7,13.9)
+	\begin{textblock}{10}[0,0](11.7,14.8)
 		%\raggedleft		% Shift to the left
 		\includegraphics[width=.4\textwidth]{images/logos/TU_Dresden_Logo_HKS41.pdf}
 	\end{textblock}
-
-	%\begin{textblock}[0,0](4,12)
-	%\end{textblock}
 
 \end{titlepage}
