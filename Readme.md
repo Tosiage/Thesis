@@ -4,7 +4,7 @@ TSO Thesis Latex Template
 TSO Thesis 
 Compilation:
 
-	pdflatex thesis
-	bibtex thesis
-	pdflatex thesis
-	pdflatex thesis
+	pdflatex thesis.tex
+	bibtex thesis.aux
+	pdflatex thesis.tex
+	pdflatex thesis.tex
