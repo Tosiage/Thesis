@@ -7,4 +7,9 @@ This section should describe your motivation and general introduction to the top
 
 \section{\iflanguage{english}{Goals}{Ziele}}
 
+Getrackt werden soll das Phantom eines Torsos. Es sollen verschiedene Methoden des markerbasierten Trackings implementiert und ein Hologramm der Leber relativ zu den Markern platziert werden. Zu diesen Methoden zählt Vuforia Model Recognition mit einem Trained Model Dataset, bei der die Bauchplatte des Phantoms als Model Target (Marker) fungiert und von Vuforia getrackt wird. Weitere Marker sind Vuforia ImageTargets, ArUco Marker und kreisförmige Farbmarker. Bei diesen drei Methoden werden mehrere Marker auf dem Torso platziert.
+
+Die Methoden sollen mit Hilfe der NDI Polaris evaluiert werden. Dazu soll dem Modell des Torsos eine Reihe an voneinander unterscheidbaren Modellen (farbige Kugeln o.Ä.) hinzugefügt werde, welche sowohl in die Polaris eingepflegt als auch mit der Hololens angezeigt werden. Diese Modelle werden von VersuchsteilnehmerInnen mit dem Pointer der Polaris angefahren. Aus den Positionsdaten des Pointers und den Positionsdaten des in die Polaris eingepflegten Modells lässt sich der Fehler der jeweiligen Methode berechnen.  
+
+
 \section{...}
