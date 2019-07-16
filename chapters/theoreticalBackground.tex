@@ -1,6 +1,7 @@
 \chapter{\iflanguage{english}{Theoretical Background}{Grundlagen}}
 \label{cha:theoreticalBackground}
 
+%TODO
 Description of theoretical concepts which are required to understand the rest of the thesis.
 
 Describe the concepts in enough detail so that other computer scientists can understand your methods in the next chapter. Go into enough detail so that the concept can be easily understood, but don't write a reference book! Instead, give proper sources and citations so the reader can look up further details if they want to.
@@ -17,6 +18,7 @@ Heutzutage wird die MR nicht nur durch die Art des verwendeten Bildschirms besch
 
 %Platzhalter
 %TODO neue Graphik
+%TODO Verweis in Text auf Abbildung
 
 \begin{figure}[ht]
 	\centering
@@ -27,15 +29,20 @@ Heutzutage wird die MR nicht nur durch die Art des verwendeten Bildschirms besch
  
 
 \section{Head Mounted Displays}
--Video Durchsicht Brille
--Optische Durchsicht
 
-\subsection{Microsoft Hololens}
--specs
--Wie findet sich die hololens im raum zurecht (inside out tracking)
--koordinatensysteme
--unity
--MRToolkit
+Um virtuelle Objekte in der realen Welt anzeigen zu können, werden Displays benötigt. Neben Displays, welche in der Hand gehalten werden und stationär befestigten Displays, gibt es \emph{Head Mounted Displays} (HMDs). Sie werden ähnlich einer Brille auf dem Kopf getragen, das Display befindet sich vor den Augen des Nutzers. 
+Im Bereich AR wird zwischen \emph{video see-through HMD} (VST-HMD) und \emph{optical see-through HMD} (OST-HMD) unterschieden.
+
+Bei VST-HMDs wird ein Video der Umwelt aufgenommen, in welches die virtuellen Objekte mittels Methoden der Computer Vision pixelgenau eingefügt werden \cite{billinghurst_survey_2015}. Es tritt keine Zeitverzögerung zwischen Bild der realen Welt und dem darauf angezeigtem virtuellem Objekt auf. Mittels Tiefenkameras kann eine korrekte räumliche Überlagerung von virtuellen Objekten durch reale Objekte garantiert werden. Ein Nachteil von VST-HMDs ist die Tatsache, dass der Träger des HMDs die Welt nur über das Video wahrnimmt und es so zu Problemen aufgrund von begrenzter Auflösung und zeitlicher Verzögerung zwischen realer Welt und Video kommen kann \cite{billinghurst_survey_2015}.  
+
+OST-HMDs hingegen sind Displays, welche durchsichtig sind und so den Blick auf die reale Umgebung ermöglichen. Dadurch gibt es keine Zeitverzögerung zwischen realer Welt und Szene, die der Nutzer sieht, mehr. Allerdings kann es nun zur zeitlichen Verzögerung im Rendering des virtuellen Objektes kommen. Ein weiteres großes Problem ist das Registrieren der virtuellen Objekte mit der Umwelt, da bei OST-HMDs zum positionieren dieser Objekte keine Methoden der Computer Vision verwendet werden können \cite{billinghurst_survey_2015}. Die in dieser Arbeit verwendete Microsoft Hololens lässt sich zu den OST-HMDs zählen. 
+
+
+
+
+
+
+
 
 \section{AR Tracking}
 -was sind marker
@@ -44,9 +51,7 @@ Heutzutage wird die MR nicht nur durch die Art des verwendeten Bildschirms besch
 
 \subsection{Konkrete Marker Arten}
 
-\subsection{Vuforia}
--model targets
--image targets
+
 
 \section{Phantom}
 
