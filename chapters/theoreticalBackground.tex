@@ -12,7 +12,7 @@ Describe the concepts in enough detail so that other computer scientists can und
 
 %Bild einfügen MR Spektrum
 
-Der Begriff \emph{Mixed Reality} (MR) wurde zuerst von Milgram und Kishino \cite{milgram_taxonomy_1994} beschrieben. Dabei handelt es sich um ein Spektrum, welches sich zwischen der realen und der virtuellen Welt aufspannt. Unter der virtuellen Welt wird hierbei die \emph{Virtuelle Realität} (VR) verstanden, welche sich dadurch kennzeichnet, dass der Nutzer vollständig in eine digitalisierte Umgebung eintaucht, ohne seine reale Umwelt direkt wahrnehmen zu können. Auf dem MR Spektrum sind reale und virtuelle Welt unterschiedich stark miteinander verschmolzen. Bei der \emph{Augmented Reality} (AR) werden der realen Welt virtuelle Objekte, wie bspw. der Avatar einer sich nicht im Raum befindlichen Person, hinzugefügt \cite{bray_what_nodate}. Bei der \emph{Augmented Virtuality} (AV) werden ausgehend von der virtuellen Welt Eigenschaften des realen Raumes übernommen, wie etwa Hindernisse \cite{bray_what_nodate}. 
+Der Begriff \emph{Mixed Reality} (MR) wurde zuerst von Milgram und Kishino \cite{milgram_taxonomy_1994} beschrieben. Dabei handelt es sich um ein Spektrum, welches sich zwischen der realen und der virtuellen Welt aufspannt (siehe Abb.\ref{fig:4.1}). Unter der virtuellen Welt wird hierbei die \emph{Virtuelle Realität} (VR) verstanden, welche sich dadurch kennzeichnet, dass der Nutzer vollständig in eine digitalisierte Umgebung eintaucht, ohne seine reale Umwelt direkt wahrnehmen zu können. Auf dem MR Spektrum sind reale und virtuelle Welt unterschiedich stark miteinander verschmolzen. Bei der \emph{Augmented Reality} (AR) werden der realen Welt virtuelle Objekte, wie bspw. der Avatar einer sich nicht im Raum befindlichen Person, hinzugefügt \cite{bray_what_nodate}. Bei der \emph{Augmented Virtuality} (AV) werden ausgehend von der virtuellen Welt Eigenschaften des realen Raumes übernommen, wie etwa Hindernisse \cite{bray_what_nodate}. 
 
 Heutzutage wird die MR nicht nur durch die Art des verwendeten Bildschirms beschrieben, sondern zusätzlich durch die Fähigkeit des Geräts, sich im Raum lokalisieren zu können und bspw. Geräusche räumlich korrekt widergeben zu können \cite{bray_what_nodate}. 
 
@@ -45,6 +45,16 @@ OST-HMDs hingegen sind Displays, welche durchsichtig sind und so den Blick auf d
 
 
 \section{AR Tracking}
+
+Einführungstext
+
+\subsection{Registrierung}
+
+Im medizinischen Bereich ist es wünschenswert, verschiedene Datensätze, welche bspw. durch unterschiedliche Bildgebende Verfahren oder zu verschiedenen Zeitpunkten im Krankheitsverlauf entstanden sind, in Übereinstimmung zu bringen. So können die Datensätze gleichzeitig angezeigt werden, was die Interpretation erleichtert und das aufwändige Wechseln zwischen den verschiedenen Medien vermeidet. Dies ermöglicht eine Verbesserung von Diagnose, Planung und Therapie. Dieser Prozess des in-Übereinstimmung-bringens wird \emph{Registrierung} genannt.
+
+In der AR bezieht sich der Begriff Registrierung auf das Problem, die Objekte der virtuellen und realen Welt miteinander in Einklang zu bringen \cite{azuma_survey_1997}. Es werden \emph{Ankerpunkte} (Anchor) benötigt, um die Hologramme am korrekten Ort anzuzeigen und dort zu halten, selbst wenn der Nutzer sich im Raum bewegt. Als Anchor können u.a. reale Objekte im Raum, bspw. Image Marker aus Papier, genutzt werden \cite{billinghurst_survey_2015}. Nach der initialen Registrierung, bei welcher die Position und Rotation des Nutzers in Relation zum Anchor bestimmt werden, müssen diese kontinuierlich aktualisiert werden, da der Nutzer sich im Raum bewegt \cite{billinghurst_survey_2015}. Im Folgenden werden verschiedene Methoden zum Tracken von Markern genannt.
+
+\subsection{Marker}
 -was sind marker
 -verschiedene marker arten
 -optical marker
@@ -55,4 +65,11 @@ OST-HMDs hingegen sind Displays, welche durchsichtig sind und so den Blick auf d
 
 \section{Phantom}
 
-\section{Registrierung}
+Unter einem \emph{Phantom} wird in der Medizin die Nachbildung eines Organs verstanden, an welchem Übungen und Experimente durchgeführt werden können. Das in dieser Arbeit verwendete Phantom ist das \emph{open-source Heidelberg laparoscopic phantom} (Open-HELP). Es wurde nach dem CT-Scan des Torsos eines männlichen Patienten modelliert \cite{noauthor_openhelp_nodate}. Der Torso enthält naturgetreue Organe und eine abnehmbare Bauchdecke (siehe Abb.\ref{fig:4.2}). 
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.75\textwidth]{images/phantomOhneMarker.png}
+	\caption[Virtuality Continuum]{Open-HELP Phantom mit und ohne Bauchdecke}
+	\label{fig:4.2}
+\end{figure}
