@@ -1,10 +1,8 @@
 \chapter{\iflanguage{english}{Theoretical Background}{Grundlagen}}
 \label{cha:theoreticalBackground}
 
-%TODO
-Description of theoretical concepts which are required to understand the rest of the thesis.
-
-Describe the concepts in enough detail so that other computer scientists can understand your methods in the next chapter. Go into enough detail so that the concept can be easily understood, but don't write a reference book! Instead, give proper sources and citations so the reader can look up further details if they want to.
+In diesem Kapitel wird eine Einführung in die Grundlagen gegeben, welche im Methoden Kapitel verwendet werden.
+Zuerst wird das Mixed Reality Spektrum erläutert, anschließend das Prinzip der Head Mounted Displays. Im Abschnitt 4.3 wird AR Tracking beschrieben, welches Marker, verschiedene Arten von Markern und Tracking Algorithmen beinhaltet. Abschließend wird das bei dieser Arbeit verwendete Phantom vorgestellt.
 
 
 
@@ -12,7 +10,7 @@ Describe the concepts in enough detail so that other computer scientists can und
 
 %Bild einfügen MR Spektrum
 
-Der Begriff \emph{Mixed Reality} (MR) wurde zuerst von Milgram und Kishino \cite{milgram_taxonomy_1994} beschrieben. Dabei handelt es sich um ein Spektrum, welches sich zwischen der realen und der virtuellen Welt aufspannt (siehe Abb.\ref{fig:4.1}). Unter der virtuellen Welt wird hierbei die \emph{Virtuelle Realität} (VR) verstanden, welche sich dadurch kennzeichnet, dass der Nutzer vollständig in eine digitalisierte Umgebung eintaucht, ohne seine reale Umwelt direkt wahrnehmen zu können. Auf dem MR Spektrum sind reale und virtuelle Welt unterschiedich stark miteinander verschmolzen. Bei der \emph{Augmented Reality} (AR) werden der realen Welt virtuelle Objekte, wie bspw. der Avatar einer sich nicht im Raum befindlichen Person, hinzugefügt \cite{bray_what_nodate}. Bei der \emph{Augmented Virtuality} (AV) werden ausgehend von der virtuellen Welt Eigenschaften des realen Raumes übernommen, wie etwa Hindernisse \cite{bray_what_nodate}. 
+Der Begriff \emph{Mixed Reality} (MR) wurde zuerst von Milgram und Kishino \cite{milgram_taxonomy_1994} beschrieben. Dabei handelt es sich um ein Spektrum, welches sich zwischen der realen und der virtuellen Welt aufspannt (siehe Abb. \ref{fig:4.1}). Unter der virtuellen Welt wird hierbei die \emph{Virtuelle Realität} (VR) verstanden, welche sich dadurch kennzeichnet, dass der Nutzer vollständig in eine digitalisierte Umgebung eintaucht, ohne seine reale Umwelt direkt wahrnehmen zu können. Auf dem MR Spektrum sind reale und virtuelle Welt unterschiedich stark miteinander verschmolzen. Bei der \emph{Augmented Reality} (AR) werden der realen Welt virtuelle Objekte, wie bspw. der Avatar einer sich nicht im Raum befindlichen Person, hinzugefügt \cite{bray_what_nodate}. Bei der \emph{Augmented Virtuality} (AV) werden ausgehend von der virtuellen Welt Eigenschaften des realen Raumes übernommen, wie etwa Hindernisse \cite{bray_what_nodate}. 
 
 Heutzutage wird die MR nicht nur durch die Art des verwendeten Bildschirms beschrieben, sondern zusätzlich durch die Fähigkeit des Geräts, sich im Raum lokalisieren zu können und bspw. Geräusche räumlich korrekt widergeben zu können \cite{bray_what_nodate}. 
 
@@ -40,36 +38,64 @@ OST-HMDs hingegen sind Displays, welche durchsichtig sind und so den Blick auf d
 
 
 
+\section{Registrierung}
 
+Im medizinischen Bereich ist es wünschenswert, verschiedene Datensätze, welche bspw. durch unterschiedliche Bildgebende Verfahren oder zu verschiedenen Zeitpunkten im Krankheitsverlauf entstanden sind, in Übereinstimmung zu bringen. So können die Datensätze gleichzeitig angezeigt werden, was die Interpretation erleichtert und das aufwändige Wechseln zwischen den verschiedenen Medien vermeidet. Dies ermöglicht eine Verbesserung von Diagnose, Planung und Therapie. Dieser Prozess des in-Übereinstimmung-bringens wird \emph{Registrierung} genannt.
+
+In der AR bezieht sich der Begriff Registrierung auf das Problem, die Objekte der virtuellen und realen Welt miteinander in Einklang zu bringen \cite{azuma_survey_1997}. Es werden \emph{Ankerpunkte} (Anchor) benötigt, um die Hologramme am korrekten Ort anzuzeigen und dort zu halten, selbst wenn der Nutzer sich im Raum bewegt. Als Anchor können u.a. reale Objekte im Raum, bspw. Image Marker aus Papier, genutzt werden \cite{billinghurst_survey_2015}. Nach der initialen Registrierung, bei welcher die Position und Rotation (\emph{Pose}) des Nutzers in Relation zum Anchor bestimmt werden, müssen diese kontinuierlich aktualisiert werden, da der Nutzer sich im Raum bewegt \cite{billinghurst_survey_2015}. Im Folgenden werden verschiedene Tracking Methoden genannt.
 
 
 
 \section{AR Tracking}
 
-Einführungstext
+Generell gibt es verschiedene Tracking Methoden, wie Magnetisches Tracking, Sichtbasiertes Tracking, Inertial Tracking oder hybride Anwendungen.
 
-\subsection{Registrierung}
+Sichtbasiertes Tracking zeichnet sich dadurch aus, dass zur Berechnung der Kamerapose im Verhältnis zu Objekten im Raum Methoden aus der Computer Vision genutzt werden \cite{rabbi_survey_2013}. 
+Da in dieser Arbeit sichtbasiertes Tracking verwendet wurde, wird nur dieses im Weiteren erläutert.
 
-Im medizinischen Bereich ist es wünschenswert, verschiedene Datensätze, welche bspw. durch unterschiedliche Bildgebende Verfahren oder zu verschiedenen Zeitpunkten im Krankheitsverlauf entstanden sind, in Übereinstimmung zu bringen. So können die Datensätze gleichzeitig angezeigt werden, was die Interpretation erleichtert und das aufwändige Wechseln zwischen den verschiedenen Medien vermeidet. Dies ermöglicht eine Verbesserung von Diagnose, Planung und Therapie. Dieser Prozess des in-Übereinstimmung-bringens wird \emph{Registrierung} genannt.
+\subsection{Infrarot Tracking}
+Beim Infrarot Tracking wird von einem Marker entweder Infrarot Strahlung ausgesendet (\emph{aktiver Marker}) oder reflektiert (\emph{passiver Marker}). Für die trackende Kamera haben diese Marker einen hohen Kontrast, da sie als helle Punkte vor dunklem Hintergrund erscheinen. Es gibt zwei Ansätze, wie Marker und Kamera konfiguriert sein können: als \emph{outside-looking-in} Konfiguration, bei welcher das zu trackende Objekt mit Markern ausgestattet und von einer stationären Kamera getrackt wird oder als \emph{inside-looking-out} Konfiguration, bei welcher das zu trackende Objekt mit einer Kamera ausgestattet wird und sich anhand von im Raum befestigten Markern orientiert \cite{billinghurst_survey_2015}.
 
-In der AR bezieht sich der Begriff Registrierung auf das Problem, die Objekte der virtuellen und realen Welt miteinander in Einklang zu bringen \cite{azuma_survey_1997}. Es werden \emph{Ankerpunkte} (Anchor) benötigt, um die Hologramme am korrekten Ort anzuzeigen und dort zu halten, selbst wenn der Nutzer sich im Raum bewegt. Als Anchor können u.a. reale Objekte im Raum, bspw. Image Marker aus Papier, genutzt werden \cite{billinghurst_survey_2015}. Nach der initialen Registrierung, bei welcher die Position und Rotation des Nutzers in Relation zum Anchor bestimmt werden, müssen diese kontinuierlich aktualisiert werden, da der Nutzer sich im Raum bewegt \cite{billinghurst_survey_2015}. Im Folgenden werden verschiedene Methoden zum Tracken von Markern genannt.
 
-\subsection{Marker}
--was sind marker
--verschiedene marker arten
--optical marker
 
-\subsection{Konkrete Marker Arten}
+\subsection{Visible Light Tracking}
+ 
+%TODO Überarbeiten
+Mit Hilfe von Video Aufnahmen aus RGB-Kameras, wie sie bspw. die Hololens besitzt, lassen sich Hologramme ebenso mit der realen Welt registrieren. Die dazu verwendeten Methoden lassen sich in drei Techniken aufteilen, welche im Folgenden erläutert werden. 
 
+
+
+\textbf{Fiducial Tracking} 
+
+\emph{Fiducials} sind phyische Objekte, die in der realen Welt platziert werden (siehe Abb.\ref{fig:4.2}). Sie können als Anchor für virtuelle Objekte genutzt werden, um diese im Raum zu positionieren. Wie ein Fiducial aussieht, ist stark von dem Algorithmus abhängig, der zum Tracken genutzt wird. So gibt es einfarbige Fiducials, die per Color Matching getrackt werden können \cite{billinghurst_survey_2015}. Hierbei muss beachtet werden, dass ein einzelner, einfarbiger Marker nicht genügend Informationen enthält, um die Kamerapose zu bestimmen. Es müssen mindestens vier Punkte im Raum erkannt werden, um diese berechnen zu können \cite{billinghurst_survey_2015}. Es muss also darauf geachtet werden, die Marker so in der realen Welt zu positionieren, dass zu jeder Zeit mindestens vier einfarbige Fiducials sichtbar sind. Dieser Mehraufwand kann vermieden werden, indem planare quadratische Marker verwendet werden, deren Ecken als die vier bekannten Punkte dienen. Zusätzlich kann ein Bild dem Marker hinzugefügt werden, um zu ermöglichen, dass mehrere Marker zeitgleich verwendet und voneinander unterschieden werden können, sowie die Rotation um die vertikale Achse feststellen zu können, wie es bspw. beim ARToolkit der Fall ist \cite{billinghurst_survey_2015}.
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.75\textwidth]{images/fiducials.png}
+	\caption[Fiducials]{Beispiel planare Fiducials und einfarbige Fiducials (beim zeichnen vergessen)}
+	\label{fig:4.2}
+\end{figure}
+
+%genauer auf ARToolkit u.ä. eingehen?
+
+\textbf{Natural Feature Tracking}
+
+Natural Feature Tracking ermöglicht ein markerloses Tracking, somit müssen dem Raum keine künstlichen Merkmale in Form von Fiducials hinzugefügt werden. Algorithmen wie SIFT (Scale Invariant Feature Transform) ermitteln eindeutige Merkmale in einem Set von Referenzbildern und bilden einen Deskriptor, welcher spezifisch für dieses eine Merkmal ist und in einer Datenbank gespeichert wird. Mittels Feature Matching werden Merkmale des zu trackenden Objekts mit Merkmalen aus der Datenbank abgeglichen. Die Pose der Kamera kann nun mit den gefundenen Features ähnlich berechnet werden wie bei Fiducials \cite{billinghurst_survey_2015}.
+
+\textbf{Modellbasiertes Tracking}
+
+\subsection{3D Structure Tracking}
+-Tiefenkamera
+-Kinect
 
 
 \section{Phantom}
 
-Unter einem \emph{Phantom} wird in der Medizin die Nachbildung eines Organs verstanden, an welchem Übungen und Experimente durchgeführt werden können. Das in dieser Arbeit verwendete Phantom ist das \emph{open-source Heidelberg laparoscopic phantom} (Open-HELP). Es wurde nach dem CT-Scan des Torsos eines männlichen Patienten modelliert \cite{noauthor_openhelp_nodate}. Der Torso enthält naturgetreue Organe und eine abnehmbare Bauchdecke (siehe Abb.\ref{fig:4.2}). 
+Unter einem \emph{Phantom} wird in der Medizin die Nachbildung eines Organs verstanden, an welchem Übungen und Experimente durchgeführt werden können. Das in dieser Arbeit verwendete Phantom ist das \emph{open-source Heidelberg laparoscopic phantom} (Open-HELP). Es wurde nach dem CT-Scan des Torsos eines männlichen Patienten modelliert \cite{noauthor_openhelp_nodate}. Der Torso enthält naturgetreue Organe und eine abnehmbare Bauchdecke (siehe Abb. \ref{fig:4.3}). 
 
 \begin{figure}[ht]
 	\centering
 		\includegraphics[width=0.75\textwidth]{images/phantomOhneMarker.png}
-	\caption[Virtuality Continuum]{Open-HELP Phantom mit und ohne Bauchdecke}
-	\label{fig:4.2}
+	\caption[Open-HELP Phantom]{Open-HELP Phantom mit und ohne Bauchdecke}
+	\label{fig:4.3}
 \end{figure}
