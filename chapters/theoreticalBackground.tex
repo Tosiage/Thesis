@@ -82,11 +82,19 @@ Mit Hilfe von Video Aufnahmen aus RGB-Kameras, wie sie bspw. die Hololens besitz
 
 Natural Feature Tracking ermöglicht ein markerloses Tracking, somit müssen dem Raum keine künstlichen Merkmale in Form von Fiducials hinzugefügt werden. Algorithmen wie SIFT (Scale Invariant Feature Transform) ermitteln eindeutige Merkmale in einem Set von Referenzbildern und bilden einen Deskriptor, welcher spezifisch für dieses eine Merkmal ist und in einer Datenbank gespeichert wird. Mittels Feature Matching werden Merkmale des zu trackenden Objekts mit Merkmalen aus der Datenbank abgeglichen. Die Pose der Kamera kann nun mit den gefundenen Features ähnlich berechnet werden wie bei Fiducials \cite{billinghurst_survey_2015}.
 
+
 \textbf{Modellbasiertes Tracking}
 
+Beim modellbasiertem Tracking wird ein 3D-Modell des Objektes genutzt, welches getrackt werden soll. Auf die Szene werden Kantenfilter angewendet, welche mit mit dem 3D-Modell abgeglichen werden, wodurch die Pose der Kamera bestimmt wird. Es ist möglich, Natural Feature Tracking und die Textur des 3D-Modells mit einzubeziehen, wodurch das Tracking robuster wird \cite{billinghurst_survey_2015}.
+
+%SLAM mit rein?
+
 \subsection{3D Structure Tracking}
--Tiefenkamera
--Kinect
+
+Es ist möglich, mit Hilfe von 3D-Kamerasystemen Tiefendaten zu erhalten. Diese Tiefendaten werden mittels Methoden wie time-of-flight oder strukturiertem Licht erzeugt. Bei ersterem wird die Laufzeit eines Lichtimpulses zum Objekt und zurück gemessen, sodass für jeden Pixel in der Szene eine Laufzeitmessung und somit die Distanz zur Kamera bekannt ist \cite{szeliski_computer_nodate}.
+%Szeliski Buch Kapitel 12 Zitat
+Bei strukturiertem Licht werden Streifen oder Punkte auf eine Oberfläche projiziert. Durch die Oberfläche wird das projizierte Muster verzerrt. Mithilfe von optischer Triangulation kann nun die 3D Position der Punkte bestimmt werden \cite{szeliski_computer_nodate}. 
+Die KinectFusion nutzt strukturiertes Licht um 3D Modelle von Objekten und vom Raum zu erstellen, welche wiederum zum Tracken der Pose der Kamera genutzt werden \cite{billinghurst_survey_2015}.
 
 
 \section{Phantom}
