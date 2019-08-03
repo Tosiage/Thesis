@@ -8,13 +8,18 @@ Im Folgenden werden verwandte Arbeiten genannt, wobei besonderer Fokus auf Anwen
 
 Augmented Reality kann im medizinischen Bereich in vielerlei Hinsicht eingesetzt werden. Großes Potential haben Anwendungen zur präoperativen Planung \cite{ha_augmented_2016}, intraoperativer Visualisierung und zum Training von Chirurgen \cite{azuma_survey_1997}. Anwendungen mit Head-Mounted-Displays, also Displays, die wie eine Brille auf dem Kopf getragen werden, bieten zusätzlich den Vorteil, dass der Chirurg seine Hände frei nutzen kann. Eine Herausforderung hierbei ist, dass zur Visualisierung die Daten korrekt mit dem Patienten überlagert (\emph{registriert}) werden müssen. Es muss also erreicht werden, dass jeder Punkt auf dem Patienten mit dem korrespondierenden Punkt im angezeigten Objekt übereinstimmt. 
 
+Azuma hat bereits 1997 Anwendungsfälle für AR im medizinischen Bereich genannt, unter anderem ein Projekt, bei welchem eine Biopsie des Brustgewebes durch AR unterstützt wurde. Die Position des Tumors in einem Phantom wurde visualisiert und die Einstichstelle sowie der Pfad der Nadel im Gewebe bis zum Tumor geführt \cite{azuma_survey_1997}.
+
 Birkfellner et al. \cite{birkfellner_head-mounted_2002} nutzen als HMD ein um AR-Fähigkeit erweitertes Varioscope von Life Optics. 
 
 Bei \emph{INPRES} (intraoperative presentation of surgical planning and simulation results)\cite{} wurde als HMD die Optische-Durchsicht-Brille Sony Glasstron verwendet. 
 
 \section{Marker Tracking in der Chirurgie}
 
-Ha und Hong
+Registrierung kann über das Tracken von Markern erreicht werden. Marker sind Objekte, die in der Szene angebracht werden und durch Methoden der Computer Vision im Videostream erkannt werden können. Durch die Position der Marker im Bild lässt sich dann wiederum die Kamerapose ermitteln und so das 3D Objekt an der richtigen Stelle im Raum anzeigen.
+
+Ha und Hong haben ein System zur Unterstützung einer Knochentumorresektion entwickelt. Um den Patienten und die Instrumente zu tracken, wurde ein Tablet Computer mit Kamera genutzt, auf dem auch gleichzeitig die Visualisierung zu sehen war. Als Marker wurden Würfel genutzt, an welchen auf jeder Seite ein planares Bild angebracht war, ähnlich zu Aruco Markern. Diese Marker wurde am Patienten und an den Instrumenten befestigt, ein externes Tracking System war nicht notwendig \cite{ha_augmented_2016}. 
+
 
 \section{Hololens in der Chirurgie}
 
