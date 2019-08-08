@@ -4,35 +4,52 @@
 Description of your used methods, algorithms and the actual work you did. This is often the longest and most detailed chapter...
 
 \section{Microsoft Hololens}
--Begriff Hologramm
--Wie findet sich die hololens im raum zurecht (inside out tracking)
--koordinatensysteme
--specs
 
 Das in dieser Arbeit genutzte Optical See-Through HMD ist die Hololens der ersten Generation. Die Hololens wurde 2016 von der Microsoft Corporation auf den Markt gebracht. Sie übertrifft andere kommerziell verfügbaren OST-HMDs in Kontrast und Stabilität der Bildwiederholrate und hat eine geringere Zeitverzögerung \cite{qian_comparison_2017}. Die Hololens ist nicht kabelgebunden, lässt sich über Handgesten sowie Sprachbefehle steuern und gefährdet somit nicht die Sterilität im Operationssaal \cite{pratt_through_2018}.
 
-Ein virtuelles Objekt, welches von der Hololens angezeigt wird, wird \emph{Hologramm} genannt. Die Hololens projiziert ein Hologramm auf zwei Durchsichtdisplays (\emph{Waveguides)}, für jedes Auge eines. Im Gegensatz zu Video See-Through HMDs, welche bei einem Stromausfall dem Nutzer jegliche Sicht versperren, ermöglichen die Waveguides zeitgleich die Sicht auf die reale Umgebung. Für jeden Waveguide gibt es eine \emph{Light Engine}, welche die holographischen Inhalte projiziert.
+Ein virtuelles Objekt, welches von der Hololens angezeigt wird, wird \emph{Hologramm} genannt. Die Hololens projiziert ein Hologramm auf zwei Durchsichtdisplays (\emph{Waveguides)}, für jedes Auge eines. Im Gegensatz zu Video See-Through HMDs, welche bei einem Stromausfall dem Nutzer jegliche Sicht versperren, ermöglichen die Waveguides zeitgleich die Sicht auf die reale Umgebung. Für jeden Waveguide gibt es eine \emph{Light Engine}, welche die holographischen Inhalte projiziert. Mit Hilfe von vier Umgebungssensoren und einer Time-of-Flight Tiefenkamera kann die Hololens eine Karte des Raumes erstellen (\emph{Spatial Mapping}) und sich selbst darin Positionieren. Die Tiefenkamera wird zusätzlich zur Erkennung der Handgesten genutzt. \cite{varnauld_mixed_nodate}
+%TODO richtiges Zitat Mixed Reality Documentation
 
 \textbf{Technische Daten}
 
-\begin{tabular}{llr}
+\begin{center}
+\begin{tabular}{ll}
 \hline
-Komponente    & Daten   \\
+\textbf{Komponente}    & \textbf{Daten}   \\
 \hline
-\textbf{Optik}      & zwei Durchsichtdisplays (Waveguides)\\
-          & zwei HD 16:9 Light Engines \\
+\textbf{Optik}      & 2 Durchsichtdisplays (Waveguides)\\
+          & 2 HD 16:9 Light Engines \\
+          &\\
 \textbf{Holographische Auflösung} & 2,3 Millionen Lichtpunkte\\
+  &\\
 \textbf{Holographische Dichte} & mehr als 2500 Radianten \\
-&(2500 Lichtpunkte pro Radiant, wobei $1 rad \approx 57,3^\circ $ ) \\
-\textbf{Sensoren}       & stuffed          \\
-\textbf{Sprachverstehen}       & stuffed           \\
-\textbf{Eingabe/Ausgabe/Konnektivität} & frozen            \\
-\textbf{Leistung} & frozen            \\
-\textbf{Prozessoren} & frozen            \\
-\textbf{Gewicht} & frozen            \\
+&(2500 Lichtpunkte pro Radiant, \\
+& wobei $1 rad \approx 57,3^\circ $ ) \\
+  &\\
+\textbf{Sensoren}       & 1 IMU (Inertiale Messeinheit)       \\
+& 4 Umgebungssensoren \\
+& 1 Tiefenkamera (Time-of-Flight) \\
+&1 2MP HD Kamera \\
+&4 Mikrofone\\
+&1 Umgebungslichtsensor\\
+  &\\
+\textbf{Interaktion}       & räumlicher Ton           \\
+& Blickverfolgung\\
+& Handgesten \\
+& Sprachsteuerung (bei Internetverbingung)\\
+  &\\
+\textbf{Leistung} & 2-3 Stunden aktive Nutzung            \\
+  &bis zu 2 Wochen standby\\
+  &nutzbar während des Ladevorgangs\\
+  &passive Kühlung\\
+  &\\
+\textbf{Prozessoren} &    Intel 32 bit architecture \\
+& Microsoft Holographic Processing Unit (HPU 1.0)         \\
+  &\\
 \textbf{Betriebssystem} & Windows 10           \\
 \hline
 \end{tabular}
+\end{center}
 
 
 
