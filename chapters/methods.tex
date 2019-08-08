@@ -9,6 +9,31 @@ Description of your used methods, algorithms and the actual work you did. This i
 -koordinatensysteme
 -specs
 
+Das in dieser Arbeit genutzte Optical See-Through HMD ist die Hololens der ersten Generation. Die Hololens wurde 2016 von der Microsoft Corporation auf den Markt gebracht. Sie übertrifft andere kommerziell verfügbaren OST-HMDs in Kontrast und Stabilität der Bildwiederholrate und hat eine geringere Zeitverzögerung \cite{qian_comparison_2017}. Die Hololens ist nicht kabelgebunden, lässt sich über Handgesten sowie Sprachbefehle steuern und gefährdet somit nicht die Sterilität im Operationssaal \cite{pratt_through_2018}.
+
+Ein virtuelles Objekt, welches von der Hololens angezeigt wird, wird \emph{Hologramm} genannt. Die Hololens projiziert ein Hologramm auf zwei Durchsichtdisplays (\emph{Waveguides)}, für jedes Auge eines. Im Gegensatz zu Video See-Through HMDs, welche bei einem Stromausfall dem Nutzer jegliche Sicht versperren, ermöglichen die Waveguides zeitgleich die Sicht auf die reale Umgebung. Für jeden Waveguide gibt es eine \emph{Light Engine}, welche die holographischen Inhalte projiziert.
+
+\textbf{Technische Daten}
+
+\begin{tabular}{llr}
+\hline
+Komponente    & Daten   \\
+\hline
+\textbf{Optik}      & zwei Durchsichtdisplays (Waveguides)\\
+          & zwei HD 16:9 Light Engines \\
+\textbf{Holographische Auflösung} & 2,3 Millionen Lichtpunkte\\
+\textbf{Holographische Dichte} & mehr als 2500 Radianten \\
+&(2500 Lichtpunkte pro Radiant, wobei $1 rad \approx 57,3^\circ $ ) \\
+\textbf{Sensoren}       & stuffed          \\
+\textbf{Sprachverstehen}       & stuffed           \\
+\textbf{Eingabe/Ausgabe/Konnektivität} & frozen            \\
+\textbf{Leistung} & frozen            \\
+\textbf{Prozessoren} & frozen            \\
+\textbf{Gewicht} & frozen            \\
+\textbf{Betriebssystem} & Windows 10           \\
+\hline
+\end{tabular}
+
 
 
 \section{NDI Polaris}
@@ -26,5 +51,18 @@ Description of your used methods, algorithms and the actual work you did. This i
 -die image targets die ich genutzt habe? Oder erst später?
 
 \section{Versuchsaufbau}
+
+Box
+Phantom
+
+\section{Kalibrierung}
+
+\section{GUI und Interaktion}
+man muss mit dem Hologramm interagieren wegen kalibrierung
+zwei möglichkeiten für GUI 
+1. box transparent
+2. rendering reihenfolge (box muss von achsen überlagert werden)
+
+für 2. entschieden, da bei box transparent buttons drin liegen und so nicht ersichtlich dass interagiert werden kann
 
 
