@@ -59,6 +59,8 @@ Die Polaris Spectra von Northern Digital Inc. ist ein Infrarot Tracking System z
 
 \textbf{Technische Daten}
 
+%https://www.ndigital.com/medical/products/polaris-family/
+
 \begin{center}
 \begin{tabular}{ll}
 \hline
@@ -82,17 +84,72 @@ Die Polaris Spectra von Northern Digital Inc. ist ein Infrarot Tracking System z
 
 \section{Unity}
 
+\emph{Unity} ist eine Gaming Engine entwickelt von Unity Technologies. Sie kann zum Entwickeln von 3D- und 2D-Spielen genutzt werden, sowie unter anderem zum Erstellen von AR- und VR-Anwendungen. Unity unterstützt mehr als 25 Plattformen, darunter auch die Universal Windows Plattform, welche auf der Hololens genutzt wird. Microsoft empfiehlt Unity zum Entwickeln von MR-Anwendungen für die Hololens, mit der Begründung, dass Unity 'die schnellste Methode zum Erstellen einer Mixed Reality-App' sei \cite{varnauld_mixed_nodate}.
+%Wie die MR Docs zitieren?
+In dieser Arbeit wurde Unity 2018.2.21f1 genutzt.
+
 \section{Mixed Reality Toolkit}
 
-\section{Vuforia}
--model targets
--model target generator
--image targets
--wie sieht ein gutes image target aus
--die image targets die ich genutzt habe? Oder erst später?
+Das \emph{Mixed Reality Toolkit} (MRTK) für Unity ist ein von Microsoft geleitetes Open Source Projekt zur Unterstützung und Beschleunigung der Entwicklung für die Hololens, Windows Mixed Reality immersive (VR) Headsets und OpenVR. Es enthält verschiedene Bauteile in Form von Skripten und vorgefertigten Objekten (Assets). 
+Eines dieser Assets ist das \emph{Input Manager Prefab}, das sich unter anderem aus einem \emph{Gaze Manager}, einem \emph{Input Manager} und einem \emph{Focus Manager} Skript zusammensetzt. Mit Hilfe dieser Skripte lässt sich der Blick des Nutzers verfolgen und Gesten erkennen. Die Verfolgung der Blickrichtung ermöglicht das Anzeigen eines Cursors für den Nutzer und dadurch das Anfokussieren einzelner Objekte in der Szene. So besteht die Möglichkeit, Objekte bei Fokussierung farblich hervorzuheben oder weitere Informationen anzuzeigen, die sonst nicht sichtbar sind. 
+In dieser Arbeit wurde die MRTK Version 2017.4.3.0 verwendet.
+%https://microsoft.github.io/MixedRealityToolkit-Unity/README.html
+
+\section{Vuforia Augmented Reality SDK}
+
+Vuforia ist ein plattformübergreifendes Software Development Kit zur Entwicklung von Mixed Reality Anwendungen. Vuforia lässt sich sowohl mit iOS- und Android-Geräten als auch mit der Hololens nutzen. Es ist in Unity integriert und ermöglicht durch Methoden der Computer Vision das Tracken von Markern in verschiedenen Formen, wie z.B. das Tracken eines einzelnen Bildes, 3D-Konfigurationen mit mehreren Bildern oder eines 3D Objektes. Vuforia ist nicht open source. Die in dieser Arbeit genutzte Version der Vuforia Engine ist 8.0.10.
+
+Vuforia stellt in der Unity Szene ein eigenes Kamera-Asset zur Verfügung, welches in dieser Arbeit Anstelle des MixedRealityCameraParent-Assets aus dem Mixed Reality Toolkit verwendet wird.
+
+\subsection{Vuforia Model Targets}
+
+%https://library.vuforia.com/features/objects/model-targets.html
+\emph{Vuforia Model Targets} ermöglichen es, Objekte aus der realen Welt basierend auf ihrer Form zu Tracken. Dabei kann es sich um ein kleines Objekt wie ein Spielzeugauto handeln, aber auch um ein großes Objekt, wie ein richtiges Auto. Eine Voraussetzung hierfür ist jedoch, dass ein 3D-Modell (bspw. ein CAD-Modell) des Objektes existiert. Damit das Tracking eines Model Targets gut funktioniert, müssen sowohl das Objekt, als auch das CAD-Modell einige Anforderungen erfüllen.   
+
+Ein Objekt, das getrackt werden soll, sollte:
+\begin{itemize}
+%Fixed Position in Space
+\item Fix im Raum angebracht sein
+
+%Colored or Patterned surface
+\item Eine farbige oder gemusterte Oberfläche besitzen
+
+%Sufficient Geometric Detail
+\item Komplex sein
+
+%non-flexible and rigid
+\item Keine beweglichen Teile haben und nicht verformbar sein
+\end{itemize}
+%TODO genauer?
+
+
+Das CAD-Modell sollte:
+\begin{itemize}
+\item Keine Löcher oder Risse aufweisen
+\item Keine fehlenden Teile haben
+\item Keine Normalen aufweisen, die in eine andere Richtung als die Oberflächennormale zeigen
+\item Keine fehlenden Farbinformationen oder fehlende Textur aufweisen
+\item Keine falsche Textur aufweisen
+\end{itemize}
+
+
+\textbf{Vuforia Model Target Generator}
+
+Um ein Model Target für die Verwendung in Unity zu erstellen, hat Vuforia den \emph{Model Target Generator} (MTG) entwickelt. Mit Hilfe des MTGs wird aus einem CAD-Modell eine Vuforia Datenbank generiert, welche als \emph{.unitypackage} heruntergeladen und in Unity importiert werden kann. 
+
+\textbf{Guide Views}
+
+
+
+\subsection{Vuforia Image Targets}
+Was sind Image Targets?
+
+Wie sieht ein gutes image target aus?
+
+Die image targets die ich genutzt habe? Oder erst später?
 
 \section{Versuchsaufbau}
-
+Modell Target Phantom
 Box
 Phantom
 
