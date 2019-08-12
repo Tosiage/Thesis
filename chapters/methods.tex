@@ -59,7 +59,7 @@ Die Polaris Spectra von Northern Digital Inc. ist ein Infrarot Tracking System z
 
 \textbf{Technische Daten}
 
-%https://www.ndigital.com/medical/products/polaris-family/
+%https://www.ndigital.com/medical/products/polaris-family/ 11.08.2019
 
 \begin{center}
 \begin{tabular}{ll}
@@ -93,7 +93,7 @@ In dieser Arbeit wurde Unity 2018.2.21f1 genutzt.
 Das \emph{Mixed Reality Toolkit} (MRTK) für Unity ist ein von Microsoft geleitetes Open Source Projekt zur Unterstützung und Beschleunigung der Entwicklung für die Hololens, Windows Mixed Reality immersive (VR) Headsets und OpenVR. Es enthält verschiedene Bauteile in Form von Skripten und vorgefertigten Objekten (Assets). 
 Eines dieser Assets ist das \emph{Input Manager Prefab}, das sich unter anderem aus einem \emph{Gaze Manager}, einem \emph{Input Manager} und einem \emph{Focus Manager} Skript zusammensetzt. Mit Hilfe dieser Skripte lässt sich der Blick des Nutzers verfolgen und Gesten erkennen. Die Verfolgung der Blickrichtung ermöglicht das Anzeigen eines Cursors für den Nutzer und dadurch das Anfokussieren einzelner Objekte in der Szene. So besteht die Möglichkeit, Objekte bei Fokussierung farblich hervorzuheben oder weitere Informationen anzuzeigen, die sonst nicht sichtbar sind. 
 In dieser Arbeit wurde die MRTK Version 2017.4.3.0 verwendet.
-%https://microsoft.github.io/MixedRealityToolkit-Unity/README.html
+%https://microsoft.github.io/MixedRealityToolkit-Unity/README.html 11.08.2019
 
 \section{Vuforia Augmented Reality SDK}
 
@@ -103,7 +103,7 @@ Vuforia stellt in der Unity Szene ein eigenes Kamera-Asset zur Verfügung, welch
 
 \subsection{Vuforia Model Targets}
 
-%https://library.vuforia.com/features/objects/model-targets.html
+%https://library.vuforia.com/features/objects/model-targets.html 12.08.2019
 \emph{Vuforia Model Targets} ermöglichen es, Objekte aus der realen Welt basierend auf ihrer Form zu Tracken. Dabei kann es sich um ein kleines Objekt wie ein Spielzeugauto handeln, aber auch um ein großes Objekt, wie ein richtiges Auto. Eine Voraussetzung hierfür ist jedoch, dass ein 3D-Modell (bspw. ein CAD-Modell) des Objektes existiert. Damit das Tracking eines Model Targets gut funktioniert, müssen sowohl das Objekt, als auch das CAD-Modell einige Anforderungen erfüllen.   
 
 Ein Objekt, das getrackt werden soll, sollte:
@@ -135,11 +135,18 @@ Das CAD-Modell sollte:
 
 \textbf{Vuforia Model Target Generator}
 
-Um ein Model Target für die Verwendung in Unity zu erstellen, hat Vuforia den \emph{Model Target Generator} (MTG) entwickelt. Mit Hilfe des MTGs wird aus einem CAD-Modell eine Vuforia Datenbank generiert, welche als \emph{.unitypackage} heruntergeladen und in Unity importiert werden kann. 
+Um ein Model Target für die Verwendung in Unity zu erstellen, hat Vuforia den \emph{Model Target Generator} (MTG) entwickelt. Mit Hilfe des MTGs wird aus einem CAD-Modell eine Vuforia Datenbank generiert, welche als \emph{.unitypackage} heruntergeladen und in Unity importiert werden kann. Es ist möglich, die Datenbank mit Cloudbasiertem Deep-Learning zu trainieren und so eine \emph{Advanced Model Target} Datenbank zu erhalten, dies wurde allerdings in dieser Arbeit nicht getan. 
 
 \textbf{Guide Views}
 
+Bei einer untrainierten Datenbank muss das zu trackende Objekt von einer bestimmten Position  und einem bestimmten Winkel aus mit der Hololens angeschaut werden, damit das Tracking beginnen kann. Dazu lassen sich im MTG ein oder mehr Bilder generieren, die während der Anwendung dem Nutzer angezeigt werden. Sie überlagern das Gesehene mit Kanten des 3D-Modells (siehe Abb.\ref{fig:4.1}). Der Nutzer muss sich dann so ausrichten, dass Objekt und Hilfsbild übereinstimmen. So hilft das Bild dem Nutzer so dabei, sich richtig zu positionieren und die Hololens im korrekten Winkel zum zu trackenden Objekt auszurichten. Als \emph{Guide View} wird in Vuforia sowohl das Hilfsbild, als auch Winkel und Position, die relativ zum zu trackenden Objekt eingenommen werden müssen bezeichnet. 
 
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.75\textwidth]{images/guideView.jpg}
+	\caption[Vuforia Guide View]{Guide View auf einem Android Gerät (https://library.vuforia.com/features/objects/model-targets.html) 13.08.2019}
+	\label{fig:4.1}
+\end{figure}
 
 \subsection{Vuforia Image Targets}
 Was sind Image Targets?
