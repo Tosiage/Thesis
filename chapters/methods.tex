@@ -1,7 +1,7 @@
 \chapter{\iflanguage{english}{Methods}{Methoden}}
 \label{cha:methods}
 
-Description of your used methods, algorithms and the actual work you did. This is often the longest and most detailed chapter...
+Im Folgenden Kapitel wird auf die in dieser Arbeit genutzte Hardware und SDKs eingegangen, sowie auf die verschiedenen Ansätze zum Versuchsaufbau, die verfolgt wurden. Es wird des Kalibrierungsvorgang erläutert und zuletzt das User Interface, welches genutzt wurde.
 
 \section{Microsoft Hololens}
 
@@ -158,14 +158,27 @@ In Unity kann einem Image Target ein GameObject als Kind hinzugefügt werden. Wi
 
 \textbf{Image Target Optimierung}
 
-Das Vuforia Developer Portal bietet eine Bewertung von 0 bis 5 Sternen für hochgeladene Bilder an. Diese Bewertung sagt aus, wie gut sich das Bild als Image Target eignet. Ein Bild, welches als Image Target verwendet werden soll, sollte:
+Das Vuforia Developer Portal bietet eine Bewertung von 0 bis 5 Sternen für hochgeladene Bilder an. Diese Bewertung sagt aus, wie gut sich das Bild als Image Target eignet, also wie gut das Bild mit Hilfe von Vuforia erkannt und getrackt werden kann. Je höher die Bewertung, desto besser eignet es sich. Ein Bild, welches als Image Target verwendet werden soll, sollte:
 \begin{itemize}
 \item detailliert sein,
 \item hohen Kontrast aufweisen und
 \item keine sich wiederholenden Muster haben.
 \end{itemize} 
 
-Die image targets die ich genutzt habe.
+Vuforia analysiert ein hochgeladenes Bild auf seine Merkmale und speichert Bild und Merkmale in einer Datenbank ab. Unter Merkmal versteht Vuforia "ein scharfes, spitzes, kantiges Detail im Bild". Desweiteren bezeichnet Vuforia die Merkmale als "kontrastbasierte Merkmale". Da Vuforia nicht open source ist, kann keine genauere Aussage über den von Vuforia genutzten Computer Vision Algorithmus zur Merkmalserkennung getroffen werden.
+Die gefundenen Merkmale eines Bildes werden im Target Manager des Vuforia Developer Portals als gelbe Kreuze angezeigt. 
+
+\textbf{Genutzte Image Targets}
+
+Die in dieser Arbeit genutzten Marker wurden mit einem AR Marker Generator \footnote{https://shawnlehner.github.io/ARMaker/ (Stand 06.07.2019)} erstellt. Ihnen wurde eine Nummer in der linken oberen Ecke hinzugefügt, um sie unterscheidbar zu machen. Sie wurden auf nicht-glänzendem Papier in der Größe 5cm x 5cm gedruckt. Damit sie nicht flexibel sind, wurden sie auf einem Stück Pappe befestigt. Im Target Manager des Vuforia Developer Portals haben sie eine 5-Sterne-Bewertung erhalten, eignen sich also gut als Image Targets.
+
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.75\textwidth]{images/features.png}
+	\caption[Features]{Links: Merkmale im Beispielbild von Vuforia, Rechts: Merkmale der in dieser Arbeit verwendeten Marker}
+	\label{fig:4.2}
+\end{figure}
 
 \section{Versuchsaufbau}
 
