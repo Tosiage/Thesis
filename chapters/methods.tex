@@ -2,6 +2,7 @@
 \label{cha:methods}
 
 Im Folgenden Kapitel wird auf die in dieser Arbeit genutzte Hardware und SDKs eingegangen, sowie auf die verschiedenen Ansätze zum Versuchsaufbau, die verfolgt wurden. Es wird des Kalibrierungsvorgang erläutert und zuletzt das User Interface, welches genutzt wurde.
+%TODO mehr
 
 \section{Microsoft Hololens}
 
@@ -172,6 +173,7 @@ Die gefundenen Merkmale eines Bildes werden im Target Manager des Vuforia Develo
 
 Die in dieser Arbeit genutzten Marker wurden mit einem AR Marker Generator \footnote{https://shawnlehner.github.io/ARMaker/ (Stand 06.07.2019)} erstellt. Ihnen wurde eine Nummer in der linken oberen Ecke hinzugefügt, um sie unterscheidbar zu machen. Sie wurden auf nicht-glänzendem Papier in der Größe 5cm x 5cm gedruckt. Damit sie nicht flexibel sind, wurden sie auf einem Stück Pappe befestigt. Im Target Manager des Vuforia Developer Portals haben sie eine 5-Sterne-Bewertung erhalten, eignen sich also gut als Image Targets.
 
+%TODO größer
 
 \begin{figure}[ht]
 	\centering
@@ -182,8 +184,31 @@ Die in dieser Arbeit genutzten Marker wurden mit einem AR Marker Generator \foot
 
 \section{Versuchsaufbau}
 
-\subsection{Modell Target Tracking am Phantom}
+Ziel dieser Arbeit ist, ein Hologramm mit Hilfe der Hololens ohne externes Tracking System an einem Phantom zu Registrieren. Dazu muss das Phantom während der Laufzeit von der Hololens getrackt werden können. Um dies zu erreichen, wurden mehrere Möglichkeiten diskutiert. Einige dieser Möglichkeiten waren Vuforia Cylinder Targets, Point Fiducials und Aruco Marker. 
 
+Vuforia Cylinder Targets wurden ebenfalls von Frantz et al. für ihre Registrierung eines Schädels genutzt. %TODO cite
+Dabei handelt es sich um ein Bild, welches außen an einem Zylinder angebracht wird und getrackt werden kann auch wenn der Nutzer sich um den Zylinder herum bewegt. Diese Option wurde jedoch verworfen, da das in dieser Arbeit genutzte Phantom mit einem Torso wesentlich gößer als ein Schädel ist und es daher Probleme gegeben hätte, das Target immer im Blickfeld zu halten. Desweiteren hätte das Target nur schwierig stabil neben dem Phantom positioniert werden können.
+
+Eine weitere Überlegung galt kreisförmigen einfarbigen Point Fiducials. In diesem Fall hätte auf den Kamerastream der Hololens zugegriffen werden müssen. In diesem hätten erst alle Pixel in der Farbe der Fiducials gefunden werden müssen und anschließend beispielsweise mit Hilfe der Hough-Transformation die Fiducials segmentiert werden müssen. Ein Vorteil bei kreisförmigen Fiducials ist, dass die Kreisform relativ invariant zu Verzerrungen ist. Allerdings käme es durch Unterschiede im Lichteinfall zu Farbvarianzen im Kamerastream, sodass es Probleme beim finden der korrekten Farbpixel gegeben hätte. Zusätzlich bietet ein kreisförmiger Fiducial keine 6DoF, sodass zu jeder Zeit mehrere Fiducials sichtbar sein müssten, um die Rotation der Kamera korrekt bestimmen zu können. Aus diesem Grund wurde auch diese Möglichkeit verworfen.
+
+%TODO cite Aruco Marker
+Bei der Nutzung von Aruco Markern bietet ein einzelner Marker durch seine planare quadratische Form 6DoF. Da mit Vuforia jedoch schon ein SDK existiert, welches ebenso Marker mit 6DoF bietet und schon in Unity integriert ist, wurden auch die Aruco Marker verworfen.
+Implementiert wurde Vuforia Model Target Tracking und Vuforia Image Target Tracking, worauf im Folgenden genauer einegegangen wird. 
+
+\subsection{Model Target Tracking am Phantom}
+
+Es wurde ein Vuforia Model Target Tracking implementiert. Getrackt wurde die Bauchplatte des Phantoms, da nur diese vollständig unbedeckt sichtbar ist. Das CAD-Modell der Bauchplatte wurde in den Model Target Generator geladen. 
+%TODO genaueres über Model Target Generator (brauche Internet)
+%Wie lange dauert erstellen, wie wurde erstellt guide views etc.
+%wie sieht es aus wenn app läuft
+%erkennen von model target und wechseln zwischen guide views
+
+Ein Vorteile dieses Ansatzes ist, dass keine zusätzlichen Marker an den Patienten angebracht werden müssen, die etwas verdecken könnten.
+Allerdings ist dieser Ansatz dennoch nicht geeignet für eine Anwendung im medizinischen Bereich, da ein 3D-Modell eines realen Patienten nicht die Anforderungen erfüllt, die an ein Model Target gestellt werden. 
+%TODO
+Zusätzlich ist der zeitige Aufwand, den das Erstellen eines Model Targets mit dem Model Target Generator mit sich bringt sehr viel höher als das Nutzen von planaren Markern, welche an den Patienten angebracht werden. Aus diesem Grund wurde im weiteren Verlauf auf Model Targets verzichtet.
+
+\subsection{Image Target Tracking}
 Box.
 
 Phantom.
@@ -194,11 +219,11 @@ mit Hololens.
 mit Polaris.
 
 \section{GUI und Interaktion}
-man muss mit dem Hologramm interagieren wegen kalibrierung
-zwei möglichkeiten für GUI 
-1. box transparent
-2. rendering reihenfolge (box muss von achsen überlagert werden)
+man muss mit dem Hologramm interagieren wegen kalibrierung.
+zwei möglichkeiten für GUI .
+1. box transparent.
+2. rendering reihenfolge (box muss von achsen überlagert werden).
 
-für 2. entschieden, da bei box transparent buttons drin liegen und so nicht ersichtlich dass interagiert werden kann
+für 2. entschieden, da bei box transparent buttons drin liegen und so nicht ersichtlich dass interagiert werden kann.
 
 
