@@ -209,9 +209,12 @@ Allerdings ist dieser Ansatz dennoch nicht geeignet für eine Anwendung im mediz
 Zusätzlich ist der zeitige Aufwand, den das Erstellen eines Model Targets mit dem Model Target Generator mit sich bringt sehr viel höher als das Nutzen von planaren Markern, welche an den Patienten angebracht werden. Aus diesem Grund wurde im weiteren Verlauf auf Model Targets verzichtet.
 
 \subsection{Image Target Tracking}
-Box.
 
-Phantom.
+Die Registrierung von Hologramm und Objekt in der realen Welt wurde mit Hilfe von Vuforia Image Targets durchgeführt. Da das Phantom nicht durchgehend verfügbar war, wurde eine Vive Pro Box als zusätzliches Objekt genutzt, an welchem ein in Unity aus einem Würfel erstelltes 3D-Modell registriert wurde. Der Großteil der Entwicklung der Anwendung wurde an dieser Box durchgeführt. %TODO Bilder von Phantom und Box mit Markern
+An Box und Phantom wurden Image Targets angebracht. Sie wurden so befestigt, dass sie mit der Hololens von möglichst vielen Positionen aus gut sichtbar sind. 
+Beim Phantom wurden die Marker nicht auf der Bauchplatte angebracht, da diese abnehmbar ist und somit eine vorher durchgeführte Kalibrierung durch eine verschoben abgelegte Bauchplatte ungenau werden würde.
+
+In Unity hängen die 3D-Modelle von Box und Phantom jeweils an einem leeren Gameobjekt. Dieses Gameobjekt besitzt ein Script \emph{ModelPositionUpdater.cs} welches die Hologramme während der Laufzeit positioniert. Jedes Image Target hat ein Script, in welchem Positions- und Rotationsoffset vom Target zum Ursprung des entsprechenden Modells (Box oder Phantom) nach Kalibrierung festgehalten wird. Wir ein Target während der Laufzeit erkannt und getrackt, nutzt der ModelPositionUpdater diesen Offset zu Positionierung des Hologramms. Aufgrund der 6DoF der Target wäre ein einzelnes Target theoretisch ausreichen, um das Hologramm korrekt zu positionieren. Da sich der Träger der Hololens jedoch um das Phantom bzw. die Box herum bewegen kann, ist ein Target nicht durchgehend sichtbar. Es kommt zusätzlich vor, dass aufgrund eines zu spitzen Winkels zwischen Target und Hololenskamera die Rotation des Targets von Vuforia nicht korrekt erkannt wird. Aus diesen Gründen wurden mehrere Targets angebracht. Der ModelPositionUpdater bildet aus den Offsetvektoren aller zurzeit getrackten und kalibrierten Targets, sowie auch aus den Offsetquaternionen dieser Targets das arithmetische Mittel.
 
 \section{Kalibrierung}
 mit Hololens.
