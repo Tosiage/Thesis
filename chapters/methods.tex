@@ -54,26 +54,27 @@ Ein virtuelles Objekt, welches von der Hololens angezeigt wird, wird \emph{Holog
 
 
 
-\section{NDI Polaris Spectra}
+\section{NDI Polaris Vega}
 
-Die Polaris Spectra von Northern Digital Inc. ist ein Infrarot Tracking System zur Anwendung im medizinischen Bereich. Die Polaris ist als outside-looking-in System konfiguriert und somit nicht sehr mobil. Die zu trackenden Objekte werden mit Markern ausgestattet und von einem stationären Infrarotsensor getrackt. Die Polaris kann sowohl aktive als auch passive Marker tracken. Aktive Marker werden durch ein elektrisches Signal aktiviert und senden Infrarotstrahlung aus. Passive Marker besitzen mindestens vier reflektive Kugeln. Der Infrarotsensor der Polaris sendet Infrarotstrahlung aus, welche von den passiven Markern reflektiert wird. Anhand der erhaltenen Informationen kann der Infrarotsensor die Position und Rotation der Marker bestimmen. 
+Die Polaris Vega von Northern Digital Inc. ist ein Infrarot Tracking System zur Anwendung im medizinischen Bereich. Die Polaris ist als outside-looking-in System konfiguriert und somit nicht sehr mobil. Die zu trackenden Objekte werden mit Markern ausgestattet und von einem stationären Infrarotsensor getrackt. Die Polaris kann sowohl aktive als auch passive Marker tracken. Aktive Marker werden durch ein elektrisches Signal aktiviert und senden Infrarotstrahlung aus. Passive Marker besitzen mindestens drei reflektive Kugeln. Der Infrarotsensor der Polaris sendet Infrarotstrahlung aus, welche von den passiven Markern reflektiert wird. Anhand der erhaltenen Informationen kann der Infrarotsensor die Position und Rotation der Marker bestimmen. 
 
 \textbf{Technische Daten}
 
 %https://www.ndigital.com/medical/products/polaris-family/ 11.08.2019
+%https://www.ndigital.com/medical/products/polaris-vega/ 20.08.2019
 
 \begin{center}
 \begin{tabular}{ll}
 \hline
 \textbf{Komponente}    & \textbf{Daten}   \\
 \hline
-\textbf{Marker}      & passiv, aktiv, kabellos aktiv\\
+\textbf{Marker}      & passiv, kabellos aktiv\\
           &\\
-\textbf{Max. Anzahl passiver Marker} & 32 passive Marker\\
+\textbf{Max. Anzahl passiver Marker} & 25 passive Marker\\
   &\\
-\textbf{Max. Update Rate} & 60Hz \\
+\textbf{Max. Update Rate} & 60Hz (standard) / 250Hz (optional) \\
 &\\
-\textbf{Infrarotsensor Maße} & 613 mm x 104 mm x 86 mm\\
+\textbf{Infrarotsensor Maße} & 591 mm x 103 mm x 106 mm\\
 &\\
 \textbf{Infrarotsensor Anbringung} &  Anbringung erhöht an Wand oder Stativ\\
 &Fixierung an Rückseite\\
@@ -173,11 +174,10 @@ Die gefundenen Merkmale eines Bildes werden im Target Manager des Vuforia Develo
 
 Die in dieser Arbeit genutzten Marker wurden mit einem AR Marker Generator \footnote{https://shawnlehner.github.io/ARMaker/ (Stand 06.07.2019)} erstellt. Ihnen wurde eine Nummer in der linken oberen Ecke hinzugefügt, um sie unterscheidbar zu machen. Sie wurden auf nicht-glänzendem Papier in der Größe 5cm x 5cm gedruckt. Damit sie nicht flexibel sind, wurden sie auf einem Stück Pappe befestigt. Im Target Manager des Vuforia Developer Portals haben sie eine 5-Sterne-Bewertung erhalten, eignen sich also gut als Image Targets.
 
-%TODO größer
 
 \begin{figure}[ht]
 	\centering
-		\includegraphics[width=0.75\textwidth]{images/features.png}
+		\includegraphics[width=1\textwidth]{images/features.png}
 	\caption[Features]{Links: Merkmale im Beispielbild von Vuforia, Rechts: Merkmale der in dieser Arbeit verwendeten Marker}
 	\label{fig:4.2}
 \end{figure}
@@ -214,12 +214,57 @@ Die Registrierung von Hologramm und Objekt in der realen Welt wurde mit Hilfe vo
 An Box und Phantom wurden Image Targets angebracht. Sie wurden so befestigt, dass sie mit der Hololens von möglichst vielen Positionen aus gut sichtbar sind. 
 Beim Phantom wurden die Marker nicht auf der Bauchplatte angebracht, da diese abnehmbar ist und somit eine vorher durchgeführte Kalibrierung durch eine verschoben abgelegte Bauchplatte ungenau werden würde.
 
-In Unity hängen die 3D-Modelle von Box und Phantom jeweils an einem leeren Gameobjekt. Dieses Gameobjekt besitzt ein Script \emph{ModelPositionUpdater.cs} welches die Hologramme während der Laufzeit positioniert. Jedes Image Target hat ein Script, in welchem Positions- und Rotationsoffset vom Target zum Ursprung des entsprechenden Modells (Box oder Phantom) nach Kalibrierung festgehalten wird. Wir ein Target während der Laufzeit erkannt und getrackt, nutzt der ModelPositionUpdater diesen Offset zu Positionierung des Hologramms. Aufgrund der 6DoF der Target wäre ein einzelnes Target theoretisch ausreichen, um das Hologramm korrekt zu positionieren. Da sich der Träger der Hololens jedoch um das Phantom bzw. die Box herum bewegen kann, ist ein Target nicht durchgehend sichtbar. Es kommt zusätzlich vor, dass aufgrund eines zu spitzen Winkels zwischen Target und Hololenskamera die Rotation des Targets von Vuforia nicht korrekt erkannt wird. Aus diesen Gründen wurden mehrere Targets angebracht. Der ModelPositionUpdater bildet aus den Offsetvektoren aller zurzeit getrackten und kalibrierten Targets, sowie auch aus den Offsetquaternionen dieser Targets das arithmetische Mittel.
+In Unity hängen die 3D-Modelle von Box und Phantom jeweils an einem leeren Gameobjekt. Dieses Gameobjekt besitzt ein Script \emph{ModelPositionUpdater.cs} welches die Hologramme während der Laufzeit positioniert. Jedes Image Target hat ein \emph{TargetData.cs} Script, in welchem Positions- und Rotationsoffset vom Target zum Ursprung des entsprechenden Modells (Box oder Phantom) nach Kalibrierung festgehalten wird. Jedes ImageTarget kennt also die Pose, an der das 3D-Modell in Relation zu sich selbst liegt. Wird ein Target während der Laufzeit erkannt und getrackt, nutzt der ModelPositionUpdater diesen Offset zu Positionierung des Hologramms. Aufgrund der 6DoF der Target wäre ein einzelnes Target theoretisch ausreichend, um das Hologramm korrekt zu positionieren. Da sich der Träger der Hololens jedoch um das Phantom bzw. die Box herum bewegen kann, ist ein Target nicht durchgehend sichtbar. Es kommt zusätzlich vor, dass aufgrund eines zu spitzen Winkels zwischen Target und Hololenskamera die Rotation des Targets von Vuforia nicht korrekt erkannt wird. Aus diesen Gründen wurden mehrere Targets angebracht. Der ModelPositionUpdater bildet aus den Offsetvektoren aller zurzeit getrackten und kalibrierten Targets, sowie auch aus den Offsetquaternionen dieser Targets das arithmetische Mittel. Ziel davon ist es, die Positionierung stabiler und genauer gegenüber eventuellen Abweichungen im Tracking oder falscher Kalibrierung eines Markers zu machen.
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.5\textwidth]{images/modelpositionupdater.jpg}
+	\caption[Positionierung]{\textbf{(a)} Marker mit lokalem Koordinatensystem; \textbf{(b)} Vektor von Marker zu (c); \textbf{(c)} Position, an welcher das 3D-Modell in Relation zum Marker laut TargetData Script liegt; \textbf{(d)} gemittelte Position und somit Position, an welcher das Hologramm dargestellt wird}
+	\label{fig:4.3}
+\end{figure}
 
 \section{Kalibrierung}
-mit Hololens.
 
-mit Polaris.
+Damit das 3D-Modell, welches angezeigt werden soll, vom ModelPositionUpdater positioniert werden kann, müssen die Marker kalibriert werden, also Offsetrotation und Offsetposition der Image Targets in das TargetData Script geschrieben werden. Diese Kalibrierung kann auf zwei Wege vorgenommen werden: mit Hilfe der Hololens direkt in der Anwendung oder mit Hilfe eines externen Trackingsystems wie der Polaris. 
+
+\subsection{Kalibrierung mit der Hololens}
+
+Zu Beginn der Kalibrierung mit der Hololens hängt das Hologramm an einem beweglichen Image Target. Mit Hilfe dieses Image Targets kann das Hologramm frei im Raum bewegt werden. Der Träger der Hololens nutzt diesen Marker nun dazu, das Hologramm so gut wie möglich auf dem Objekt (Vive Pro Box oder Phantom) zu positionieren. Der Marker wird auf dem Objekt abgelegt. Sobald einer der fest am Objekt angebrachten Marker im Sichtfeld der Hololens ist, kann die tatsächliche Kalibrierung per Knopfdruck gestartet werden. Das Hologramm hängt nun nicht mehr an dem beweglichen Marker, sondern an den Markern die zum Zeitpunkt des Knopfdrucks sichtbar waren. Nun ist es möglich, das Hologramm über ein Interface entlang X-, Y- oder Z-Achse zu verschieben oder um eine Achse zu rotieren. Ist der Nutzer zufrieden mit der Ausrichtung des Hologramms, wird ein \emph{Save-Button} betätigt, welcher den Offset in Rotation und Position der zu diesem Zeitpunkt von der Kamera sichtbaren Marker in das jeweilige TargetData Script der Marker schreibt. Diese Marker gelten nun als kalibriert und werden von nun an zur Positionierung des Hologramms genutzt. Der Nutzer kann nun von einer anderen Position im Raum schauen, ob die Position des Hologramms korrekt ist. Ist sie dies nicht, kann weiterhin über das Interface eine Feinjustierung der Position und Rotation des Hologramms vorgenommen werden. Anschließend muss der Save-Button betätigt werden, um wiederum für alle zu diesem Zeitpunkt sichtbaren Marker den Offset in das TargetData Script zu schreiben und sie als kalibriert zu markieren. Ist ein bereits als kalibriert markierter Marker zu dem Zeitpunkt sichtbar, so wird der Offset in seinem TargetData Script überschrieben. Dieser Vorgang wird solange wiederholt, bis alle Marker als kalibriert markiert sind. Anschließend kann die Kalibrierung gespeichert und exportiert werden. Bei Neustart der Anwendung kann ebenso eine schon vorher abgeschlossene Kalibrierung geladen werden.
+
+\textbf{Anpassung der Position über das Interface}
+
+Zur Anpassung der Pose (Position und Rotation) über das Interface wurde ein temporärer Offset (\emph{tempOffset}) eingeführt, welcher durch die Buttons des Interfaces geändert werden kann. Der Algorithmus zur Anpassung der Pose wurde in zwei Varianten implementiert. 
+
+\textbf{Variante 1}
+%TODO über arbeiten wie in scripten
+%TODO 
+%TODO dreimal weil wichtig
+\begin{itemize}
+\item[1] Initiale Positionierung des Hologramms mit Hilfe des beweglichen Markers
+\item[2] Sobald mindestens ein anderer Marker sichtbar ist, Start des Kalibrierungsprozesses über Button \emph{Start Calibration}, nutzen der zu diesem Zeitpunkt sichtbar gewesenen Marker zur Positionierung des Hologramms
+\item[3] Für als kalibriert markierte Marker gilt \\
+ $poseHologram = \mathit{tempOffset} \cdot \mathit{markerOffset} \cdot poseMarker$ \\
+ wobei \emph{markerOffset} der bereits kalibrierte Offset im TargetData Script ist
+\item[4] Anpassen von \emph{tempOffset} über Interface Buttons
+\item[5] Speichern: für alle in diesem Moment sichtbaren Marker gilt \\
+$\mathit{markerOffset} = \mathit{tempOffset} \cdot \mathit{markerOffset}$ \\
+Anschließend setzen von $\mathit{tempOffset}$ auf $id$ für alle Marker
+\end{itemize}
+
+Wie in Abb(noch einzufügen) zu sehen ist, kann es durch diese Methode zu großen Sprüngen des Hologramms kommen, wenn Marker im Sichtfeld sind, von denen einige einen \emph{tempOffset} besitzen, bei anderen jedoch der $\mathit{tempOffset} = id $ ist. Aus diesem Grund wurde Variante 2 implementiert.
+
+\textbf{Variante 2}
+
+\begin{itemize}
+\item[1] Initiale Positionierung des Hologramms mit Hilfe des beweglichen Markers
+\item[2] Sobald mindestens ein anderer Marker sichtbar ist, Start des Kalibrierungsprozesses über Button \emph{Start Calibration}, nutzen der zu diesem Zeitpunkt sichtbar gewesenen Marker zur Positionierung des Hologramms
+\item[3] Für als kalibriert markierte Marker gilt \\
+ $poseEstimationHologram = \mathit{markerOffset} \cdot poseMarker$ \\
+ $poseHologramFinal = \mathit{tempOffset} \cdot poseEstimationHologram$
+\item[4] Speichern: für alle in diesem Moment sichtbaren Marker wird der Offset von Hologramm zu Marker abgespeichert und $\mathit{tempOffset} = id$ gesetzt
+\end{itemize} 
+
+\subsection{Kalibrierung mit der Polaris}
 
 \section{GUI und Interaktion}
 man muss mit dem Hologramm interagieren wegen kalibrierung.
