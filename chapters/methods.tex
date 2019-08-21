@@ -229,11 +229,15 @@ Damit das 3D-Modell, welches angezeigt werden soll, vom ModelPositionUpdater pos
 
 \subsection{Kalibrierung mit der Hololens}
 
-Zu Beginn der Kalibrierung mit der Hololens hängt das Hologramm an einem beweglichen Image Target. Mit Hilfe dieses Image Targets kann das Hologramm frei im Raum bewegt werden. Der Träger der Hololens nutzt diesen Marker nun dazu, das Hologramm so gut wie möglich auf dem Objekt (Vive Pro Box oder Phantom) zu positionieren. Der Marker wird auf dem Objekt abgelegt. Sobald einer der fest am Objekt angebrachten Marker im Sichtfeld der Hololens ist, kann die tatsächliche Kalibrierung per Knopfdruck gestartet werden. Das Hologramm hängt nun nicht mehr an dem beweglichen Marker, sondern an den Markern die zum Zeitpunkt des Knopfdrucks sichtbar waren. Nun ist es möglich, das Hologramm über ein Interface entlang X-, Y- oder Z-Achse zu verschieben oder um eine Achse zu rotieren. Ist der Nutzer zufrieden mit der Ausrichtung des Hologramms, wird ein \emph{Save-Button} betätigt, welcher den Offset in Rotation und Position der zu diesem Zeitpunkt von der Kamera sichtbaren Marker in das jeweilige TargetData Script der Marker schreibt. Diese Marker gelten nun als kalibriert und werden von nun an zur Positionierung des Hologramms genutzt. Der Nutzer kann nun von einer anderen Position im Raum schauen, ob die Position des Hologramms korrekt ist. Ist sie dies nicht, kann weiterhin über das Interface eine Feinjustierung der Position und Rotation des Hologramms vorgenommen werden. Anschließend muss der Save-Button betätigt werden, um wiederum für alle zu diesem Zeitpunkt sichtbaren Marker den Offset in das TargetData Script zu schreiben und sie als kalibriert zu markieren. Ist ein bereits als kalibriert markierter Marker zu dem Zeitpunkt sichtbar, so wird der Offset in seinem TargetData Script überschrieben. Dieser Vorgang wird solange wiederholt, bis alle Marker als kalibriert markiert sind. Anschließend kann die Kalibrierung gespeichert und exportiert werden. Bei Neustart der Anwendung kann ebenso eine schon vorher abgeschlossene Kalibrierung geladen werden.
+Zu Beginn der Kalibrierung mit der Hololens hängt das Hologramm an einem beweglichen Image Target. Mit Hilfe dieses Image Targets kann das Hologramm frei im Raum bewegt werden. Der Träger der Hololens nutzt diesen Marker nun dazu, das Hologramm so gut wie möglich auf dem Objekt (Vive Pro Box oder Phantom) zu positionieren. Der Marker wird auf dem Objekt abgelegt. Sobald einer der fest am Objekt angebrachten Marker im Sichtfeld der Hololens ist, kann die tatsächliche Kalibrierung per Knopfdruck gestartet werden. 
+
+Das Hologramm hängt nun nicht mehr an dem beweglichen Marker, sondern an den Markern die zum Zeitpunkt des Knopfdrucks sichtbar waren. Nun ist es möglich, das Hologramm über ein Interface entlang X-, Y- oder Z-Achse zu verschieben oder um eine Achse zu rotieren. Ist der Nutzer zufrieden mit der Ausrichtung des Hologramms, wird ein \emph{Save-Button} betätigt, welcher den Offset in Rotation und Position der zu diesem Zeitpunkt von der Kamera sichtbaren Marker in das jeweilige TargetData Script der Marker schreibt. Diese Marker gelten nun als kalibriert und werden von nun an zur Positionierung des Hologramms genutzt.
+
+Der Nutzer kann nun von einer anderen Position im Raum schauen, ob die Position des Hologramms korrekt ist. Ist sie dies nicht, kann weiterhin über das Interface eine Feinjustierung der Position und Rotation des Hologramms vorgenommen werden. Anschließend muss der Save-Button betätigt werden, um wiederum für alle zu diesem Zeitpunkt sichtbaren Marker den Offset in das TargetData Script zu schreiben und sie als kalibriert zu markieren. Ist ein bereits als kalibriert markierter Marker zu dem Zeitpunkt sichtbar, so wird der Offset in seinem TargetData Script überschrieben. Dieser Vorgang wird solange wiederholt, bis alle Marker als kalibriert markiert sind. Anschließend kann die Kalibrierung gespeichert und exportiert werden. Bei Neustart der Anwendung kann ebenso eine schon vorher abgeschlossene Kalibrierung geladen werden.
 
 \textbf{Anpassung der Position über das Interface}
 
-Zur Anpassung der Pose (Position und Rotation) über das Interface wurde ein temporärer Offset (\emph{tempOffset}) eingeführt, welcher durch die Buttons des Interfaces geändert werden kann. Der Algorithmus zur Anpassung der Pose wurde in zwei Varianten implementiert. 
+Zur Anpassung der Pose (Position und Rotation) über das Interface wurde ein temporärer Offset (\emph{tempOffset}) eingeführt, welcher durch die Buttons des Interfaces geändert werden kann. Der Algorithmus zur Anpassung der Pose wurde in zwei Varianten implementiert. Diese zwei Varianten sehen in Pseudo-Code wie folgt aus: 
 
 \textbf{Variante 1}
 %TODO über arbeiten wie in scripten
@@ -261,17 +265,35 @@ Wie in Abb(noch einzufügen) zu sehen ist, kann es durch diese Methode zu große
 \item[3] Für als kalibriert markierte Marker gilt \\
  $poseEstimationHologram = \mathit{markerOffset} \cdot poseMarker$ \\
  $poseHologramFinal = \mathit{tempOffset} \cdot poseEstimationHologram$
-\item[4] Speichern: für alle in diesem Moment sichtbaren Marker wird der Offset von Hologramm zu Marker abgespeichert und $\mathit{tempOffset} = id$ gesetzt
+\item[4] Speichern: für alle in diesem Moment sichtbaren Marker wird der aktuelle Offset von Hologramm zu Marker abgespeichert und $\mathit{tempOffset} = id$ gesetzt
 \end{itemize} 
+
+Zu Sprüngen wie in Fall 1 kommt es mit dieser Methode zwar immer noch, jedoch fallen diese deutlich kleiner aus (vgl. Abb.) und verbessern das Nutzererlebnis so erheblich.
+%TODO abbildung
 
 \subsection{Kalibrierung mit der Polaris}
 
+%TODO wie Sebastians Code zitieren?
+Es wurde zusätzlich eine Kalibrierung mit Hilfe der Polaris ausgeführt. Die Polaris besitzt ein kalibriertes Pointer-Tool, welches von der Polaris getrackt werden kann und bei dem der Abstand von Infrarot-Marker zur Spitze des Tools bekannt ist. Per Knopfdruck kann die Position der Pointer-Spitze in Polaris-Koordinaten abgespeichert werden. Am Phantom ist ebenso ein Polaris-Marker angebracht.
+
+Ziel ist es, den Offset von jedem Vuforia Marker zum Ursprung des Phantoms zu bestimmen. Dazu muss im ersten Schritt festgestellt werden, wie der Polaris-Marker relativ zum Ursprung des Phantoms liegt. Schon bekannt ist, wie gewisse Punkte auf dem Phantom relativ zu seinem Ursprung liegen. Die Punkte wurden mit dem Pointer in einer bestimmten Reihenfolge abgefahren und ihre Positionen in Polaris-Koordinaten abgespeichert. So wurde bekannt, wie diese Punkte relativ zum Polaris-Marker liegen. Anschließend konnte daraus berechnet werden, wie der Polaris-Marker relativ zum Ursprung des Phantoms liegt.
+
+Im zweiten Schritt wurde auf die gleiche Weise der Abstand für jeden einzelnen Vuforia Marker zum Polaris Marker berechnet. Mit dem Pointer wurden die vier Ecken der Vuforia Marker abgefahren, wodurch anschließend bestimmt werden konnte, wie der Ursprung jedes Vuforia Markers zum Polaris-Marker liegt.  
+
+Nun ist die Transformation vom Polaris-Marker zum Phantom-Ursprung bekannt, sowie die Transformation vom Polaris-Marker zu den einzelnen Vuforia Markern. Um nun den Abstand der Vuforia Marker zum Phantom-Ursprung zu bestimmen, muss die Transformation von Polaris-Marker zu Vuforia Marker invertiert und mit der Transformation von Polaris-Marker zu Phantom-Ursprung multipliziert werden. Im letzten Schritt wurden die so erhaltenen Transformationen aus dem Polaris-Koordinatensystem in das Unity-Koordinatensystem übertragen.
+
 \section{GUI und Interaktion}
-man muss mit dem Hologramm interagieren wegen kalibrierung.
-zwei möglichkeiten für GUI .
-1. box transparent.
-2. rendering reihenfolge (box muss von achsen überlagert werden).
 
-für 2. entschieden, da bei box transparent buttons drin liegen und so nicht ersichtlich dass interagiert werden kann.
+%TODO abbildung
+Um bei der Kalibrierung mit der Hololens das Hologramm genauer ausrichten zu können, wurde ein Interface entwickelt. Dieses Interface besteht aus den visualisierten Achsen des lokalen Koordinatensystems des jeweiligen Hologramms (Vive Pro Box oder Phantom). Über drei Buttons kann eine Achse ausgewählt werden. Ist eine Achse ausgewählt, werden die anderen beiden Achsen aus- und Buttons in Form von Pfeilen eingeblendet (siehe Abb.). Mit Hilfe dieser Buttons ist es möglich, das Hologramm entlang der ausgewählten Achse in 1-cm-Schritten zu verschieben und um diese Achse in 1-Grad-Schritten zu rotieren. 
 
+Das Interface sollte möglichst intuitiv am Hologramm des Objektes angezeigt werden, weshalb  sich für die Visualisierung des Interfaces als Koordinatensystem entschieden wurde und entgegen einer Visualisierung über einfache quadratische Buttons. 
+Weiterhin gibt es zwei Möglichkeiten, das Interface dem Nutzer anzuzeigen:
+
+\begin{itemize}
+\item Das Material des Hologramms erhält Transparenz und das Interface wird in das Hologramm hineingelegt oder
+\item  das Hologramm wird ähnlich wie Layer in einem Bildbearbeitungsprogramm auf eine Layer gelegt, welche von allen anderen Layern überlagert wird. Realisieren lässt sich dies in Unity, indem eine zweite Kamera der Szene hinzugefügt wird, welche nur das Hologramm (Phantom oder Box) rendert. Die ursprüngliche Kamera rendert alles in der Szene außer dem Hologramm.
+\end{itemize}
+%TODO Vergleich Bild
+Ein Nachteil der ersten Variante ist, dass aufgrund des transparenten Materials der Box der Eindruck entstehen könnte, dass mit den angezeigten Pfeilen an den Achsen nicht interagiert werden kann, da sie innerhalb des Hologramms liegen. Da dieser Eindruck bei Variante zwei nicht entsteht, da das Koordinatensystem auf dem Hologramm gerendert wird, wurde diese Variante weiterhin genutzt.
 
