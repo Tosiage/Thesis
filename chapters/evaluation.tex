@@ -1,4 +1,25 @@
 \chapter{Evaluation}
 \label{cha:evaluation}
 
-Description of your evaluation and its results. Interpretation of these results should go in the next chapter.
+Um die Genauigkeit und Bedienung der Anwendung zu evaluieren, wurde eine Nutzerstudie durchgeführt. Der Ablauf dieser Studie wird im Folgenden erläutert, sowie die Ergebnisse genannt.
+
+\section{Ablauf}
+
+Probanden, welche die Hololens noch nie oder nicht sehr oft genutzt haben, haben zu Beginn das Gesten-Tutorial von Microsoft durchgeführt.
+Der Ablauf der Nutzerstudie lässt sich in mehrere Schritte zerlegen. Im ersten Schritt wurde den Probanden die Anwendung mit Hilfe eines bebilderten Textes (siehe \ref{appendix: a}), welcher von der Versuchsleiterin vorgetragen wurde, erläutert. Um eine Eingewöhnung in die Anwendung zu ermöglichen, führten die Probanden die Kalibrierung zunächst an der Vive Pro Box durch. Im dritten Schritt führten die Probanden die Kalibrierung am Phantom durch. Anschließend wurde die mit der Polaris durchgeführte Kalibrierung geladen, welche die Probanden betrachten sollten. Im letzten Schritt wurde von den Probanden ein Fragebogen (siehe \ref{appendix: b}) ausgefüllt, der im ersten Teil Demographische Daten abfragt, sowie wie erfahren die Probanden bereits mit der Hololens waren. Im zweiten Teil wurden Fragen gestellt, die sich mit der Bedienung der Anwendung befassten. Die Kalibrierungen der Probanden wurden zur späteren Auswertung als Datei exportiert.
+
+\section{Ergebnisse}
+
+\subsection{Fragebogen}
+
+\subsection{Kalibrierungen}
+
+\begin{itemize}
+\item Bilden des Durchschnittvektors und Durchschnittquaternions über alle mit der Hololens durchgeführten Kalibrierungen für jedes ImageTarget mit Nummer n welches als kalibriert markiert ist
+\item Berechnung der Euklidischen Distanz zwischen abgespeicherter Position einzelner Kalibrierung und Durchschnittsvektor
+\item Berechnung des Winkels zwischen abgespeichertem Quaternion einzelner Kalibrierung und Durchschnittsquaternion
+\item Bilden von Durchschnittsentfernung und Durchschnittswinkel
+\item Berechnung von Varianz (mittlere Quadratische Abweichung von Mittelwert) von Entfernung und Winkel für alle ImageTargets
+\item Berechnung Euklidischer Distanz zwischen Vektor der Polariskalibrierung pro Target und Durchschnittsvektor pro Target
+\item Berechnung Winkel zwischen Quaternion der Polariskalibrierung pro Target und Durchschnittsvektor pro Target
+\end{itemize}

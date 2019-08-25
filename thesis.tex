@@ -1,5 +1,8 @@
- \documentclass{thesisclass}
 
+\documentclass{thesisclass}
+\usepackage[toc,page]{appendix}
+\usepackage{pdfpages} 
+\makeindex
 % Based on thesisclass.cls of Timo Rohrberg, 2009
 % ----------------------------------------------------------------
 % Thesis - Main document
@@ -18,6 +21,8 @@
 
 \newcommand{\tm}{\textsuperscript{\scriptsize\texttrademark}}
 \newcommand{\reg}{\textsuperscript{\scriptsize\textregistered}}
+\renewcommand{\appendixtocname}{Anhang}
+\renewcommand{\appendixpagename}{Anhang}
 %\newcommand{\copy}{\textsuperscript{\scriptsize\textcopyright}}
 
 %% ---------------------------------
@@ -154,4 +159,7 @@ Short description of motivation, methods, results and discussion
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliography{bibliography}
 \bibliographystyle{IEEEtran}
+
+\appendix
+\include{appendix}
 \end{document}
