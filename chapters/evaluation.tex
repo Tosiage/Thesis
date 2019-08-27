@@ -14,7 +14,7 @@ An der Nutzerstudie haben 13 Probanden teilgenommen. Im Folgenden werden die Erg
 
 \subsection{Fragebogen}
 
-Von den 13 Probanden gaben 38,5\% an, vor dem Tag der Nutzerstudie schon länger als 30 Minuten mit der Hololens gearbeitet zu haben. 84,6\% der Probanden haben das Tutorial zu Gestenerlernung mitgemacht. 92,3\% der Probanden fanden die mit der Polaris durchgeführte Kalibrierung besser als ihre eigene. 11
+Von den 13 Probanden gaben 38,5\% an, vor dem Tag der Nutzerstudie schon länger als 30 Minuten mit der Hololens gearbeitet zu haben. 84,6\% der Probanden haben das Tutorial zu Gestenerlernung mitgemacht. 92,3\% der Probanden fanden die mit der Polaris durchgeführte Kalibrierung besser als ihre eigene. Mit ihrer eigenen Kalibrierung waren 8 Probanden eher zufrieden und 3 zufrieden und sehr zufrieden (vgl.Abb.\ref{fig:5.1}).  
 
 
   \begin{figure}[h!]
@@ -39,71 +39,48 @@ Von den 13 Probanden gaben 38,5\% an, vor dem Tag der Nutzerstudie schon länger
       \end{axis}
     \end{tikzpicture}
     \caption[Zufriedenheit mit Kalibrierung]{Wie zufrieden waren sie mit ihrer Kalibrierung?}
-    \label{label}
+    \label{fig:5.1}
+  \end{figure}
+  
+   \begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=1]
+      \begin{axis}[
+        ybar,
+        xtick=data,
+        xmin=0.5,
+        xmax=6.5,
+        x = 2cm,
+        ymajorgrids=true,
+        bar width=1cm, 
+        %xlabel={something else},
+        xlabel style={yshift=-1cm},
+        xtick align=inside,
+        xticklabels={gar nicht intuitiv, nicht intuitiv , eher nicht intuitiv, eher intuitiv, intuitiv, sehr intuitiv},
+        %ylabel={something},
+        x tick label style={font=\normalsize, rotate=45, anchor=east}
+        ]
+        \addplot table [x index=0,y index=1, col sep=comma] {fragebogenEinfach.txt};
+      \end{axis}
+    \end{tikzpicture}
+    \caption[Einfachheit der Anwendung]{Wie einfach war die Bedienung der Anwendung?}
+    \label{fig:5.2}
   \end{figure}
 
 \subsection{Kalibrierungen}
 
-\begin{itemize}
-\item Bilden des Durchschnittvektors und Durchschnittquaternions über alle mit der Hololens durchgeführten Kalibrierungen für jedes ImageTarget mit Nummer n welches als kalibriert markiert ist
-\item Berechnung der Euklidischen Distanz zwischen abgespeicherter Position einzelner Kalibrierung und Durchschnittsvektor
-\item Berechnung des Winkels zwischen abgespeichertem Quaternion einzelner Kalibrierung und Durchschnittsquaternion
-\item Berechnung von Varianz (mittlere Quadratische Abweichung von Mittelwert) von Entfernung und Winkel für alle ImageTargets
-\item Berechnung Euklidischer Distanz zwischen Vektor der Polariskalibrierung pro Target und Durchschnittsvektor pro Target
-\item Berechnung Winkel zwischen Quaternion der Polariskalibrierung pro Target und Durchschnittsvektor pro Target
-\end{itemize}
+Um die von den Probanden durchgeführten Kalibrierungen auswerten und vergleichen zu können, wurde zunächst pro ImageTarget $t_i$ der Mittelwert $\overline{p}$ aus allen kalibrierten Positionen $p$ und der Mittelwert $\overline{q}$ aus allen kalibrierten Quaternionen $q$ gebildet. Anschließend wurde die euklidische Distanz $d$ zwischen den von den Nutzern kalibrierten Werten und der gemittelten Position berechnet (Abb. \ref{fig:5.3} stellt diese als Boxplot dar). Für jedes $t_i$ wurde die Standardabweichung $\sigma_{pi}$ der Positionen der von den Nutzern kalibrierten Werte berechnet, wobei $c_i$ die Anzahl der Kalibrierungen für das ImageTarget $t_i$ darstellt. \[\sigma_{pi} =\sqrt{ \frac{\sum_{k=1}^{c_i}d^2}{c_i}}\]
+Um die kalibrierten Quaternionen vergleichbar zu machen, wurden alle kalibrierten Quaternionen $q$ und $\overline{q}$ in Eulerwinkel $e$ und $\overline{e}$ umgerechnet. Für jede Achse $a$ (wobei $a\in\{x,y,z\}$) wurde der Winkel $\omega$ zwischen $e$ und $\overline{e}$ berechnet (Abbildungen \ref{fig:5.4}, \ref{fig:5.5} und \ref{fig:5.6} stellen diese als Boxplot dar). Für jedes $t_i$ wurde die Standardabweichung $\sigma_{ei}$ der Rotationen um die Achse $a$ bestimmt.
+\[\sigma_{e_ai} =\sqrt{ \frac{\sum_{k=1}^{c_i}{\omega_a}^2}{c_i}}\]
+Für mit der Polaris durchgeführte Kalibrierung $c_p$ wurde für jedes $t_i$ die euklidische Distanz zu $\overline{p}$ bestimmt, sowie der Winkel $w_a$ zwischen den mit der Polaris erhaltenen Werten für $e_a$ und $\overline{e_a}$. 
 
-
-
-\begin{center}
-\begin{figure}
-\begin{tabular}{ll}
-%Boxplot ImageTarget15
-\textbf{ImageTarget15} \\ \\
-\begin{tikzpicture}[scale=1.2]
-\begin{axis}[
-boxplot/draw direction=y,
-x axis line style={opacity=0},
-axis x line*=bottom,
-axis y line=left,
-enlarge y limits,
-ymajorgrids,
-y= 0.1cm,
-xtick={1,2,3},
-xticklabels={Rot X, Rot Y, Rot Z},
-]
-\addplot+ [
-boxplot prepared={
-	lower whisker=2.229505,
-	lower quartile=2.2854835,
-	median= 4.191185,
-	upper quartile=7.345289,
-	upper whisker=8.907209,
-},
-] table [row sep=\\,y index=0] {-25.87347\\ -12.85138\\ };
-\addplot+ [
-boxplot prepared={
-	lower whisker=1.262718,
-	lower quartile=1.895378,
-	median=3.418076,
-	upper quartile=5.18264,
-	upper whisker=7.253242,
-},
-] table [row sep=\\,y index=0] {  -19.5975\\ -12.34097\\ 11.59116\\ };
-\addplot+ [
-boxplot prepared={
-	lower whisker=-3.689575,
-	lower quartile= -1.261572,
-	median=3.170036,
-	upper quartile=6.982395,
-	upper whisker=9.246979,
-},
-] table [row sep=\\,y index=0] {-30.89815\\ -13.98067\\ 30.19878\\ };
-\end{axis}
-\end{tikzpicture} &
-
-%Distanzen zum MittelwertVektor ImageTarget15
-
+%
+%
+%
+%Distanzen zwischen gemittelter Position und kalibrierter Positionen der Nutzer in cm
+%
+%
+\begin{figure}[h!]
 \begin{tikzpicture}
 \begin{axis}[
 boxplot/draw direction=y,
@@ -112,105 +89,283 @@ axis x line*=bottom,
 axis y line=left,
 enlarge y limits,
 ymajorgrids,
-y= 0.5cm,
-xtick={1,2,3},
-xticklabels={Entfernungen in cm},
+y= 1cm,
+xtick={1,2,3,4},
+xticklabels={ImageTarget 1, ImageTarget 2, ImageTarget 3, ImageTarget4},
+x tick label style={font=\normalsize, rotate=45, anchor=east}
 ]
 \addplot+ [
 boxplot prepared={
-	lower whisker=1.504416,
-	lower quartile=2.513568,
-	median=3.846865,
-	upper quartile=9.6565295,
-	upper whisker=11.78049,
+	lower whisker=0.01324115*100,
+	lower quartile=0.02097116*100,
+	median=0.02396314*100,
+	upper quartile=0.04570621*100,
+	upper whisker=0.0459336*100,
 },
-] coordinates {  };
-\end{axis}
-\end{tikzpicture} \\
-
-\\
-\textbf{ImageTarget16}\\
-\\
-
-%Boxplot ImageTarget16
-\begin{tikzpicture}[scale=1.2]
-\begin{axis}[
-boxplot/draw direction=y,
-x axis line style={opacity=0},
-axis x line*=bottom,
-axis y line=left,
-enlarge y limits,
-ymajorgrids,
-y= 0.1cm,
-xtick={1,2,3},
-xticklabels={Rot X, Rot Y, Rot Z},
-]
+] table [row sep=\\,y index=0]{ 8.654604\\ };
 \addplot+ [
 boxplot prepared={
-	lower whisker=-3.56192,
-	lower quartile=-0.3002014,
-	median=0.8713989,
-	upper quartile=3.818802,
-	upper whisker=5.921753,
+	lower whisker=0.01544793*100,
+	lower quartile=0.02211648*100,
+	median= 0.02404906*100,
+	upper quartile=0.04596474*100,
+	upper whisker=0.05043853*100,
 },
-] table [row sep=\\,y index=0] { -25.65875\\ 10.19672\\ };
+] table [row sep=\\,y index=0]{ 9.534188\\ };
 \addplot+ [
 boxplot prepared={
-	lower whisker=-4.566364,
-	lower quartile=-1.8923215,
-	median=-0.5664179,
-	upper quartile=2.2430585,
-	upper whisker=2.839506,
+	lower whisker=0.01701809*100,
+	lower quartile=0.02213652*100,
+	median=0.02548886*100,
+	upper quartile=0.04344236*100,
+	upper whisker=0.04673569*100,
 },
-] table [row sep=\\,y index=0] { 9.645788\\ };
+] table [row sep=\\,y index=0]{ 9.914161\\ };
 \addplot+ [
 boxplot prepared={
-	lower whisker=-2.841705,
-	lower quartile=-2.491379,
-	median=-1.224731,
-	upper quartile=0.0268096935,
-	upper whisker=0.9228821,
+	lower whisker=0.008535424*100,
+	lower quartile=0.017880385*100,
+	median=0.025574005*100,
+	upper quartile=0.0401248175*100,
+	upper whisker=0.0618132*100,
 },
-] table [row sep=\\,y index=0] {22.72686\\ -10.63632\\ };
-\end{axis}
-\end{tikzpicture} &
-
-%Distanzen zum MittelwertVektor ImageTarget16
-\begin{tikzpicture}
-\begin{axis}[
-boxplot/draw direction=y,
-x axis line style={opacity=0},
-axis x line*=bottom,
-axis y line=left,
-enlarge y limits,
-ymajorgrids,
-y=0.5cm,
-xtick={1,2,3},
-xticklabels={Entfernungen in cm},
-]
-\addplot+ [
-boxplot prepared={
-	lower whisker=0.009595037*100,
-	lower quartile=0.020684825*100,
-	median=0.03628322*100,
-	upper quartile=0.06965393*100,
-	upper whisker=0.1240142*100,
-},
-] coordinates {  };
+] coordinates{  };
 \end{axis}
 \end{tikzpicture}
-\end{tabular}
-\caption[Box-Plots pro ImageTarget]{links: Euler-Winkel zwischen den Quaternionen der Nutzerkalibrierungen und des gemittelten Quaternions, rechts: Distanz zwischen den Positionen der Nutzerkalibierungen und der gemittelten Position}
-	\label{fig:5.1}
+\caption[Distanzen]{Distanzen zwischen gemittelter Position und kalibrierter Positionen der Nutzer in cm}
+\label{fig:5.3}
 \end{figure}
-\end{center}
-
 
 %
 %
 %
-% Standardabweichungen
+%Winkel zwischen gemittelter Rotation und kalibrierter Rotationen der Nutzer in Grad für X-Achse
 %
 %
+%
+\begin{figure}[h!]
+\begin{tikzpicture}
+\begin{axis}[
+boxplot/draw direction=y,
+x axis line style={opacity=0},
+axis x line*=bottom,
+axis y line=left,
+enlarge y limits,
+ymajorgrids,
+y= 0.1cm,
+xtick={1,2,3,4},
+xticklabels={ImageTarget 1, ImageTarget 2, ImageTarget 3, ImageTarget 4},
+x tick label style={font=\normalsize, rotate=45, anchor=east}
+]
+\addplot+ [
+boxplot prepared={
+	lower whisker=-7.493694,
+	lower quartile=-6.398326,
+	median=-5.853821,
+	upper quartile=-1.153215,
+	upper whisker=-1.153215,
+},
+] table [row sep=\\,y index=0]{ 31.07181\\ 23.02324\\ };
+\addplot+ [
+boxplot prepared={
+	lower whisker=-6.481321,
+	lower quartile= -6.31912,
+	median= -5.432692,
+	upper quartile=-0.8779526,
+	upper whisker=-0.8779526,
+},
+] table [row sep=\\,y index=0]{ 25.19206\\ 24.75087\\ };
+\addplot+ [
+boxplot prepared={
+	lower whisker=-8.237691,
+	lower quartile=-6.896362,
+	median=-6.170105,
+	upper quartile=-2.451642,
+	upper whisker=-2.451642,
+},
+] table [row sep=\\,y index=0]{33.75811\\ 24.14082\\ };
+\addplot+ [
+boxplot prepared={
+	lower whisker=-10.41908,
+	lower quartile=-6.814871,
+	median=-5.729482,
+	upper quartile= -4.166394,
+	upper whisker=-0.9766622,
+},
+] table [row sep=\\,y index=0]{ 56.47729\\ };
+\end{axis}
+\end{tikzpicture}
+\caption[WinkelX]{Winkel zwischen gemittelter Rotation und kalibrierter Rotationen der Nutzer in Grad für X-Achse}
+\label{fig:5.4}
+\end{figure}
 
+%
+%
+%
+%Winkel zwischen gemittelter Rotation und kalibrierter Rotationen der Nutzer in Grad für Y-Achse
+%
+%
+%
+\begin{figure}[h!]
+\begin{tikzpicture}
+\begin{axis}[
+boxplot/draw direction=y,
+x axis line style={opacity=0},
+axis x line*=bottom,
+axis y line=left,
+enlarge y limits,
+ymajorgrids,
+y= 0.1cm,
+xtick={1,2,3,4},
+xticklabels={ImageTarget 1, ImageTarget 2, ImageTarget 3, ImageTarget 4},
+x tick label style={font=\normalsize, rotate=45, anchor=east}
+]
+\addplot+ [
+boxplot prepared={
+	lower whisker=-1.127132,
+	lower quartile=-0.716365,
+	median=0.3266555,
+	upper quartile=1.22898,
+	upper whisker=2.720802,
+},
+] table [row sep=\\,y index=0]{ -9.120387\\ };
+\addplot+ [
+boxplot prepared={
+	lower whisker=-1.432159,
+	lower quartile= -0.6351013,
+	median= 0.2261093,
+	upper quartile=1.245267,
+	upper whisker=2.260659,
+},
+] table [row sep=\\,y index=0]{ -8.767303\\ };
+\addplot+ [
+boxplot prepared={
+	lower whisker=-1.134583,
+	lower quartile=-1.001434,
+	median=0.04611206,
+	upper quartile=0.5393831,
+	upper whisker=2.206368,
+},
+] table [row sep=\\,y index=0]{-13.34515\\ };
+\addplot+ [
+boxplot prepared={
+	lower whisker=-2.20438,
+	lower quartile=-1.514614,
+	median=-0.858234,
+	upper quartile=  0.841911825,
+	upper whisker=1.099367,
+},
+] table [row sep=\\,y index=0]{ 69.01529\\ };
+\end{axis}
+\end{tikzpicture}
+\caption[WinkelY]{Winkel zwischen gemittelter Rotation und kalibrierter Rotationen der Nutzer in Grad für Y-Achse}
+\label{fig:5.5}
+\end{figure}
+
+%
+%
+%
+%Winkel zwischen gemittelter Rotation und kalibrierter Rotationen der Nutzer in Grad für Z-Achse
+%
+%
+%
+\begin{figure}[h!]
+\begin{tikzpicture}
+\begin{axis}[
+boxplot/draw direction=y,
+x axis line style={opacity=0},
+axis x line*=bottom,
+axis y line=left,
+enlarge y limits,
+ymajorgrids,
+y= 0.1cm,
+xtick={1,2,3,4},
+xticklabels={ImageTarget 1, ImageTarget 2, ImageTarget 3, ImageTarget 4},
+x tick label style={font=\normalsize, rotate=45, anchor=east}
+]
+\addplot+ [
+boxplot prepared={
+	lower whisker=0.6575012,
+	lower quartile=0.8416443,
+	median=1.227295,
+	upper quartile=2.826284,
+	upper whisker=3.747691,
+},
+] table [row sep=\\,y index=0]{ -26.44675\\ 9.130776\\ };
+\addplot+ [
+boxplot prepared={
+	lower whisker=0.4768982,
+	lower quartile=0.6923523 ,
+	median=1.134308 ,
+	upper quartile=3.146458,
+	upper whisker=3.562537,
+},
+] table [row sep=\\,y index=0]{ -25.24329\\ 7.236584\\ };
+\addplot+ [
+boxplot prepared={
+	lower whisker=-0.07778931,
+	lower quartile=1.491058,
+	median=1.994385,
+	upper quartile=3.450439,
+	upper whisker=4.053576,
+},
+] table [row sep=\\,y index=0]{-33.88715\\ 7.582627\\ };
+\addplot+ [
+boxplot prepared={
+	lower whisker=-4.088603,
+	lower quartile=-3.08943525,
+	median=-2.669643,
+	upper quartile= -0.912190325 ,
+	upper whisker=0.2987928,
+},
+] table [row sep=\\,y index=0]{ 84.44257\\ };
+\end{axis}
+\end{tikzpicture}
+\caption[WinkelZ]{Winkel zwischen gemittelter Rotation und kalibrierter Rotationen der Nutzer in Grad für Z-Achse}
+\label{fig:5.6}
+\end{figure}
+
+
+\begin{figure}[h!]
+\begin{tabular}{llllll}
+\hline
+\textbf{ImageTarget $t_i$}  & Samplegröße  & \textbf{$\sigma_{pi}$}  & \textbf{$\sigma_{e_xi}$}  & \textbf{$\sigma_{e_yi}$}  & \textbf{$\sigma_{e_zi}$}  \\
+\hline
+&\\
+\textbf{1} &  11 & 3.924679 & 12.77979 & 2.9669 & 8.603211 \\
+&\\
+\textbf{2} & 11 & 4.166714 & 11.70274 & 2.835836 & 8.102372\\
+&\\
+\textbf{3} & 11 & 4.123605 & 13.69464 & 4.153504 & 10.67798 \\ 
+&\\
+\textbf{4} & 12 & 3.413939 & 17.34399 &  19.95994 & 24.51205 \\
+&\\
+\textbf{5} & 11 & 4.96984 & 17.22374 &9.408016 & 18.88608 \\
+&\\
+\textbf{6} & 12 & 4.174401 & 11.9653 & 3.489036 & 8.740802 \\
+&\\
+\textbf{7} &  11 & 9.924153 & 14.82467& 10.06704 & 32.01934 \\
+&\\
+\textbf{8} & 11 & 4.298156 & 12.13137 &  3.579294 & 9.036934\\
+&\\
+\textbf{9}  & 13 & 4.972395 & 2.558084 & 4.701161 & 6.721008 \\
+&\\
+\textbf{10} & 13 & 5.467957 & 4.51474 & 2.099764 & 9.333352\\
+&\\
+\textbf{11} & 13 & 5.949328 & 9.868921 & 4.697994 & 10.76875\\
+&\\
+\textbf{12} & 13 & 4.836598 & 4.185251 & 2.968833 & 6.922363\\
+&\\
+\textbf{13} & 13 & 8.308828 & 8.117594 & 8.768795 & 11.47547\\
+&\\
+\textbf{14} & 13 & 6.262945 & 8.958679 & 5.996447 & 16.40697\\
+&\\
+\textbf{15} & 13 & 6.789291 & 9.637681 & 8.076731 & 13.38344\\
+&\\
+\textbf{16} & 13 & 5.867448 & 8.075559 & 3.393669 & 7.140728\\
+\hline
+\end{tabular}
+\caption[Standardabweichungen]{Liste aller Standardabweichungen von Durchschnittswert, wobei $\sigma_{pi}$ in cm und $\sigma_{e_xi}$, $\sigma_{e_yi}$, $\sigma_{e_zi}$ in Grad}
+\label{fig:5.7}
+\end{figure}
 

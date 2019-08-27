@@ -248,12 +248,12 @@ Zur Anpassung der Pose (Position und Rotation) über das Interface wurde ein tem
 \begin{itemize}
 \item[1] Initiale Positionierung des Hologramms mit Hilfe des beweglichen Markers
 \item[2] Sobald mindestens ein anderer Marker sichtbar ist, Start des Kalibrierungsprozesses über Button \emph{Start Calibration}, nutzen der zu diesem Zeitpunkt sichtbar gewesenen Marker zur Positionierung des Hologramms
-\item[3] Für als kalibriert markierte Marker gilt \\
- $poseHologram = \mathit{tempOffset} \cdot \mathit{markerOffset} \cdot poseMarker$ \\
+\item[3] Für als kalibriert markierte Marker gilt 
+ \[poseHologram = \mathit{tempOffset} \cdot \mathit{markerOffset} \cdot poseMarker\] 
  wobei \emph{markerOffset} der bereits kalibrierte Offset im TargetData Script ist
 \item[4] Anpassen von \emph{tempOffset} über Interface Buttons
-\item[5] Speichern: für alle in diesem Moment sichtbaren Marker gilt \\
-$\mathit{markerOffset} = \mathit{tempOffset} \cdot \mathit{markerOffset}$ \\
+\item[5] Speichern: für alle in diesem Moment sichtbaren Marker gilt 
+\[\mathit{markerOffset} = \mathit{tempOffset} \cdot \mathit{markerOffset}\] 
 Anschließend setzen von $\mathit{tempOffset}$ auf $id$ für alle Marker
 \end{itemize}
 
@@ -264,9 +264,9 @@ Wie in Abb(noch einzufügen) zu sehen ist, kann es durch diese Methode zu große
 \begin{itemize}
 \item[1] Initiale Positionierung des Hologramms mit Hilfe des beweglichen Markers
 \item[2] Sobald mindestens ein anderer Marker sichtbar ist, Start des Kalibrierungsprozesses über Button \emph{Start Calibration}, nutzen der zu diesem Zeitpunkt sichtbar gewesenen Marker zur Positionierung des Hologramms
-\item[3] Für als kalibriert markierte Marker gilt \\
- $poseEstimationHologram = \mathit{markerOffset} \cdot poseMarker$ \\
- $poseHologramFinal = \mathit{tempOffset} \cdot poseEstimationHologram$
+\item[3] Für als kalibriert markierte Marker gilt 
+ \[poseEstimationHologram = \mathit{markerOffset} \cdot poseMarker\] 
+ \[poseHologramFinal = \mathit{tempOffset} \cdot poseEstimationHologram\]
 \item[4] Speichern: für alle in diesem Moment sichtbaren Marker wird der aktuelle Offset von Hologramm zu Marker abgespeichert und $\mathit{tempOffset} = id$ gesetzt
 \end{itemize} 
 
