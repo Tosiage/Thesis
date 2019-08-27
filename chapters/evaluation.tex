@@ -14,7 +14,33 @@ An der Nutzerstudie haben 13 Probanden teilgenommen. Im Folgenden werden die Erg
 
 \subsection{Fragebogen}
 
-Von den 13 Probanden gaben 38,5\% an, vor dem Tag der Nutzerstudie schon länger als 30 Minuten mit der Hololens gearbeitet zu haben. 84,6\% der Probanden haben das Tutorial zu Gestenerlernung mitgemacht. 
+Von den 13 Probanden gaben 38,5\% an, vor dem Tag der Nutzerstudie schon länger als 30 Minuten mit der Hololens gearbeitet zu haben. 84,6\% der Probanden haben das Tutorial zu Gestenerlernung mitgemacht. 92,3\% der Probanden fanden die mit der Polaris durchgeführte Kalibrierung besser als ihre eigene. 11
+
+
+  \begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=1]
+      \begin{axis}[
+        ybar,
+        xtick=data,
+        xmin=0.5,
+        xmax=6.5,
+        x = 2cm,
+        ymajorgrids=true,
+        bar width=1cm, 
+        %xlabel={something else},
+        xlabel style={yshift=-1cm},
+        xtick align=inside,
+        xticklabels={gar nicht zufrieden, nicht zufrieden , eher nicht zufrieden, eher zufrieden, zufrieden, sehr zufrieden},
+        %ylabel={something},
+        x tick label style={font=\normalsize, rotate=45, anchor=east}
+        ]
+        \addplot table [x index=0,y index=1, col sep=comma] {fragebogenZufrieden.txt};
+      \end{axis}
+    \end{tikzpicture}
+    \caption[Zufriedenheit mit Kalibrierung]{Wie zufrieden waren sie mit ihrer Kalibrierung?}
+    \label{label}
+  \end{figure}
 
 \subsection{Kalibrierungen}
 
@@ -178,3 +204,13 @@ boxplot prepared={
 	\label{fig:5.1}
 \end{figure}
 \end{center}
+
+
+%
+%
+%
+% Standardabweichungen
+%
+%
+
+
