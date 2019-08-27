@@ -10,7 +10,11 @@ Der Ablauf der Nutzerstudie lässt sich in mehrere Schritte zerlegen. Im ersten 
 
 \section{Ergebnisse}
 
+An der Nutzerstudie haben 13 Probanden teilgenommen. Im Folgenden werden die Ergebnisse des Fragebogens genannt, sowie die Kalibrierungen der Probanden ausgewertet.
+
 \subsection{Fragebogen}
+
+Von den 13 Probanden gaben 38,5\% an, vor dem Tag der Nutzerstudie schon länger als 30 Minuten mit der Hololens gearbeitet zu haben. 84,6\% der Probanden haben das Tutorial zu Gestenerlernung mitgemacht. 
 
 \subsection{Kalibrierungen}
 
@@ -18,8 +22,159 @@ Der Ablauf der Nutzerstudie lässt sich in mehrere Schritte zerlegen. Im ersten 
 \item Bilden des Durchschnittvektors und Durchschnittquaternions über alle mit der Hololens durchgeführten Kalibrierungen für jedes ImageTarget mit Nummer n welches als kalibriert markiert ist
 \item Berechnung der Euklidischen Distanz zwischen abgespeicherter Position einzelner Kalibrierung und Durchschnittsvektor
 \item Berechnung des Winkels zwischen abgespeichertem Quaternion einzelner Kalibrierung und Durchschnittsquaternion
-\item Bilden von Durchschnittsentfernung und Durchschnittswinkel
 \item Berechnung von Varianz (mittlere Quadratische Abweichung von Mittelwert) von Entfernung und Winkel für alle ImageTargets
 \item Berechnung Euklidischer Distanz zwischen Vektor der Polariskalibrierung pro Target und Durchschnittsvektor pro Target
 \item Berechnung Winkel zwischen Quaternion der Polariskalibrierung pro Target und Durchschnittsvektor pro Target
 \end{itemize}
+
+
+
+\begin{center}
+\begin{figure}
+\begin{tabular}{ll}
+%Boxplot ImageTarget15
+\textbf{ImageTarget15} \\ \\
+\begin{tikzpicture}[scale=1.2]
+\begin{axis}[
+boxplot/draw direction=y,
+x axis line style={opacity=0},
+axis x line*=bottom,
+axis y line=left,
+enlarge y limits,
+ymajorgrids,
+y= 0.1cm,
+xtick={1,2,3},
+xticklabels={Rot X, Rot Y, Rot Z},
+]
+\addplot+ [
+boxplot prepared={
+	lower whisker=2.229505,
+	lower quartile=2.2854835,
+	median= 4.191185,
+	upper quartile=7.345289,
+	upper whisker=8.907209,
+},
+] table [row sep=\\,y index=0] {-25.87347\\ -12.85138\\ };
+\addplot+ [
+boxplot prepared={
+	lower whisker=1.262718,
+	lower quartile=1.895378,
+	median=3.418076,
+	upper quartile=5.18264,
+	upper whisker=7.253242,
+},
+] table [row sep=\\,y index=0] {  -19.5975\\ -12.34097\\ 11.59116\\ };
+\addplot+ [
+boxplot prepared={
+	lower whisker=-3.689575,
+	lower quartile= -1.261572,
+	median=3.170036,
+	upper quartile=6.982395,
+	upper whisker=9.246979,
+},
+] table [row sep=\\,y index=0] {-30.89815\\ -13.98067\\ 30.19878\\ };
+\end{axis}
+\end{tikzpicture} &
+
+%Distanzen zum MittelwertVektor ImageTarget15
+
+\begin{tikzpicture}
+\begin{axis}[
+boxplot/draw direction=y,
+x axis line style={opacity=0},
+axis x line*=bottom,
+axis y line=left,
+enlarge y limits,
+ymajorgrids,
+y= 0.5cm,
+xtick={1,2,3},
+xticklabels={Entfernungen in cm},
+]
+\addplot+ [
+boxplot prepared={
+	lower whisker=1.504416,
+	lower quartile=2.513568,
+	median=3.846865,
+	upper quartile=9.6565295,
+	upper whisker=11.78049,
+},
+] coordinates {  };
+\end{axis}
+\end{tikzpicture} \\
+
+\\
+\textbf{ImageTarget16}\\
+\\
+
+%Boxplot ImageTarget16
+\begin{tikzpicture}[scale=1.2]
+\begin{axis}[
+boxplot/draw direction=y,
+x axis line style={opacity=0},
+axis x line*=bottom,
+axis y line=left,
+enlarge y limits,
+ymajorgrids,
+y= 0.1cm,
+xtick={1,2,3},
+xticklabels={Rot X, Rot Y, Rot Z},
+]
+\addplot+ [
+boxplot prepared={
+	lower whisker=-3.56192,
+	lower quartile=-0.3002014,
+	median=0.8713989,
+	upper quartile=3.818802,
+	upper whisker=5.921753,
+},
+] table [row sep=\\,y index=0] { -25.65875\\ 10.19672\\ };
+\addplot+ [
+boxplot prepared={
+	lower whisker=-4.566364,
+	lower quartile=-1.8923215,
+	median=-0.5664179,
+	upper quartile=2.2430585,
+	upper whisker=2.839506,
+},
+] table [row sep=\\,y index=0] { 9.645788\\ };
+\addplot+ [
+boxplot prepared={
+	lower whisker=-2.841705,
+	lower quartile=-2.491379,
+	median=-1.224731,
+	upper quartile=0.0268096935,
+	upper whisker=0.9228821,
+},
+] table [row sep=\\,y index=0] {22.72686\\ -10.63632\\ };
+\end{axis}
+\end{tikzpicture} &
+
+%Distanzen zum MittelwertVektor ImageTarget16
+\begin{tikzpicture}
+\begin{axis}[
+boxplot/draw direction=y,
+x axis line style={opacity=0},
+axis x line*=bottom,
+axis y line=left,
+enlarge y limits,
+ymajorgrids,
+y=0.5cm,
+xtick={1,2,3},
+xticklabels={Entfernungen in cm},
+]
+\addplot+ [
+boxplot prepared={
+	lower whisker=0.009595037*100,
+	lower quartile=0.020684825*100,
+	median=0.03628322*100,
+	upper quartile=0.06965393*100,
+	upper whisker=0.1240142*100,
+},
+] coordinates {  };
+\end{axis}
+\end{tikzpicture}
+\end{tabular}
+\caption[Box-Plots pro ImageTarget]{links: Euler-Winkel zwischen den Quaternionen der Nutzerkalibrierungen und des gemittelten Quaternions, rechts: Distanz zwischen den Positionen der Nutzerkalibierungen und der gemittelten Position}
+	\label{fig:5.1}
+\end{figure}
+\end{center}
