@@ -10,7 +10,7 @@ Der Ablauf der Nutzerstudie lässt sich in mehrere Schritte zerlegen. Im ersten 
 
 \section{Ergebnisse}
 
-An der Nutzerstudie haben 13 Probanden teilgenommen. Im Folgenden werden die Ergebnisse des Fragebogens genannt, sowie die Kalibrierungen der Probanden ausgewertet.
+An der Nutzerstudie haben 13 Probanden teilgenommen. Im Folgenden werden die qualitativen Ergebnisse des Fragebogens genannt, sowie die quantitativen Kalibrierungen der Probanden ausgewertet.
 
 \subsection{Fragebogen}
 
@@ -69,10 +69,18 @@ Von den 13 Probanden gaben 38,5\% an, vor dem Tag der Nutzerstudie schon länger
 
 \subsection{Kalibrierungen}
 
-Um die von den Probanden durchgeführten Kalibrierungen auswerten und vergleichen zu können, wurde zunächst pro ImageTarget $t_i$ der Mittelwert $\overline{p}$ aus allen kalibrierten Positionen $p$ und der Mittelwert $\overline{q}$ aus allen kalibrierten Quaternionen $q$ gebildet. Anschließend wurde die euklidische Distanz $d$ zwischen den von den Nutzern kalibrierten Werten und der gemittelten Position berechnet (Abb. \ref{fig:5.3} stellt diese als Boxplot dar). Für jedes $t_i$ wurde die Standardabweichung $\sigma_{pi}$ der Positionen der von den Nutzern kalibrierten Werte berechnet, wobei $c_i$ die Anzahl der Kalibrierungen für das ImageTarget $t_i$ darstellt. \[\sigma_{pi} =\sqrt{ \frac{\sum_{k=1}^{c_i}d^2}{c_i}}\]
-Um die kalibrierten Quaternionen vergleichbar zu machen, wurden alle kalibrierten Quaternionen $q$ und $\overline{q}$ in Eulerwinkel $e$ und $\overline{e}$ umgerechnet. Für jede Achse $a$ (wobei $a\in\{x,y,z\}$) wurde der Winkel $\omega$ zwischen $e$ und $\overline{e}$ berechnet (Abbildungen \ref{fig:5.4}, \ref{fig:5.5} und \ref{fig:5.6} stellen diese als Boxplot dar). Für jedes $t_i$ wurde die Standardabweichung $\sigma_{ei}$ der Rotationen um die Achse $a$ bestimmt.
-\[\sigma_{e_ai} =\sqrt{ \frac{\sum_{k=1}^{c_i}{\omega_a}^2}{c_i}}\]
-Für mit der Polaris durchgeführte Kalibrierung $c_p$ wurde für jedes $t_i$ die euklidische Distanz zu $\overline{p}$ bestimmt, sowie der Winkel $w_a$ zwischen den mit der Polaris erhaltenen Werten für $e_a$ und $\overline{e_a}$. 
+Um die von den Probanden $u$ durchgeführten Kalibrierungen auswerten und vergleichen zu können, wurde zunächst pro ImageTarget $i$ der Mittelwert $\overline{p_i}$ aus allen kalibrierten Positionen $p_{ui}$ gebildet. Anschließend wurde die euklidische Distanz $d_{ui}$ zwischen den von den Nutzern kalibrierten Werten und der gemittelten Position berechnet (Abb. \ref{fig:5.3} stellt diese als Boxplot dar). Für jedes ImageTarget $i$ wurde die Standardabweichung $\sigma^p_{i}$ der Positionen der von den Nutzern kalibrierten Werte berechnet, wobei $c_i$ die Anzahl der Kalibrierungen für das ImageTarget $i$ darstellt. \[\sigma^{p}_{i} =\sqrt{ \frac{\sum_{u=1}^{c_i}{d_{ui}}^2}{c_i}}\]
+Um die kalibrierten Quaternionen vergleichbar zu machen, wurde zunächst pro ImageTarget $i$ der Mittelwert $\overline{q_i}$ aus allen kalibrierten Quaternionen $q_{ui}$ gebildet. Anschließend wurden alle kalibrierten Quaternionen $q_{ui}$ und $\overline{q_i}$ in Eulerwinkel $e_{ui}$ und $\overline{e_i}$ umgerechnet. Für jede Achse $a$ (wobei $a\in\{x,y,z\}$), jeden Nutzer $u$ und jedes ImageTarget $i$ wurde der Winkel $\omega$ zwischen $e_{ui}$ und $\overline{e_i}$ berechnet (Abbildungen \ref{fig:5.4}, \ref{fig:5.5} und \ref{fig:5.6} stellen diese als Boxplot dar). Für jedes ImageTarget $i$ wurde die Standardabweichung $\sigma^{e_a}_{i}$ der Rotationen um die Achse $a$ bestimmt.
+\[\sigma^{e_a}_{i} =\sqrt{ \frac{\sum_{u=1}^{c_i}{\omega_{aui}}^2}{c_i}}\]
+Für mit der Polaris durchgeführte Kalibrierung $(p^{pol},q^{pol})$ wurde für jedes $i$ die euklidische Distanz zu $\overline{p_i}$ bestimmt, sowie der Winkel $w_{aui}$ zwischen den mit der Polaris erhaltenen Werten für $e_a^{pol}$ und $\overline{e_{ai}}$. 
+
+\begin{itemize}
+\item Boxplots zeigen an: 50\% der Nutzer in Box, Rest Whiskers, Outlier, Ideal wäre 0 (bei Standardabweichung und bei Boxplots)
+\item Ähnlichkeit der Nutzer untereinander (wie sie kalibriert haben)
+\item Polariskalibrierung wird genutzt unter der annahme, dass sie besser ist als die Kalibrierungen der Nutzer --> vergleich mit Mittelwert, wie genau ist meine Anwendung im Mittel?
+\end{itemize}
+
+
 
 %
 %
@@ -90,9 +98,11 @@ axis y line=left,
 enlarge y limits,
 ymajorgrids,
 y= 1cm,
-xtick={1,2,3,4},
-xticklabels={ImageTarget 1, ImageTarget 2, ImageTarget 3, ImageTarget4},
-x tick label style={font=\normalsize, rotate=45, anchor=east}
+xtick={1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16},
+xlabel={ImageTarget $i$},
+xticklabels={1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16},
+ylabel={Distanzen in cm},
+%x tick label style={font=\normalsize, rotate=45, anchor=east}
 ]
 \addplot+ [
 boxplot prepared={
@@ -153,9 +163,11 @@ axis y line=left,
 enlarge y limits,
 ymajorgrids,
 y= 0.1cm,
-xtick={1,2,3,4},
-xticklabels={ImageTarget 1, ImageTarget 2, ImageTarget 3, ImageTarget 4},
-x tick label style={font=\normalsize, rotate=45, anchor=east}
+xtick={1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16},
+xlabel={ImageTarget $i$},
+xticklabels={1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16},
+ylabel={Winkel in Grad},
+%x tick label style={font=\normalsize, rotate=45, anchor=east}
 ]
 \addplot+ [
 boxplot prepared={
@@ -216,9 +228,11 @@ axis y line=left,
 enlarge y limits,
 ymajorgrids,
 y= 0.1cm,
-xtick={1,2,3,4},
-xticklabels={ImageTarget 1, ImageTarget 2, ImageTarget 3, ImageTarget 4},
-x tick label style={font=\normalsize, rotate=45, anchor=east}
+xtick={1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16},
+xlabel={ImageTarget $i$},
+xticklabels={1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16},
+ylabel={Winkel in Grad},
+%x tick label style={font=\normalsize, rotate=45, anchor=east}
 ]
 \addplot+ [
 boxplot prepared={
@@ -279,9 +293,11 @@ axis y line=left,
 enlarge y limits,
 ymajorgrids,
 y= 0.1cm,
-xtick={1,2,3,4},
-xticklabels={ImageTarget 1, ImageTarget 2, ImageTarget 3, ImageTarget 4},
-x tick label style={font=\normalsize, rotate=45, anchor=east}
+xtick={1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16},
+xlabel={ImageTarget $i$},
+xticklabels={1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16},
+ylabel={Winkel in Grad},
+%x tick label style={font=\normalsize, rotate=45, anchor=east}
 ]
 \addplot+ [
 boxplot prepared={
@@ -329,7 +345,7 @@ boxplot prepared={
 \begin{figure}[h!]
 \begin{tabular}{llllll}
 \hline
-\textbf{ImageTarget $t_i$}  & Samplegröße  & \textbf{$\sigma_{pi}$}  & \textbf{$\sigma_{e_xi}$}  & \textbf{$\sigma_{e_yi}$}  & \textbf{$\sigma_{e_zi}$}  \\
+\textbf{ImageTarget $i$}  & Samplegröße $c_i$  & \textbf{$\sigma^p_{i}$}  & \textbf{$\sigma^{e_x}_{i}$}  & \textbf{$\sigma^{e_y}_{i}$}  & \textbf{$\sigma^{e_z}_{i}$}  \\
 \hline
 &\\
 \textbf{1} &  11 & 3.924679 & 12.77979 & 2.9669 & 8.603211 \\
@@ -365,7 +381,7 @@ boxplot prepared={
 \textbf{16} & 13 & 5.867448 & 8.075559 & 3.393669 & 7.140728\\
 \hline
 \end{tabular}
-\caption[Standardabweichungen]{Liste aller Standardabweichungen von Durchschnittswert, wobei $\sigma_{pi}$ in cm und $\sigma_{e_xi}$, $\sigma_{e_yi}$, $\sigma_{e_zi}$ in Grad}
+\caption[Standardabweichungen]{Standardabweichungen von den Durchschnittswerten $\overline{p_i}$ und $\overline{q_i}$, wobei $\sigma^p_{i}$ in cm und $\sigma^{e_x}_{i}$, $\sigma^{e_y}_{i}$, $\sigma^{e_z}_{i}$ in Grad angegeben sind}
 \label{fig:5.7}
 \end{figure}
 
