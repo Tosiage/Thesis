@@ -1,7 +1,7 @@
 \chapter{Evaluation}
 \label{cha:evaluation}
 
-Um die Genauigkeit und Bedienung der Anwendung zu evaluieren, wurde eine Nutzerstudie durchgeführt. Der Ablauf dieser Studie wird im Folgenden erläutert, sowie die Ergebnisse genannt.
+Um die Genauigkeit und Bedienung der Anwendung zu evaluieren, wurde eine Nutzerstudie durchgeführt. Der Ablauf dieser Studie wird im Folgenden erläutert, sowie die Ergebnisse genannt. Es wird ausgewertet, wie ähnlich sich die Kalibrierungen der Probanden sind und wie stark sie von der Kalibrierung mit der Polaris abweichen unter der Annahme, dass die Polaris eine genauere Kalibrierung als die Hololens Anwendung ermöglicht.
 
 \section{Ablauf}
 
@@ -10,7 +10,8 @@ Der Ablauf der Nutzerstudie lässt sich in mehrere Schritte zerlegen. Im ersten 
 
 \section{Ergebnisse}
 
-An der Nutzerstudie haben 13 Probanden teilgenommen. Im Folgenden werden die qualitativen Ergebnisse des Fragebogens genannt, sowie die quantitativen Kalibrierungen der Probanden ausgewertet.
+An der Nutzerstudie haben 13 Probanden teilgenommen. Im Folgenden werden die qualitativen Ergebnisse des Fragebogens genannt. 
+Die quantitativen Ergebnisse der Kalibrierungen der Probanden werden ausgewertet. Es wird erläutert, wie die Werte berechnet werden, welche in den Diagrammen zu sehen sind und wie diese Diagramme zu interpretieren sind.
 
 \subsection{Fragebogen}
 
@@ -72,13 +73,22 @@ Von den 13 Probanden gaben 38,5\% an, vor dem Tag der Nutzerstudie schon länger
 Um die von den Probanden $u$ durchgeführten Kalibrierungen auswerten und vergleichen zu können, wurde zunächst pro ImageTarget $i$ der Mittelwert $\overline{p_i}$ aus allen kalibrierten Positionen $p_{ui}$ gebildet. Anschließend wurde die euklidische Distanz $d_{ui}$ zwischen den von den Nutzern kalibrierten Werten und der gemittelten Position berechnet (Abb. \ref{fig:5.3} stellt diese als Boxplot dar). Für jedes ImageTarget $i$ wurde die Standardabweichung $\sigma^p_{i}$ der Positionen der von den Nutzern kalibrierten Werte berechnet, wobei $c_i$ die Anzahl der Kalibrierungen für das ImageTarget $i$ darstellt. \[\sigma^{p}_{i} =\sqrt{ \frac{\sum_{u=1}^{c_i}{d_{ui}}^2}{c_i}}\]
 Um die kalibrierten Quaternionen vergleichbar zu machen, wurde zunächst pro ImageTarget $i$ der Mittelwert $\overline{q_i}$ aus allen kalibrierten Quaternionen $q_{ui}$ gebildet. Anschließend wurden alle kalibrierten Quaternionen $q_{ui}$ und $\overline{q_i}$ in Eulerwinkel $e_{ui}$ und $\overline{e_i}$ umgerechnet. Für jede Achse $a$ (wobei $a\in\{x,y,z\}$), jeden Nutzer $u$ und jedes ImageTarget $i$ wurde der Winkel $\omega$ zwischen $e_{ui}$ und $\overline{e_i}$ berechnet (Abbildungen \ref{fig:5.4}, \ref{fig:5.5} und \ref{fig:5.6} stellen diese als Boxplot dar). Für jedes ImageTarget $i$ wurde die Standardabweichung $\sigma^{e_a}_{i}$ der Rotationen um die Achse $a$ bestimmt.
 \[\sigma^{e_a}_{i} =\sqrt{ \frac{\sum_{u=1}^{c_i}{\omega_{aui}}^2}{c_i}}\]
-Für mit der Polaris durchgeführte Kalibrierung $(p^{pol},q^{pol})$ wurde für jedes $i$ die euklidische Distanz zu $\overline{p_i}$ bestimmt, sowie der Winkel $w_{ai}$ zwischen den mit der Polaris erhaltenen Werten für $e_a^{pol}$ und $\overline{e_{ai}}$. 
+Für mit der Polaris durchgeführte Kalibrierung $(p^{pol},q^{pol})$ wurde für jedes $i$ die euklidische Distanz zu $\overline{p_i}$ bestimmt, sowie der Winkel $w_{ai}$ zwischen den mit der Polaris erhaltenen Werten für $e_a^{pol}$ und $\overline{e_{ai}}$. Dabei muss angemerkt werden, dass die Kalibrierung mit der Polaris nur an den 8 ImageTargets durchgeführt wurde, welche am Phantom angebracht waren (Image Target 9 - 16). ImageTarget 1 bis 8 sind die Marker, welche an der Vive Pro Box angebracht wurden.
 
-\begin{itemize}
-\item Boxplots zeigen an: 50\% der Nutzer in Box, Rest Whiskers, Outlier, Ideal wäre 0 (bei Standardabweichung und bei Boxplots)
-\item Ähnlichkeit der Nutzer untereinander (wie sie kalibriert haben)
-\item Polariskalibrierung wird genutzt unter der annahme, dass sie besser ist als die Kalibrierungen der Nutzer --> vergleich mit Mittelwert, wie genau ist meine Anwendung im Mittel?
-\end{itemize}
+Die Boxplots zeigen an, wie ähnlich die Nutzer untereinander jeweils die Image Targets kalibriert haben. Innerhalb der Box befinden sich 50\% der Kalibrierungen. Je kleiner die Box, desto ähnlicher sind sich die Nutzerkalibrierungen untereinander. Die Whisker stellen die am weitesten entfernten Werte dar, die keine Ausreißer sind. Ausreißer sind Werte, die außerhalb des 1,5-fachen Länge der Box liegen. 
+
+Bei den abgebildeten Ausreißern ist zu beachten, dass zwei unterschiedliche Sätze von Eulerwinkeln durchaus das gleiche Quaternion beschreiben können (Abhängig davon in welcher Reihenfolge Rotationen unterschiedlicher Größe um die einzelnen Achsen ausgeführt werden). Es ist folglich möglich, dass die als Ausreißer behandelten Werte ursprünglich ein gut vom Nutzer kalibriertes Quaternion beschrieben haben, welches in ungünstige Eulerwinkel umgerechnet wurde.
+
+Die Kalibrierung mit der Polaris wurde unter der Annahme genutzt, dass sie genauer ist als die Kalibrierungen der Nutzer. Um festzustellen, wie genau die Kalibrierung mit der Hololens im Schnitt ist, wurden die aus den Nutzerkalibrierungen erhaltenen Mittelwerte mit der Polariskalibrierung verglichen. Dabei fällt auf, dass gemittelt über alle ImageTargets, die Position im Schnitt um 2cm von der mit der Polaris Kalibrierten Position abweicht, sowie die Rotation um die X-Achse sich um 1,49$^\circ$, die Rotation um die Y-Achse sich um 0,1$^\circ$ und die Rotation um die Z-Achse sich um 1,32$^\circ$ von den mit der Polaris kalibrierten Rotationen unterscheidet.
+
+
+%\begin{itemize}
+%\item Boxplots zeigen an: 50\% der Nutzer in Box, Rest Whiskers, Outlier, Ideal wäre 0 (bei Standardabweichung und bei Boxplots)
+%\item Ähnlichkeit der Nutzer untereinander (wie sie kalibriert haben)
+%\item Polariskalibrierung wird genutzt unter der annahme, dass sie besser ist als die %Kalibrierungen der Nutzer --> vergleich mit Mittelwert, wie genau ist meine Anwendung im Mittel?
+%\end{itemize}
+
+
 
 
 
@@ -94,7 +104,7 @@ Für mit der Polaris durchgeführte Kalibrierung $(p^{pol},q^{pol})$ wurde für 
 \centering
 \begin{tabular}{lllll}
 \hline
-\textbf{ImageTarget $i$}  & \textbf{Abstand}  & \textbf{$\omega_{xi}$}  & \textbf{$\omega_{yi}$} & \textbf{$\omega_{xi}$}    \\
+\textbf{ImageTarget $i$}  & \textbf{$d$}  & \textbf{$\omega_{xi}$}  & \textbf{$\omega_{yi}$} & \textbf{$\omega_{xi}$}    \\
 \hline
 &\\
 \textbf{9}   & 1.653939 & -1.770752 & -0.02072144 & 1.646881 \\
@@ -117,7 +127,7 @@ Für mit der Polaris durchgeführte Kalibrierung $(p^{pol},q^{pol})$ wurde für 
 \textbf{Durchschnitt} & 2.005577 & 1.492612 & -0.09985641 & 1.322963\\
 \hline
 \end{tabular}
-\caption[Polaris zu Durchschnitt]{Abstand: euklidische Distanz zwischen $p^{pol}$ und $\overline{p_i}$ in cm;  $\omega_{xi}$: Winkel zwischen $e^{pol}_{xi}$ und $\overline{e_{xi}}$ in Grad; $\omega_{yi}$: Winkel zwischen $e^{pol}_{yi}$ und $\overline{e_{yi}}$ in Grad; $\omega_{zi}$: Winkel zwischen $e^{pol}_{zi}$ und $\overline{e_{zi}}$ in Grad}
+\caption[Polaris zu Durchschnitt]{$d$: euklidische Distanz zwischen $p^{pol}$ und $\overline{p_i}$ in cm;  $\omega_{xi}$: Winkel zwischen $e^{pol}_{xi}$ und $\overline{e_{xi}}$ in Grad; $\omega_{yi}$: Winkel zwischen $e^{pol}_{yi}$ und $\overline{e_{yi}}$ in Grad; $\omega_{zi}$: Winkel zwischen $e^{pol}_{zi}$ und $\overline{e_{zi}}$ in Grad}
 \label{fig:5.8}
 \end{figure}
 
@@ -138,7 +148,7 @@ axis x line*=bottom,
 axis y line=left,
 enlarge y limits,
 ymajorgrids,
-y= 0.5cm,
+y= 0.25cm,
 xtick={1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16},
 xlabel={ImageTarget $i$},
 xticklabels={1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16},
