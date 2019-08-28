@@ -7,6 +7,13 @@
 \usepgfplotslibrary{statistics}
 \usepackage{filecontents}
 \pgfplotsset{width=7cm,compat=1.16}
+\pgfplotsset{
+boxplot/every box/.style={solid, black},
+boxplot/every whisker/.style={solid, black},
+boxplot/every median/.style={solid, black},
+every boxplot/.style={mark=diamond*, every mark/.append style={black}}
+}
+
 \makeindex
 % Based on thesisclass.cls of Timo Rohrberg, 2009
 % ----------------------------------------------------------------
