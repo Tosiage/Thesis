@@ -75,18 +75,11 @@ Um die kalibrierten Quaternionen vergleichbar zu machen, wurde zunächst pro Ima
 \[\sigma^{e_a}_{i} =\sqrt{ \frac{\sum_{u=1}^{c_i}{\omega_{aui}}^2}{c_i}}\]
 Für mit der Polaris durchgeführte Kalibrierung $(p^{pol},q^{pol})$ wurde für jedes $i$ die euklidische Distanz zu $\overline{p_i}$ bestimmt, sowie der Winkel $w_{ai}$ zwischen den mit der Polaris erhaltenen Werten für $e_a^{pol}$ und $\overline{e_{ai}}$. Dabei muss angemerkt werden, dass die Kalibrierung mit der Polaris nur an den 8 ImageTargets durchgeführt wurde, welche am Phantom angebracht waren (Image Target 9 - 16). ImageTarget 1 bis 8 sind die Marker, welche an der Vive Pro Box angebracht wurden.
 
-Die Boxplots zeigen an, wie ähnlich die Nutzer untereinander jeweils die Image Targets kalibriert haben. Innerhalb der Box befinden sich 50\% der Kalibrierungen. Je kleiner die Box, desto ähnlicher sind sich die Nutzerkalibrierungen untereinander. Die Whisker stellen die am weitesten entfernten Werte dar, die keine Ausreißer sind. Ausreißer sind Werte, die außerhalb des 1,5-fachen Länge der Box liegen. 
+Die Boxplots zeigen an, wie ähnlich die Nutzer untereinander jeweils die Image Targets kalibriert haben. Innerhalb der Box befinden sich 50\% der Kalibrierungen. Je kleiner die Box, desto ähnlicher sind sich die Nutzerkalibrierungen untereinander. Die Whisker stellen die am weitesten entfernten Werte dar, die keine Ausreißer sind. Ausreißer sind Werte, die außerhalb des 1,5-fachen Länge der Box  (\emph{Interquartilsabstand})liegen. 
 
 Bei den abgebildeten Ausreißern ist zu beachten, dass zwei unterschiedliche Sätze von Eulerwinkeln durchaus das gleiche Quaternion beschreiben können (Abhängig davon in welcher Reihenfolge Rotationen unterschiedlicher Größe um die einzelnen Achsen ausgeführt werden). Es ist folglich möglich, dass die als Ausreißer behandelten Werte ursprünglich ein gut vom Nutzer kalibriertes Quaternion beschrieben haben, welches in ungünstige Eulerwinkel umgerechnet wurde.
 
 Die Kalibrierung mit der Polaris wurde unter der Annahme genutzt, dass sie genauer ist als die Kalibrierungen der Nutzer. Um festzustellen, wie genau die Kalibrierung mit der Hololens im Schnitt ist, wurden die aus den Nutzerkalibrierungen erhaltenen Mittelwerte mit der Polariskalibrierung verglichen. Dabei fällt auf, dass gemittelt über alle ImageTargets, die Position im Schnitt um 2cm von der mit der Polaris Kalibrierten Position abweicht, sowie die Rotation um die X-Achse sich um 1,49$^\circ$, die Rotation um die Y-Achse sich um 0,1$^\circ$ und die Rotation um die Z-Achse sich um 1,32$^\circ$ von den mit der Polaris kalibrierten Rotationen unterscheidet.
-
-
-%\begin{itemize}
-%\item Boxplots zeigen an: 50\% der Nutzer in Box, Rest Whiskers, Outlier, Ideal wäre 0 (bei Standardabweichung und bei Boxplots)
-%\item Ähnlichkeit der Nutzer untereinander (wie sie kalibriert haben)
-%\item Polariskalibrierung wird genutzt unter der annahme, dass sie besser ist als die %Kalibrierungen der Nutzer --> vergleich mit Mittelwert, wie genau ist meine Anwendung im Mittel?
-%\end{itemize}
 
 
 
@@ -317,7 +310,7 @@ boxplot prepared={
 ] coordinates{ };
 \end{axis}
 \end{tikzpicture}
-\caption[Distanzen]{Distanzen zwischen gemittelter Position und kalibrierter Positionen der Nutzer in cm}
+\caption[Distanzen]{Distanzen zwischen gemittelter Position und kalibrierter Positionen der Nutzer in cm; Die Ausreißer (abzüglich an ImageTarget 7 und des zweiten Ausreißers an ImageTarget 10) wurden von demselben Probanden verursacht. Der Interquartilsabstand der Targets 1-8 (Targets an Box) ist geringer als der der Targets 9-16 (Targets an Phantom). Die von den Nutzern durchgeführten Positionierungen des Box-Hologramms sind sich folglich ähnlicher als die des Phantom-Hologramms.}
 \label{fig:5.3}
 \end{figure}
 
@@ -507,7 +500,7 @@ boxplot prepared={
 ] table [row sep=\\,y index=0]{-25.65875\\ 10.19672\\ };
 \end{axis}
 \end{tikzpicture}
-\caption[WinkelX]{Winkel zwischen gemittelter Rotation und kalibrierter Rotationen der Nutzer in Grad für X-Achse}
+\caption[WinkelX]{Winkel zwischen gemittelter Rotation und kalibrierter Rotationen der Nutzer in Grad für X-Achse;Die Ausreißer an Targets 1-8 wurden von zwei Probanden verursacht. Der Großteil der Ausreißer an Targets 9-16 wurde ebenfalls von zwei Probanden verursacht. Die Box (Target 1-8) wurde von den meisten Nutzern zwischen 0 und -10$^\circ$ um die X-Achse gedreht, das Phantom zwischen 0-10$^\circ$. ImageTarget 5 hat einen sehr großen Interquartilsabstand, wobei jedoch der Median mit ungefähr -9$^\circ$ nicht auffällig verschoben ist im Vergleich zu den anderen Targets an der Box. 25\% der Nutzer scheinen Schwierigkeiten beim Kalibrieren von ImageTarget 5 gehabt zu haben.}
 \label{fig:5.4}
 \end{figure}
 
@@ -697,7 +690,7 @@ boxplot prepared={
 ] table [row sep=\\,y index=0]{ 9.645788\\ };
 \end{axis}
 \end{tikzpicture}
-\caption[WinkelY]{Winkel zwischen gemittelter Rotation und kalibrierter Rotationen der Nutzer in Grad für Y-Achse}
+\caption[WinkelY]{Winkel zwischen gemittelter Rotation und kalibrierter Rotationen der Nutzer in Grad für Y-Achse;Der Großteil der Ausreißer an Target 1-8 stammt von demselben Probanden. Die Ausreißer an Target 9-16 wurden von unterschiedlichen Probanden verursacht. Der Interquartilsabstand der Plots ist sehr gering, außerdem siedeln sich die Plots bei 0$^\circ$ an. Folglich wurden die Hologramme von den Nutzern kaum um die Y-Achse rotiert.}
 \label{fig:5.5}
 \end{figure}
 
@@ -887,7 +880,7 @@ boxplot prepared={
 ] table [row sep=\\,y index=0]{ -10.63632\\ 22.72686\\ };
 \end{axis}
 \end{tikzpicture}
-\caption[WinkelZ]{Winkel zwischen gemittelter Rotation und kalibrierter Rotationen der Nutzer in Grad für Z-Achse}
+\caption[WinkelZ]{Winkel zwischen gemittelter Rotation und kalibrierter Rotationen der Nutzer in Grad für Z-Achse; Der Großteil der Ausreißer an Target 1-8 stammen von demselben Probanden. Die Positiven Ausreißer an Targets 9-16 stammen von demselben Probanden. Die Kalibrierungen der Targets variieren im Bereich zwischen 10 und -10$^\circ$. Target 10 und 12, welche nah beieinander liegen, sind ähnlich kalibriert worden. Allerdings ist dies bei anderen Targets, welche nah beieinander lagen, nicht der Fall (bspw. 14 und 13).}
 \label{fig:5.6}
 \end{figure}
 

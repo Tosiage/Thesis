@@ -1,19 +1,59 @@
 \chapter{\iflanguage{english}{Conclusion}{Diskussion}}
 \label{cha:conclusion}
 
-
-What is the outcome of your evaluation?
-\begin{itemize}
-\item 
-\end{itemize}
+Im folgenden Kapitel werden die Ergebnisse der Evaluation genannt, sowie Limitierungen der Anwendung und Ansätze, das System in Zukunft zu verbessern.
 
 
-Did it meet the required goals defined in chapter \ref{cha:introduction}? Why/Why not?
+\section{Ergebnis der Evaluation}
+
+\textbf{Nutzerstudie}
+
+Während der Durchführung der Nutzerstudie merkten einige Probanden den geringen Sichtbereich der Hololens an. Ist ein Hologramm groß oder steht der Nutzer sehr nah an einem Hologramm, sodass es nicht vollständig von der Hololens dargestellt werden kann, wird das Hologramm am Ende des Displays abgeschnitten. Bei symmetrischen Hologrammen wie der Vive Pro Box führt dies dazu, dass die Nutzer nicht unterscheiden konnten, ob das Hologramm nicht vollständig angezeigt wird oder es sich um eine Kante der Box handelt.
+
+Die Größe der Hologramme führte des Weiteren dazu, dass sich die Nutzer während der Kalibrierung vom Phantom entfernt haben, um es vollständig zu betrachten und einschätzen zu können, wie gut Hologramm und Objekt überlagert sind. Dadurch wurde oft das Tracking der Marker unterbrochen, wodurch wiederum die Position des Hologrammes falsch angezeigt wurde.
+
+Die Nutzer sollten während der Nutzerstudie zuerst die Marker an der Vive Pro Box kalibieren. Dies wurde als Übung für die Kalibrierung der Marker am Phantom betrachtet. Es haben nicht alle Nutzer geschafft, alle Marker der Box zu kalibrieren, wohingegen am Phantom jeder Nutzer alle Marker kalibrieren konnte. 
 
 
-How can future work improve on your work?
-\begin{itemize}
-\item Bessere Targets
-\item Bessere Positionierung
-\item Algorithmus, der Erkennt, wenn Target falsch getrackt wird (bspw dadurch, dass der winkel in dem es erkannt wird plötzlich stark anders ist)
-\end{itemize}
+\textbf{Kalibrierungen}
+
+Probanden, welche die Hololens vor der Nutzerstudie schon genutzt hatten, schnitten mit ihrer Kalibrierung genauso gut ab wie Nutzer, die die Hololens vorher noch nie oder nur kurz genutzt hatten. 
+
+Wie im vorherigen Kapitel schon erwähnt, kann nicht mit Sicherheit behauptet werden, dass die Ausreißer in den Rotationsdaten durch eine schlechte Kalibrierung der Rotationen zustande gekommen sind, da ein und derselbe Quaternion in unterschiedliche Eulerwinkel umgerechnet werden kann. 
+Ist ein Ausreißer durch eine schlechte Kalibrierung zustande gekommen, so lässt sich dies dadurch erklären, dass der Offset zwischen Marker und Hologramm abgespeichert wurde, während der Marker falsch getrackt wurde. Ein falsch getrackter Marker ist bspw. ein Marker, der um 90$^\circ$ um eine Achse rotiert getrackt wird, obwohl er eigentlich nicht rotiert ist. Dies entsteht durch einen zu starken Winkel zwischen Kamera und Marker oder durch eine zu große Entfernung und führt dazu, dass der Offset zwischen Marker und Hologramm um 90$^\circ$ größer abgespeichert wird. Wird der Marker wieder normal getrackt, werden diese 90$^\circ$ dennoch auf die Pose aufgerechnet, sodass das Hologramm falsch positioniert wird. 
+
+Die deutliche Mehrheit der Nutzer war eher zufrieden bis sehr zufrieden mit ihrer Kalibrierung, zusätzlich wurde die Bedienung Anwendung von der Mehrheit der Nutzer als eher intuitiv bis intutiv bewertet. Daraus lässt sich schließen, dass trotz des Springens des Hologramms, wenn ein Marker falsch erkannt wird, das Programm gut nutzbar ist. 
+ 
+\section{Weiterführende Arbeit}
+
+Im Folgenden werden Ansätze genannt, wie die prototypische Anwendung, die in dieser Arbeit entwickelt wurde, in zukünftigen Arbeiten verbessert werden kann.
+
+\textbf{Hololens 2}
+
+Während der Nutzung merkten Probanden sowohl das kleine Display der Hololens an, sowie den nicht sehr hohen Tragecomfort. Die Hololens 2, welche in naher Zukunft verfügbar sein wird, besitzt ein vergrößertes Display, sodass größere Hologramme nicht mehr abgeschnitten werden. Zusätzlich befindet sich der Schwerpunkt nicht mehr wie bisher vorn über dem Display, sondern hinten, sodass die Hololens 2 auch über längere Zeit angenehm getragen werden kann.
+
+\textbf{Marker}
+
+In dieser Arbeit wurde nicht getestet, wie sich die Größe und Verteilung der Marker auf dem Phantom auf das Tracking und die Kalibrierung auswirkt. Es ist möglich, dass durch eine andere Verteilung der Marker am Phantom das Tracking stabiler wird. Ebenso könnten größere Marker dafür sorgen, dass sie auch von einer größeren Entfernung aus korrekt erkannt und getrackt werden können. 
+Es ist auch möglich, dass die genannten Probleme dadurch behoben werden können, dass eine andere Marker als Vuforia Marker verwendet werden.
+
+\textbf{Algorithmus zur Erkennung von falsch getrackten Markern}
+
+In dieser Arbeit wird zur Ermittlung der Pose des Hologramms die Pose der getrackten Marker mit dem in den TargetDatas gespeicherten Offsets verrechnet. Wird ein Marker falsch getrackt (bspw. in einem falschen Winkel), nimmt dieser falsche Winkel starken Einfluss auf die Pose des Hologramms: Das Hologramm wirkt, als würde es an eine andere Position springen. Dies führt zu Verwirrung bei Nutzern und erhöht die Schwierigkeit der Kalibrierung. Zusätzlich kann es dadurch zu einer falschen Kalibrierung des Offsets zum Hologramm kommen. Um dies zu vermeiden könnte ein Algorithmus entwickelt werden, welcher erkennt, wenn ein Marker falsch getrackt wird und dafür sorgt, dass dieser Marker für die Dauer, die er falsch erkannt wird, keinen Einfluss auf die Pose des Hologramms nimmt und nicht kalibriert werden kann.  
+
+\textbf{Zusätzliche Eingabemethoden}
+
+In dieser Anwendung wird ausschließlich die Air-Tap Geste der Hololens genutzt. Da der Save-Button zum Kalibieren gleichzeitig mit den Markern sichtbar sein muss, zum Betätigen des Buttons jedoch der Blick vom Marker abgewandt werden muss, führte dies dazu, dass der Marker unter Umständen während des Betätigens des Buttons nicht mehr sichtbar ist. Eine andere Methode zum Speichern, die keinen Button benötigt wäre von Vorteil, beispielsweise eine Spracheingabe, die mit der Hololens möglich ist, oder das verwenden des Klickers, der mit der Hololens mitgeliefert wird.
+
+\textbf{User Interface}
+
+Während der Nutzung der Anwendung mussten die Probanden viel beachten. Viele Probanden vergaßen, dass mindestens ein Marker durchgehend getrackt werden muss, damit das Hologramm korrekt angezeigt wird. Das User Interface der Anwendung wurde sehr minimal implementiert. Eine zusätzliche Implementierungen von Warnungen, die Nutzer darauf hinweisen, wenn keine Marker sichtbar sind, wäre von Vorteil. 
+
+
+\section{Zusammenfassung und Ausblick}
+
+
+Das Ziel der Arbeit, ein 3D-Modell des Phantoms mit dem realen Objekt zu registrieren, wurde erreicht. Es konnte zum Tracken von Phantom und Hololens auf ein externes Trackingsystem verzichtet werden. Auch bei der Kalibrierung war es möglich, auf ein externes Trackingsystem zu verzichten.
+Durch Limitierungen in der Hardware, der Probanden und durch die nur prototypische Umsetzung der Anwendung war dennoch die Kalibrierung mit Hilfe eines externen Trackingsystems genauer. Es ist jedoch vorstellbar, dass mit den genannten Ansätzen zur Verbesserung der Anwendung ein ebenso gutes Ergebnis in der Kalibrierung mit der Hololens in Zukunft möglich ist.
+
+
