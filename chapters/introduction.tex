@@ -1,16 +1,25 @@
 \chapter{\iflanguage{english}{Introduction}{Einführung}}
 \label{cha:introduction}
 
-This section should describe your motivation and general introduction to the topic as well as the goals of your work.
+This section should describe your motivation and general introduction to the topic as well as the goals of your work. [TODO]
 
 \section{Motivation}
 
-Unter \emph{Augmented Reality} wird das Hinzufügen von virtuellen Objekten zur realen Welt verstanden. Diese Objekte können über ein Gerät wie ein Tablet oder ein Head Mounted Display, welches wie eine Brille auf dem Kopf getragen wird, visualisiert werden. Damit die virtuellen Objekte an der korrekten Stelle in der realen Welt angezeigt werden, selbst wenn der Nutzer sich im Raum bewegt, muss die Pose der Kamera bekannt sein. 
+[TODO: Zitate] %TODO
+Unter \emph{Augmented Reality} wird das Hinzufügen von virtuellen Objekten zur realen Welt verstanden. Diese Objekte können über ein Gerät wie ein Tablet oder ein \emph{Head Mounted Display} (HMD), welches wie eine Brille auf dem Kopf getragen wird, visualisiert werden. %Damit die virtuellen Objekte an der korrekten Stelle in der realen Welt angezeigt werden, selbst wenn der Nutzer sich im Raum bewegt, muss die Pose der Kamera bekannt sein. 
 
--kein hin und her schauen zwischen Patient und Bildschirm
--vermeidung von strahlung
+Augmented Reality kann im medizinischen Bereich in vielerlei Hinsicht eingesetzt werden. Als ein Anwendungsbereich gilt die Chirurgie. Zur Zeit werden intraoperative Aufnahmen dem Chirurgen an einem separaten Arbeitsplatz angezeigt. Dies führt dazu, dass der Chirurg während der OP den Blick vom Patienten ab- und dem Bildschirm zuwenden muss oder sogar durch den Operationssaal zum Bildschirm laufen muss. Mit Hilfe einer Augmented Reality Brille ist es möglich, diese Aufnahmen direkt im Sichtfeld des Chirurgen einzublenden, ohne dass er seinen Blick vom Patienten abwenden muss. 
+
+Auch zur präoperativen Planung lässt sich Augmented Reality nutzen. Die Lage von Organen, Gefäßen und Tumoren im Körper des Patienten lassen sich als 3D-Objekte im Raum visualisieren und erleichtern so dem Chirurgen die räumliche Vorstellung.
+Im Bereich der minimalinvasiven Operationen ermöglicht AR so auch den Blick in den Bauchraum ohne den Patienten öffnen zu müssen. 
+
+Auch Pfadplanungen für Biopsien lassen sich so durch Augmented Reality unterstützen. Das aktuelle Vorgehen für Biopsien besteht aus der Planung am Bildschirm, dem Einstechen der Nadel und der anschließenden Kontrolle des Nadelpfades durch ein Bildgebendes Verfahren wie der Computertomographie. Sitzt die Nadel nicht richtig, wird der Vorgang wiederholt, wodurch die Strahlenbelastung für den Patienten steigt. Wird bspw. die Einstichstelle und Neigung der Nadel visualisiert, führt dies zu weniger missglückten Versuchen. Die Strahlungsdosis, der der Patient ausgesetzt wird, lässt sich folglich mit Hilfe von AR verringern.
+
+
+Besonders für das Training von angehenden Chirurgen ist Augmented Reality geeignet, da sich Organe realitätsnah darstellen lassen. So können Operationen an Phantomen trainiert werden. [TODO] %TODO
+
+
 
 \section{\iflanguage{english}{Goals}{Ziele}}
 
-Getrackt werden soll das Phantom eines Torsos. Es sollen verschiedene Methoden des markerbasierten Trackings implementiert und ein Hologramm der Leber relativ zu den Markern platziert werden. Zu diesen Methoden zählt Vuforia Model Recognition mit einem Trained Model Dataset, bei der die Bauchplatte des Phantoms als Model Target (Marker) fungiert und von Vuforia getrackt wird. Weitere Marker sind Vuforia ImageTargets, ArUco Marker und kreisförmige Farbmarker. Bei diesen drei Methoden werden mehrere Marker auf dem Torso platziert.
-
+Ziel dieser Arbeit ist das Visualisieren der Leber an einem Phantom mit Hilfe von Augmented Reality und ohne ein externes Trackingsystem. Die Visualisierung soll mit Hilfe eines Head Mounted Displays erfolgen. Um die 3D-Modelle an der korrekten Position im Raum und im Verhältnis zur Position des Tägers des HMDs anzuzeigen, muss das Phantom verfolgt werden (\emph{Tracking}). Es gibt zwei Ansätze zum Tracking: markerloses und marker-basiertes Tracking. Bei markerlosem Tracking werden die natürlichen Merkmale eines Objektes von der Kamera getrackt. Bei marker-basiertem Tracking werden der Umgebung Objekte (\emph{Marker}] hinzugefügt, welche in einer Datenbank abgelegt werden und als künstliche Landmarken dienen. Diese werden von der Kamera erkannt und können getrackt werden. Markerloses Tracking bietet den Vorteil, dass keine zusätzlichen Vorbereitungen, wie das Anbringen von Markern getroffen werden müssen. Allerdings eignen sich nicht-texturierte, einfarbige Oberflächen, wie dem Phantom oder dem Abdominalbereich eines Patienten nur schlecht für das Tracking von natürlichen Merkmalen. Daher wird in dieser Arbeit ein marker-basierter Ansatz gewählt. Marker-basiertes Tracking erfordert die Kalibrierung der Marker zum Phantom. Durch jeden Marker soll die Pose des 3D-Modells bestimmt sein. Dazu hat jeder Marker einen Offset von sich zu der Pose, an welcher sich da Modell befindet. Dieser Offset soll mit Hilfe eines vom Nutzer durchgeführten Kalibrierungsvorgangs bestimmt werden.
