@@ -2,7 +2,7 @@
 \label{cha:theoreticalBackground}
 
 In diesem Kapitel wird eine Einführung in die Grundlagen gegeben, welche im Methoden Kapitel verwendet werden.
-Zuerst wird das Mixed Reality Spektrum erläutert, anschließend das Prinzip der Head Mounted Displays. Im Abschnitt 4.3 wird AR Tracking beschrieben, welches Marker, verschiedene Arten von Markern und Tracking Algorithmen beinhaltet. Abschließend wird das bei dieser Arbeit verwendete Phantom vorgestellt.
+Zuerst wird das Mixed Reality Spektrum erläutert, anschließend das Prinzip der Head Mounted Displays. Im Abschnitt 3.3 wird AR Tracking beschrieben, welches Marker, verschiedene Arten von Markern und Tracking Algorithmen beinhaltet. Abschließend wird das bei dieser Arbeit verwendete Phantom vorgestellt.
 
 
 
@@ -10,19 +10,18 @@ Zuerst wird das Mixed Reality Spektrum erläutert, anschließend das Prinzip der
 
 %Bild einfügen MR Spektrum
 
-Der Begriff \emph{Mixed Reality} (MR) wurde zuerst von Milgram und Kishino \cite{milgram_taxonomy_1994} beschrieben. Dabei handelt es sich um ein Spektrum, welches sich zwischen der realen und der virtuellen Welt aufspannt (siehe Abb. \ref{fig:4.1}). Unter der virtuellen Welt wird hierbei die \emph{Virtuelle Realität} (VR) verstanden, welche sich dadurch kennzeichnet, dass der Nutzer vollständig in eine digitalisierte Umgebung eintaucht, ohne seine reale Umwelt direkt wahrnehmen zu können. Auf dem MR Spektrum sind reale und virtuelle Welt unterschiedich stark miteinander verschmolzen. Bei der \emph{Augmented Reality} (AR) werden der realen Welt virtuelle Objekte, wie bspw. der Avatar einer sich nicht im Raum befindlichen Person, hinzugefügt \cite{bray_what_nodate}. Bei der \emph{Augmented Virtuality} (AV) werden ausgehend von der virtuellen Welt Eigenschaften des realen Raumes übernommen, wie etwa Hindernisse \cite{bray_what_nodate}. 
+Der Begriff \emph{Mixed Reality} (MR) wurde zuerst von Milgram und Kishino \cite{milgram_taxonomy_1994} beschrieben. Dabei handelt es sich um ein Spektrum, welches sich zwischen der realen und der virtuellen Welt aufspannt (siehe Abb. \ref{fig:3.1}). Unter der virtuellen Welt wird hierbei die \emph{Virtuelle Realität} (VR) verstanden, welche sich dadurch kennzeichnet, dass der Nutzer vollständig in eine digitalisierte Umgebung eintaucht, ohne seine reale Umwelt direkt wahrnehmen zu können. Auf dem MR Spektrum sind reale und virtuelle Welt unterschiedich stark miteinander verschmolzen. Bei der \emph{Augmented Reality} (AR) werden der realen Welt virtuelle Objekte, wie bspw. der Avatar einer sich nicht im Raum befindlichen Person, hinzugefügt \cite{bray_what_nodate}. Bei der \emph{Augmented Virtuality} (AV) werden ausgehend von der virtuellen Welt Eigenschaften des realen Raumes übernommen, wie etwa Hindernisse \cite{bray_what_nodate}. 
 
-Heutzutage wird die MR nicht nur durch die Art des verwendeten Bildschirms beschrieben, sondern zusätzlich durch die Fähigkeit des Geräts, sich im Raum lokalisieren zu können und bspw. Geräusche räumlich korrekt widergeben zu können \cite{bray_what_nodate}. 
+Heutzutage wird die MR nicht nur durch die Art des verwendeten Anzeigegerätes beschrieben, sondern zusätzlich durch die Fähigkeit des Geräts, sich im Raum lokalisieren zu können und bspw. Geräusche räumlich korrekt widergeben zu können \cite{bray_what_nodate}. 
 
-%Platzhalter
-%TODO neue Graphik
+
 %TODO Verweis in Text auf Abbildung
 
 \begin{figure}[ht]
 	\centering
-		\includegraphics[width=0.75\textwidth]{images/IEICEfig1.png}
+		\includegraphics[width=1\textwidth]{images/MRspektrum.png}
 	\caption[Virtuality Continuum]{Mixed Reality Spektrum nach Milgram und Kishino \cite{milgram_taxonomy_1994}}
-	\label{fig:4.1}
+	\label{fig:3.1}
 \end{figure}
  
 
@@ -31,27 +30,34 @@ Heutzutage wird die MR nicht nur durch die Art des verwendeten Bildschirms besch
 Um virtuelle Objekte in der realen Welt anzeigen zu können, werden Displays benötigt. Neben Displays, welche in der Hand gehalten werden und stationär befestigten Displays, gibt es \emph{Head Mounted Displays} (HMDs). Sie werden ähnlich einer Brille auf dem Kopf getragen, das Display befindet sich vor den Augen des Nutzers. 
 Im Bereich AR wird zwischen \emph{video see-through HMD} (VST-HMD) und \emph{optical see-through HMD} (OST-HMD) unterschieden.
 
-Bei VST-HMDs wird ein Video der Umwelt aufgenommen, in welches die virtuellen Objekte mittels Methoden der Computer Vision pixelgenau eingefügt werden \cite{billinghurst_survey_2015}. Es tritt keine Zeitverzögerung zwischen Bild der realen Welt und dem darauf angezeigtem virtuellem Objekt auf. Mittels Tiefenkameras kann eine korrekte räumliche Überlagerung von virtuellen Objekten durch reale Objekte garantiert werden. Ein Nachteil von VST-HMDs ist die Tatsache, dass der Träger des HMDs die Welt nur über das Video wahrnimmt und es so zu Problemen aufgrund von begrenzter Auflösung und zeitlicher Verzögerung zwischen realer Welt und Video kommen kann \cite{billinghurst_survey_2015}.  
+Bei VST-HMDs wird ein Video der Umwelt aufgenommen, in welches die virtuellen Objekte pixelgenau eingefügt werden \cite{billinghurst_survey_2015}. Es tritt keine Zeitverzögerung zwischen Bild der realen Welt und dem darauf angezeigtem virtuellem Objekt auf. 
+%Mittels Tiefenkameras kann eine korrekte räumliche Überlagerung von virtuellen Objekten durch reale Objekte garantiert werden. 
+Ein Nachteil von VST-HMDs ist die Tatsache, dass der Träger des HMDs die Welt nur über das Video wahrnimmt und es so zu Problemen aufgrund von begrenzter Auflösung und zeitlicher Verzögerung zwischen realer Welt und Video kommen kann \cite{billinghurst_survey_2015}.  
 
 OST-HMDs hingegen sind Displays, welche durchsichtig sind und so den Blick auf die reale Umgebung ermöglichen. Dadurch gibt es keine Zeitverzögerung zwischen realer Welt und Szene, die der Nutzer sieht, mehr. Allerdings kann es nun zur zeitlichen Verzögerung im Rendering des virtuellen Objektes kommen. Ein weiteres großes Problem ist das Registrieren der virtuellen Objekte mit der Umwelt, da bei OST-HMDs zum positionieren dieser Objekte keine Methoden der Computer Vision verwendet werden können \cite{billinghurst_survey_2015}. Die in dieser Arbeit verwendete Microsoft Hololens lässt sich zu den OST-HMDs zählen. 
 
-
+%TODO Michas Kommentar und nochmal in Quelle nachlesen
 
 
 \section{Registrierung}
 
-Im medizinischen Bereich ist es wünschenswert, verschiedene Datensätze, welche bspw. durch unterschiedliche Bildgebende Verfahren oder zu verschiedenen Zeitpunkten im Krankheitsverlauf entstanden sind, in Übereinstimmung zu bringen. So können die Datensätze gleichzeitig angezeigt werden, was die Interpretation erleichtert und das aufwändige Wechseln zwischen den verschiedenen Medien vermeidet. Dies ermöglicht eine Verbesserung von Diagnose, Planung und Therapie. Dieser Prozess des in-Übereinstimmung-bringens wird \emph{Registrierung} genannt.
+Im medizinischen Bereich ist es wünschenswert, verschiedene Datensätze, welche bspw. durch unterschiedliche Bildgebende Verfahren oder zu verschiedenen Zeitpunkten im Krankheitsverlauf entstanden sind, in räumliche Übereinstimmung zu bringen. So können die Datensätze am gleichen Ort angezeigt werden, was die Interpretation erleichtern kann und das aufwändige Wechseln zwischen den verschiedenen Medien vermeidet. Dies ermöglicht eine Verbesserung von Diagnose, Planung und Therapie. Dieser Prozess des räumlichen in-Übereinstimmung-bringens wird \emph{Registrierung} genannt. %TODO quelle
 
-In der AR bezieht sich der Begriff Registrierung auf das Problem, die Objekte der virtuellen und realen Welt miteinander in Einklang zu bringen \cite{azuma_survey_1997}. Es werden \emph{Ankerpunkte} (Anchor) benötigt, um die Hologramme am korrekten Ort anzuzeigen und dort zu halten, selbst wenn der Nutzer sich im Raum bewegt. Als Anchor können u.a. reale Objekte im Raum, bspw. Image Marker aus Papier, genutzt werden \cite{billinghurst_survey_2015}. Nach der initialen Registrierung, bei welcher die Position und Rotation (\emph{Pose}) des Nutzers in Relation zum Anchor bestimmt werden, müssen diese kontinuierlich aktualisiert werden, da der Nutzer sich im Raum bewegt \cite{billinghurst_survey_2015}. Im Folgenden werden verschiedene Tracking Methoden genannt.
+In der AR bezieht sich der Begriff Registrierung auf das Problem, die Objekte der virtuellen und realen Welt miteinander in Einklang zu bringen \cite{azuma_survey_1997}. 
+
+%TODO ganz viel
+
+Es werden \emph{Ankerpunkte} (Anchor) benötigt, um die Hologramme am korrekten Ort anzuzeigen und dort zu halten, selbst wenn der Nutzer sich im Raum bewegt. Als Anchor können u.a. reale Objekte im Raum, bspw. Image Marker aus Papier, genutzt werden \cite{billinghurst_survey_2015}. Nach der initialen Registrierung, bei welcher die Position und Rotation (\emph{Pose}) des Nutzers in Relation zum Anchor bestimmt werden, müssen diese kontinuierlich aktualisiert werden, da der Nutzer sich im Raum bewegt \cite{billinghurst_survey_2015}. Im Folgenden werden verschiedene Tracking Methoden genannt.
 
 
 
-\section{AR Tracking}
+\section{Augmented Reality Tracking}
 
-Generell gibt es verschiedene Tracking Methoden, wie Magnetisches Tracking, Sichtbasiertes Tracking, Inertial Tracking oder hybride Anwendungen.
+In dieser Arbeit wird unter Tracking das Finden und Verfolgen von Objekten (Marker) im Raum verstanden.
+Generell gibt es verschiedene Tracking Methoden, wie magnetisches Tracking, sichtbasiertes Tracking, Inertial Tracking oder hybride Anwendungen \cite{billinghurst_survey_2015}.
 
 Sichtbasiertes Tracking zeichnet sich dadurch aus, dass zur Berechnung der Kamerapose im Verhältnis zu Objekten im Raum Methoden aus der Computer Vision genutzt werden \cite{rabbi_survey_2013}. 
-Da in dieser Arbeit sichtbasiertes Tracking verwendet wurde, wird nur dieses im Weiteren erläutert.
+Da in dieser Arbeit sichtbasiertes Tracking verwendet wurde, wird dieses im Weiteren erläutert.
 
 \subsection{Infrarot Tracking}
 Beim Infrarot Tracking wird von einem Marker entweder Infrarot Strahlung ausgesendet (\emph{aktiver Marker}) oder reflektiert (\emph{passiver Marker}). Für die trackende Kamera haben diese Marker einen hohen Kontrast, da sie als helle Punkte vor dunklem Hintergrund erscheinen. Es gibt zwei Ansätze, wie Marker und Kamera konfiguriert sein können: als \emph{outside-looking-in} Konfiguration, bei welcher das zu trackende Objekt mit Markern ausgestattet und von einer stationären Kamera getrackt wird oder als \emph{inside-looking-out} Konfiguration, bei welcher das zu trackende Objekt mit einer Kamera ausgestattet wird und sich anhand von im Raum befestigten Markern orientiert \cite{billinghurst_survey_2015}.
@@ -61,22 +67,19 @@ Beim Infrarot Tracking wird von einem Marker entweder Infrarot Strahlung ausgese
 \subsection{Visible Light Tracking}
  
 %TODO Überarbeiten
-Mit Hilfe von Video Aufnahmen aus RGB-Kameras, wie sie bspw. die Hololens besitzt, lassen sich Hologramme ebenso mit der realen Welt registrieren. Die dazu verwendeten Methoden lassen sich in drei Techniken aufteilen, welche im Folgenden erläutert werden. 
-
-
+Mit Hilfe von Video Aufnahmen aus RGB-Kameras, wie sie bspw. die Hololens besitzt, lassen sich Objekte ebenso in der realen Welt erkennen und verfolgen. Die dazu verwendeten Methoden lassen sich in drei Techniken aufteilen, welche im Folgenden erläutert werden. 
 
 \textbf{Fiducial Tracking} 
 
-\emph{Fiducials} sind phyische Objekte, die in der realen Welt platziert werden (siehe Abb.\ref{fig:4.2}). Sie können als Anchor für virtuelle Objekte genutzt werden, um diese im Raum zu positionieren. Wie ein Fiducial aussieht, ist stark von dem Algorithmus abhängig, der zum Tracken genutzt wird. So gibt es einfarbige Fiducials, die per Color Matching getrackt werden können \cite{billinghurst_survey_2015}. Hierbei muss beachtet werden, dass ein einzelner, einfarbiger Marker nicht genügend Informationen enthält, um die Kamerapose zu bestimmen. Es müssen mindestens vier Punkte im Raum erkannt werden, um diese berechnen zu können \cite{billinghurst_survey_2015}. Es muss also darauf geachtet werden, die Marker so in der realen Welt zu positionieren, dass zu jeder Zeit mindestens vier einfarbige Fiducials sichtbar sind. Dieser Mehraufwand kann vermieden werden, indem planare quadratische Marker verwendet werden, deren Ecken als die vier bekannten Punkte dienen. Zusätzlich kann ein Bild dem Marker hinzugefügt werden, um zu ermöglichen, dass mehrere Marker zeitgleich verwendet und voneinander unterschieden werden können, sowie die Rotation um die vertikale Achse feststellen zu können, wie es bspw. beim ARToolkit der Fall ist \cite{billinghurst_survey_2015}.
+\emph{Fiducials} (auch als \emph{Marker} bezeichnet) sind phyische Objekte, die in der realen Welt platziert werden (siehe Abb.\ref{fig:3.2}). Sie können als Anchor für virtuelle Objekte genutzt werden, um diese im Raum zu positionieren. Wie ein Fiducial aussieht, ist stark von dem Algorithmus abhängig, der zum Erkennen genutzt wird. So gibt es einfarbige Fiducials, die per Color Matching getrackt werden können \cite{billinghurst_survey_2015}. Hierbei muss beachtet werden, dass ein einzelner, einfarbiger Marker nicht genügend Informationen enthält, um die Kamerapose zu bestimmen. Es müssen mindestens vier Punkte im Raum erkannt werden, um diese berechnen zu können \cite{billinghurst_survey_2015}. Es muss also darauf geachtet werden, die Marker so in der realen Welt zu positionieren, dass zu jeder Zeit mindestens vier einfarbige Fiducials sichtbar sind. Dieser Mehraufwand kann vermieden werden, indem planare quadratische Marker verwendet werden, deren Ecken als die vier bekannten Punkte dienen. Zusätzlich kann ein Bild dem Marker hinzugefügt werden, um zu ermöglichen, dass mehrere Marker zeitgleich verwendet und voneinander unterschieden werden können, sowie die Rotation um die vertikale Achse feststellen zu können \cite{billinghurst_survey_2015}.
 
 \begin{figure}[ht]
 	\centering
 		\includegraphics[width=0.75\textwidth]{images/fiducials.png}
-	\caption[Fiducials]{Beispiel planare Fiducials und einfarbige Fiducials (beim zeichnen vergessen)}
-	\label{fig:4.2}
+	\caption[Fiducials]{Beispiele für verschiedene Fiducials  \cite{billinghurst_survey_2015} }
+	\label{fig:3.2}
 \end{figure}
 
-%genauer auf ARToolkit u.ä. eingehen?
 
 \textbf{Natural Feature Tracking}
 
@@ -91,19 +94,117 @@ Beim modellbasiertem Tracking wird ein 3D-Modell des Objektes genutzt, welches g
 
 \subsection{3D Structure Tracking}
 
-Es ist möglich, mit Hilfe von 3D-Kamerasystemen Tiefendaten zu erhalten. Diese Tiefendaten werden mittels Methoden wie time-of-flight oder strukturiertem Licht erzeugt. Bei ersterem wird die Laufzeit eines Lichtimpulses zum Objekt und zurück gemessen, sodass für jeden Pixel in der Szene eine Laufzeitmessung und somit die Distanz zur Kamera bekannt ist \cite{szeliski_computer_nodate}.
+Es ist möglich, mit Hilfe von 3D-Kamerasystemen Tiefendaten zu erhalten. Diese Tiefendaten werden mittels Methoden wie time-of-flight oder strukturiertem Licht erzeugt. Bei ersterem wird die Laufzeit eines Lichtimpulses zum Objekt und zurück gemessen, sodass für jeden Pixel in der Szene die Laufzeit und somit die Distanz zur Kamera bekannt ist \cite{szeliski_computer_nodate}.
 %Szeliski Buch Kapitel 12 Zitat
-Bei strukturiertem Licht werden Streifen oder Punkte auf eine Oberfläche projiziert. Durch die Oberfläche wird das projizierte Muster verzerrt. Mithilfe von optischer Triangulation kann nun die 3D Position der Punkte bestimmt werden \cite{szeliski_computer_nodate}. 
-Die KinectFusion nutzt strukturiertes Licht um 3D Modelle von Objekten und vom Raum zu erstellen, welche wiederum zum Tracken der Pose der Kamera genutzt werden \cite{billinghurst_survey_2015}.
+Bei strukturiertem Licht werden Muster auf eine Oberfläche projiziert. Durch die Oberfläche wird das projizierte Muster verzerrt. Mithilfe von optischer Triangulation kann nun die 3D Position der Punkte bestimmt werden \cite{szeliski_computer_nodate}. 
+Die Kinect nutzt strukturiertes Licht um 3D Modelle von Objekten und vom Raum zu erstellen, welche wiederum zum Tracken der Pose der Kamera genutzt werden \cite{billinghurst_survey_2015}. 
 
 
 \section{Phantom}
 
-Unter einem \emph{Phantom} wird in der Medizin die Nachbildung eines Organs verstanden, an welchem Übungen und Experimente durchgeführt werden können. Das in dieser Arbeit verwendete Phantom ist das \emph{open-source Heidelberg laparoscopic phantom} (Open-HELP). Es wurde nach dem CT-Scan des Torsos eines männlichen Patienten modelliert \cite{noauthor_openhelp_nodate}. Der Torso enthält naturgetreue Organe und eine abnehmbare Bauchdecke (siehe Abb. \ref{fig:4.3}). 
+Unter einem \emph{Phantom} wird in der Medizin die Nachbildung von Organen verstanden, an welchen Übungen und Experimente durchgeführt werden können. Das in dieser Arbeit verwendete Phantom ist das \emph{open-source Heidelberg laparoscopic phantom} (Open-HELP) \cite{noauthor_openhelp_nodate}. Es wurde nach dem CT-Scan des Torsos eines männlichen Patienten modelliert. Der Torso enthält naturgetreue Organe und eine abnehmbare Bauchdecke (siehe Abb. \ref{fig:3.3}). 
 
 \begin{figure}[ht]
 	\centering
 		\includegraphics[width=1\textwidth]{images/phantomBauchdecke.jpg}
 	\caption[Open-HELP Phantom]{Open-HELP Phantom mit und ohne Bauchdecke}
-	\label{fig:4.3}
+	\label{fig:3.3}
 \end{figure}
+
+\section{Microsoft Hololens}
+
+Das in dieser Arbeit genutzte Optical See-Through HMD ist die Hololens der ersten Generation. Die Hololens wurde 2016 von der Microsoft Corporation auf den Markt gebracht. Sie übertrifft andere kommerziell verfügbaren OST-HMDs in Kontrast und Stabilität der Bildwiederholrate und hat eine geringere Zeitverzögerung \cite{qian_comparison_2017}. Die Hololens ist nicht kabelgebunden, lässt sich über Handgesten sowie Sprachbefehle steuern und gefährdet somit nicht die Sterilität im Operationssaal \cite{pratt_through_2018}.
+
+Ein virtuelles Objekt, welches von der Hololens angezeigt wird, wird \emph{Hologramm} genannt. Die Hololens projiziert ein Hologramm auf zwei Durchsichtdisplays (\emph{Waveguides)}, für jedes Auge eines. Für jeden Waveguide gibt es eine \emph{Light Engine}, welche die holographischen Inhalte projiziert. Mit Hilfe von vier Umgebungssensoren und einer Time-of-Flight Tiefenkamera kann die Hololens eine Karte des Raumes erstellen (\emph{Spatial Mapping}) und sich selbst darin positionieren. Die Tiefenkamera wird zusätzlich zur Erkennung der Handgesten genutzt. \cite{varnauld_mixed_nodate}
+%TODO richtiges Zitat Mixed Reality Documentation
+%TODO Was sind umgebungssensoren?
+\\ \textbf{Technische Daten}
+
+\begin{figure}[h!]
+\centering
+\begin{tabular}{ll}
+\hline
+\textbf{Komponente}    & \textbf{Daten}   \\
+\hline
+\textbf{Optik}      & 2 Durchsichtdisplays (Waveguides)\\
+          & 2 HD 16:9 Light Engines \\
+          &\\
+\textbf{Holographische Auflösung} & 2,3 Millionen Lichtpunkte\\
+  &\\
+\textbf{Holographische Dichte} & mehr als 2500 Radianten \\
+&(2500 Lichtpunkte pro Radiant, \\
+& wobei $1 rad \approx 57,3^\circ $ ) \\
+  &\\
+\textbf{Sensoren}       & 1 IMU (Inertiale Messeinheit)       \\
+& 4 Umgebungssensoren \\
+& 1 Tiefenkamera (Time-of-Flight) \\
+&1 2MP HD Kamera \\
+&4 Mikrofone\\
+&1 Umgebungslichtsensor\\
+  &\\
+\textbf{Interaktion}       & räumlicher Ton           \\
+& Blickverfolgung\\
+& Handgesten \\
+& Sprachsteuerung (bei Internetverbingung)\\
+  &\\
+\textbf{Leistung} & 2-3 Stunden aktive Nutzung            \\
+  &\\
+\textbf{Prozessoren} &    Intel 32 bit architecture \\
+& Microsoft Holographic Processing Unit (HPU 1.0)         \\
+  &\\
+\textbf{Betriebssystem} & Windows 10           \\
+\hline
+\end{tabular}
+\caption[Hololens Daten]{Quelle: Angaben des Herstellers\footnotemark}
+\label{fig:3.4} 
+\end{figure}
+
+\footnotetext{https://docs.microsoft.com/en-us/windows/mixed-reality/hololens-hardware-details (Stand: 02.09.2019)}
+
+
+\section{NDI Polaris Vega}
+
+Die Polaris Vega von Northern Digital Inc. ist ein Infrarot Tracking System zur Anwendung im medizinischen Bereich. Die Polaris ist als outside-looking-in System konfiguriert. Die zu trackenden Objekte werden mit Markern ausgestattet und von einem stationären Infrarotsensor verfolgt. Die Polaris kann sowohl aktive als auch passive Marker tracken. Aktive Marker werden durch ein elektrisches Signal aktiviert und senden Infrarotstrahlung aus. Passive Marker besitzen mindestens drei reflektive Kugeln. Der Infrarotsensor der Polaris sendet Infrarotstrahlung aus, welche von den passiven Markern reflektiert wird. Anhand der erhaltenen Informationen kann der Infrarotsensor die Position und Rotation der Marker bestimmen. 
+
+\textbf{Technische Daten}
+
+%https://www.ndigital.com/medical/products/polaris-family/ 11.08.2019
+
+\begin{figure}[h!]
+\centering
+\begin{tabular}{ll}
+\hline
+\textbf{Komponente}    & \textbf{Daten}   \\
+\hline
+\textbf{Marker}      & passiv, kabellos aktiv\\
+          &\\
+\textbf{Max. Anzahl passiver Marker} & 25 passive Marker\\
+  &\\
+\textbf{Max. Update Rate} & 60Hz (standard) / 250Hz (optional) \\
+&\\
+\textbf{Infrarotsensor Maße} & 591 mm x 103 mm x 106 mm\\
+&\\
+\textbf{Infrarotsensor Anbringung} &  Anbringung erhöht an Wand oder Stativ\\
+&Fixierung an Rückseite\\
+&\\
+\textbf{Max. Messvolumen} & Beginn Messung in 950 mm Entfernung von \\ &  Infrarotsensor 1856 mm x 1470 mm x 2050 mm \\
+&(Breite x Höhe x Tiefe)\\
+\hline
+\end{tabular}
+\caption[Polaris Daten]{Quelle: Angaben des Herstellers\footnotemark}
+\label{fig:3.5}
+\end{figure} 
+
+\footnotetext{https://www.ndigital.com/medical/products/polaris-vega/ (Stand: 20.08.2019)}
+\section{Unity}
+
+\emph{Unity} ist eine Gaming Engine entwickelt von Unity Technologies. Sie kann zum Entwickeln von 3D- und 2D-Spielen genutzt werden, sowie unter anderem zum Erstellen von AR- und VR-Anwendungen. Unity unterstützt mehr als 25 Plattformen, darunter auch die Universal Windows Plattform, welche auf der Hololens genutzt wird. Microsoft empfiehlt Unity zum Entwickeln von MR-Anwendungen für die Hololens, mit der Begründung, dass Unity 'die schnellste Methode zum Erstellen einer Mixed Reality-App' sei \cite{varnauld_mixed_nodate}.
+%Wie die MR Docs zitieren?
+In dieser Arbeit wurde Unity in der Version 2018.2.21f1 genutzt.
+
+\section{Mixed Reality Toolkit}
+
+Das \emph{Mixed Reality Toolkit \footnote{https://microsoft.github.io/MixedRealityToolkit-Unity/README.html (Stand: 11.08.2019)}} (MRTK) für Unity ist ein von Microsoft geleitetes Open Source Projekt zur Unterstützung und Beschleunigung der Entwicklung für die Hololens, Windows Mixed Reality immersive (VR) Headsets und OpenVR. Es enthält verschiedene Bauteile in Form von Skripten und vorgefertigten Objekten (Assets). 
+Eines dieser Assets ist das \emph{Input Manager Prefab}, das sich unter anderem aus einem \emph{Gaze Manager}, einem \emph{Input Manager} und einem \emph{Focus Manager} Skript zusammensetzt. Mit Hilfe dieser Skripte lässt sich der Kopfdrehung des Nutzers verfolgen und Gesten erkennen. Die Verfolgung der Kopfdrehung ermöglicht das Anzeigen eines Cursors für den Nutzer und dadurch das Anfokussieren einzelner Objekte in der Szene. So besteht die Möglichkeit, Objekte bei Fokussierung farblich hervorzuheben oder weitere Informationen anzuzeigen, die sonst nicht sichtbar sind. 
+In dieser Arbeit wurde die MRTK Version 2017.4.3.0 verwendet.
+%https://microsoft.github.io/MixedRealityToolkit-Unity/README.html 11.08.2019

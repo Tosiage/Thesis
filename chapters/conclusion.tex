@@ -24,33 +24,37 @@ Ist ein Ausreißer durch eine schlechte Kalibrierung zustande gekommen, so läss
 
 Die deutliche Mehrheit der Nutzer war eher zufrieden bis sehr zufrieden mit ihrer Kalibrierung, zusätzlich wurde die Bedienung Anwendung von der Mehrheit der Nutzer als eher intuitiv bis intutiv bewertet. Daraus lässt sich schließen, dass trotz des Springens des Hologramms, wenn ein Marker falsch erkannt wird, das Programm gut nutzbar ist. 
  
-\section{Weiterführende Arbeit}
+\section{Weiterführende Arbeiten}
 
 Im Folgenden werden Ansätze genannt, wie die prototypische Anwendung, die in dieser Arbeit entwickelt wurde, in zukünftigen Arbeiten verbessert werden kann.
 
 \textbf{Hololens 2}
 
-Während der Nutzung merkten Probanden sowohl das kleine Display der Hololens an, sowie den nicht sehr hohen Tragecomfort. Die Hololens 2, welche in naher Zukunft verfügbar sein wird, besitzt ein vergrößertes Display, sodass größere Hologramme nicht mehr abgeschnitten werden. Zusätzlich befindet sich der Schwerpunkt nicht mehr wie bisher vorn über dem Display, sondern hinten, sodass die Hololens 2 auch über längere Zeit angenehm getragen werden kann.
+Während der Nutzung merkten Probanden sowohl das kleine Display der Hololens an, sowie den nicht sehr hohen Tragecomfort. Die Hololens 2, welche in naher Zukunft verfügbar sein wird, besitzt ein vergrößertes Display, sodass größere Hologramme weniger abgeschnitten werden. Zusätzlich befindet sich der Schwerpunkt nicht mehr wie bisher vorn über dem Display, sondern hinten, sodass die Hololens 2 auch über längere Zeit angenehm getragen werden kann.
 
 \textbf{Marker}
 
 In dieser Arbeit wurde nicht getestet, wie sich die Größe und Verteilung der Marker auf dem Phantom auf das Tracking und die Kalibrierung auswirkt. Es ist möglich, dass durch eine andere Verteilung der Marker am Phantom das Tracking stabiler wird. Ebenso könnten größere Marker dafür sorgen, dass sie auch von einer größeren Entfernung aus korrekt erkannt und getrackt werden können. 
-Es ist auch möglich, dass die genannten Probleme dadurch behoben werden können, dass eine andere Marker als Vuforia Marker verwendet werden.
+Es ist auch möglich, dass die genannten Probleme dadurch behoben werden können, dass anders Marker als Vuforia Marker verwendet werden.
 
 \textbf{Algorithmus zur Erkennung von falsch getrackten Markern}
 
-In dieser Arbeit wird zur Ermittlung der Pose des Hologramms die Pose der getrackten Marker mit dem in den TargetDatas gespeicherten Offsets verrechnet. Wird ein Marker falsch getrackt (bspw. in einem falschen Winkel), nimmt dieser falsche Winkel starken Einfluss auf die Pose des Hologramms: Das Hologramm wirkt, als würde es an eine andere Position springen. Dies führt zu Verwirrung bei Nutzern und erhöht die Schwierigkeit der Kalibrierung. Zusätzlich kann es dadurch zu einer falschen Kalibrierung des Offsets zum Hologramm kommen. Um dies zu vermeiden könnte ein Algorithmus entwickelt werden, welcher erkennt, wenn ein Marker falsch getrackt wird und dafür sorgt, dass dieser Marker für die Dauer, die er falsch erkannt wird, keinen Einfluss auf die Pose des Hologramms nimmt und nicht kalibriert werden kann.  
+In dieser Arbeit wird zur Ermittlung der Pose des Hologramms die Pose der getrackten Marker mit den gespeicherten Offsets pro Marker multipliziert und anschließend gemittelt. Wird ein Marker falsch getrackt (bspw. in einem falschen Winkel), nimmt dieser falsche Winkel starken Einfluss auf die Pose des Hologramms: Das Hologramm wirkt, als würde es an eine andere Position springen. Dies führt zu Verwirrung bei Nutzern und erhöht die Schwierigkeit der Kalibrierung. Zusätzlich kann es dadurch zu einer falschen Kalibrierung des Offsets zum Hologramm kommen. Um dies zu vermeiden könnte ein Algorithmus entwickelt werden, welcher erkennt, wenn ein Marker falsch getrackt wird, bspw. durch Abgleich der Pose des Markers mit seiner vorherigen Pose. Ändert sich die Pose plötzlich stark, wird der Marker vermutlich falsch erkannt. Alternativ wäre auch der Abgleich der Pose des Markers mit anderen momentan sichtbaren Markern möglich. So kann dafür gesorgt werden, dass dieser Marker für die Dauer, die er falsch erkannt wird, keinen Einfluss auf die Pose des Hologramms nimmt und nicht kalibriert werden kann.  
 
 \textbf{Zusätzliche Eingabemethoden}
 
-In dieser Anwendung wird ausschließlich die Air-Tap Geste der Hololens genutzt. Da der Save-Button zum Kalibieren gleichzeitig mit den Markern sichtbar sein muss, zum Betätigen des Buttons jedoch der Blick vom Marker abgewandt werden muss, führte dies dazu, dass der Marker unter Umständen während des Betätigens des Buttons nicht mehr sichtbar ist. Eine andere Methode zum Speichern, die keinen Button benötigt wäre von Vorteil, beispielsweise eine Spracheingabe, die mit der Hololens möglich ist, oder das verwenden des Klickers, der mit der Hololens mitgeliefert wird.
+In dieser Anwendung wird ausschließlich die Air-Tap Geste der Hololens genutzt. Da der Save-Button zum Kalibieren gleichzeitig mit den Markern sichtbar sein muss, zum Betätigen des Buttons jedoch der Blick vom Marker abgewandt werden muss, führte dies dazu, dass der Marker unter Umständen während des Betätigens des Buttons nicht mehr sichtbar ist und somit die gerade eingegebene Kalibrierung nicht für diesen Marker gespeichert wird. Eine andere Methode zum Speichern, die keinen Button benötigt wäre von Vorteil, beispielsweise eine Spracheingabe, die mit der Hololens möglich ist, oder das verwenden des Klickers, der mit der Hololens mitgeliefert wird.
 
 \textbf{User Interface}
 
-Während der Nutzung der Anwendung mussten die Probanden viel beachten. Viele Probanden vergaßen, dass mindestens ein Marker durchgehend getrackt werden muss, damit das Hologramm korrekt angezeigt wird. Das User Interface der Anwendung wurde sehr minimal implementiert. Eine zusätzliche Implementierungen von Warnungen, die Nutzer darauf hinweisen, wenn keine Marker sichtbar sind, wäre von Vorteil. 
+Während der Nutzung der Anwendung mussten die Probanden viel beachten. Viele Probanden vergaßen, dass mindestens ein Marker durchgehend getrackt werden muss, damit das Hologramm korrekt angezeigt wird. Das User Interface der Anwendung wurde sehr minimalistisch implementiert. Eine zusätzliche Implementierungen von Warnungen, die Nutzer darauf hinweisen, wenn keine Marker sichtbar sind, wäre von Vorteil. 
+
+\textbf{Schrittgröße bei Kalibrierung}
+
+Die Schrittgröße, mit welcher die Nutzer über Knopfdruck das Hologramm verschieben können, ist mit 1cm bzw. 1$^\circ$ relativ groß gewählt. Die Schrittgröße muss kleiner gewählt werden oder eine Alternative zur Kalibrierung über Buttons entwickelt werden, da für medizinische Anwendungen eine sub-cm Genauigkeit in der Kalibrierung wünschenswert wäre.
 
 
-\section{Zusammenfassung und Ausblick}
+\section{Zusammenfassung}
 
 
 Das Ziel der Arbeit, ein 3D-Modell des Phantoms mit dem realen Objekt zu registrieren, wurde erreicht. Es konnte zum Tracken von Phantom und Hololens auf ein externes Trackingsystem verzichtet werden. Auch bei der Kalibrierung war es möglich, auf ein externes Trackingsystem zu verzichten.

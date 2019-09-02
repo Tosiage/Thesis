@@ -1,135 +1,52 @@
 \chapter{\iflanguage{english}{Methods}{Methoden}}
 \label{cha:methods}
 
-Im Folgenden Kapitel wird auf die in dieser Arbeit genutzte Hardware und SDKs eingegangen, sowie auf die verschiedenen Ansätze zum Versuchsaufbau, die verfolgt wurden. Es wird des Kalibrierungsvorgang erläutert und zuletzt das User Interface, welches genutzt wurde.
-%TODO mehr
+Im Folgenden Kapitel wird eine Übersicht über den Versuchsaufbau und die evaluierten Methoden gegeben. Es wird auf das in dieser Arbeit genutzte SDK (Vuforia) eingegangen. Der Kalibrierungs- und Registrierungsvorgang wird erläutert und zuletzt das User Interface, welches entwickelt wurde.
 
-\section{Microsoft Hololens}
 
-Das in dieser Arbeit genutzte Optical See-Through HMD ist die Hololens der ersten Generation. Die Hololens wurde 2016 von der Microsoft Corporation auf den Markt gebracht. Sie übertrifft andere kommerziell verfügbaren OST-HMDs in Kontrast und Stabilität der Bildwiederholrate und hat eine geringere Zeitverzögerung \cite{qian_comparison_2017}. Die Hololens ist nicht kabelgebunden, lässt sich über Handgesten sowie Sprachbefehle steuern und gefährdet somit nicht die Sterilität im Operationssaal \cite{pratt_through_2018}.
+\section{Aufbau}
 
-Ein virtuelles Objekt, welches von der Hololens angezeigt wird, wird \emph{Hologramm} genannt. Die Hololens projiziert ein Hologramm auf zwei Durchsichtdisplays (\emph{Waveguides)}, für jedes Auge eines. Im Gegensatz zu Video See-Through HMDs, welche bei einem Stromausfall dem Nutzer jegliche Sicht versperren, ermöglichen die Waveguides zeitgleich die Sicht auf die reale Umgebung. Für jeden Waveguide gibt es eine \emph{Light Engine}, welche die holographischen Inhalte projiziert. Mit Hilfe von vier Umgebungssensoren und einer Time-of-Flight Tiefenkamera kann die Hololens eine Karte des Raumes erstellen (\emph{Spatial Mapping}) und sich selbst darin Positionieren. Die Tiefenkamera wird zusätzlich zur Erkennung der Handgesten genutzt. \cite{varnauld_mixed_nodate}
-%TODO richtiges Zitat Mixed Reality Documentation
-
-\textbf{Technische Daten}
-
-\begin{figure}
-\centering
-\begin{tabular}{ll}
-\hline
-\textbf{Komponente}    & \textbf{Daten}   \\
-\hline
-\textbf{Optik}      & 2 Durchsichtdisplays (Waveguides)\\
-          & 2 HD 16:9 Light Engines \\
-          &\\
-\textbf{Holographische Auflösung} & 2,3 Millionen Lichtpunkte\\
-  &\\
-\textbf{Holographische Dichte} & mehr als 2500 Radianten \\
-&(2500 Lichtpunkte pro Radiant, \\
-& wobei $1 rad \approx 57,3^\circ $ ) \\
-  &\\
-\textbf{Sensoren}       & 1 IMU (Inertiale Messeinheit)       \\
-& 4 Umgebungssensoren \\
-& 1 Tiefenkamera (Time-of-Flight) \\
-&1 2MP HD Kamera \\
-&4 Mikrofone\\
-&1 Umgebungslichtsensor\\
-  &\\
-\textbf{Interaktion}       & räumlicher Ton           \\
-& Blickverfolgung\\
-& Handgesten \\
-& Sprachsteuerung (bei Internetverbingung)\\
-  &\\
-\textbf{Leistung} & 2-3 Stunden aktive Nutzung            \\
-  &bis zu 2 Wochen standby\\
-  &nutzbar während des Ladevorgangs\\
-  &passive Kühlung\\
-  &\\
-\textbf{Prozessoren} &    Intel 32 bit architecture \\
-& Microsoft Holographic Processing Unit (HPU 1.0)         \\
-  &\\
-\textbf{Betriebssystem} & Windows 10           \\
-\hline
-\end{tabular}
-\caption[Hololens Daten]{Technische Daten zur Hololens wie angegeben von Microsoft}
-\label{fig:4.5}
+\begin{figure}[h!]
+	\centering
+		\includegraphics[width=1\textwidth]{images/versuchsaufbauBeschriftet.png}
+	\caption[Aufbau]{Aufbau der Anwendung; $P$: Phantom; $H$: Hologramm; $i$: Fiducial; $\mathit{poseHMD}$: Pose (Rotation und Position) des HMDs im Raum; $\mathit{poseH}$: ermittelte Pose des Phantoms im Raum und somit Pose, an welcher das Hologramm angezeigt wird; $\mathit{pose_i}$: Pose des Fiducials $i$ im Raum; $\mathit{offset_i}$: Offset des Fiducials $i$ zum Phantom; \textbf{(a)} Model Tracking, Tracking der Bauchplatte anhand von natürlichen Merkmalen; \textbf{(b)} Tracking eines Fiducials}
+	\label{fig:4.1}
 \end{figure}
 
+Das HMD visualisiert das Hologramm am Phantom. Um das Hologramm an der korrekten Position anzuzeigen, muss die Lage des Phantoms im Raum bekannt sein. Dazu muss das Phantom vom HMD gefunden und verfolgt werden (\emph{Tracking}, vgl.\ref{vuforia}). In dieser Arbeit werden zwei Methoden zum Registrieren von Phantom und Hologramm getestet und evaluiert (vgl. \ref{registrierung}). Die erste Methode ist das Model Tracking (siehe Abb.\ref{fig:4.1}(a)). Dabei wird die Bauchplatte des Phantoms mit Hilfe von Kantendetektion und Abgleich mit einer Datenbank vom HMD gefunden. Das Tracken von natürlichen Merkmalen der Bauchplatte dient zur Stabilisierung. Die Position des Phantoms ist nun bekannt und das Hologramm kann dort angezeigt werden. Model Tracking eignet sich nicht für den Einsatz am Patienten, da für diese Methode ein CAD Model des Objektes zur Verfügung stehen muss, welches viele geometrische Details und natürliche Merkmale aufweist, welche für das Tracking genutzt werden können. Für den Einsatz an einem Phantom bietet es jedoch den Vorteil, dass keine zusätzlichen Fiducials am Phantom angebracht werden müssen.  
+
+Die zweite Methode ist das Tracking des Phantoms mit Hilfe von Fiducials (auch \emph{Marker}). Am Phantom werden Fiducials $i$ angebracht, welche vom HMD gefunden und verfolgt werden können (siehe Abb.\ref{fig:4.1}(b)). Der Offset $\mathit{offset_i}$ zwischen jedem Fiducial und dem Phantom muss bekannt sein. Die Pose des Phantoms und somit auch die Pose des Hologramms $\mathit{poseH}$ wird nun bestimmt, indem die Pose $\mathit{pose_i}$ jedes Fiducials mit dem jeweiligen $\mathit{offset_i}$ multipliziert wird. Sowie Pose als auch Offset beinhalten Position und Rotation. Anschließend wird das Hologramm angezeigt. Um den Offset zwischen Phantom und Fiducial zu bestimmen, muss dieser im Vorfeld kalibriert werden.
+
+Kalibriert wird dieser Offset mittels zwei Methoden, zum einen vom Träger der Hololens selbst, zum anderen mit einem externen Infrarot-Trackingsystem, der Polaris Vega (vgl. \ref{registrierung}). Die Kalibrierung über die Hololens erfolgt indem der Nutzer zu Beginn einen beweglichen, nicht am Phantom befestigten Fiducials, an welchem das Hologramm hängt, auf das Phantom legt. Anschließend kann der Nutzer per Knopfdruck die Position und Rotation des Hologramms verändern. Zuletzt wird für jedes Fiducial $i$ der aktuelle Offset $\mathit{offset_i}$ zum Hologramm abgespeichert. Damit ist die Kalibrierung der Offsets abgeschlossen. 
+
+Alternativ können die Offsets mit der Polaris kalibriert werden. Hierbei werden die Fiducials mit dem Pointer der Polaris abgefahren und so der Offset zu einem am Phantom befestigten passiven Infrarot-Marker bestimmt. Der Offset dieses Infrarot-Markers zum Ursprung des Phantoms ist bekannt, sodass der Offset $\mathit{offset_i}$ der Fiducials zum Phantom berechnet werden kann. Die Kalibrierung mit der Polaris wird unter der Annahme durchgeführt, dass sie genauer ist als die Kalibrierung mit der Hololens und daher zu Evaluationszwecken genutzt werden kann.
 
 
-\section{NDI Polaris Vega}
+\section{Vuforia Augmented Reality SDK} \label{vuforia}
 
-Die Polaris Vega von Northern Digital Inc. ist ein Infrarot Tracking System zur Anwendung im medizinischen Bereich. Die Polaris ist als outside-looking-in System konfiguriert und somit nicht sehr mobil. Die zu trackenden Objekte werden mit Markern ausgestattet und von einem stationären Infrarotsensor getrackt. Die Polaris kann sowohl aktive als auch passive Marker tracken. Aktive Marker werden durch ein elektrisches Signal aktiviert und senden Infrarotstrahlung aus. Passive Marker besitzen mindestens drei reflektive Kugeln. Der Infrarotsensor der Polaris sendet Infrarotstrahlung aus, welche von den passiven Markern reflektiert wird. Anhand der erhaltenen Informationen kann der Infrarotsensor die Position und Rotation der Marker bestimmen. 
-
-\textbf{Technische Daten}
-
-%https://www.ndigital.com/medical/products/polaris-family/ 11.08.2019
-%https://www.ndigital.com/medical/products/polaris-vega/ 20.08.2019
-
-\begin{figure}
-\centering
-\begin{tabular}{ll}
-\hline
-\textbf{Komponente}    & \textbf{Daten}   \\
-\hline
-\textbf{Marker}      & passiv, kabellos aktiv\\
-          &\\
-\textbf{Max. Anzahl passiver Marker} & 25 passive Marker\\
-  &\\
-\textbf{Max. Update Rate} & 60Hz (standard) / 250Hz (optional) \\
-&\\
-\textbf{Infrarotsensor Maße} & 591 mm x 103 mm x 106 mm\\
-&\\
-\textbf{Infrarotsensor Anbringung} &  Anbringung erhöht an Wand oder Stativ\\
-&Fixierung an Rückseite\\
-&\\
-\textbf{Max. Messvolumen} & Beginn Messung in 950 mm Entfernung von \\ &  Infrarotsensor 1856 mm x 1470 mm x 2050 mm \\
-&(Breite x Höhe x Tiefe)\\
-\hline
-\end{tabular}
-\caption[Polaris Daten]{Technische Daten zur Polaris Vega wie angegeben von NDI}
-\label{fig:4.6}
-\end{figure}
-
-\section{Unity}
-
-\emph{Unity} ist eine Gaming Engine entwickelt von Unity Technologies. Sie kann zum Entwickeln von 3D- und 2D-Spielen genutzt werden, sowie unter anderem zum Erstellen von AR- und VR-Anwendungen. Unity unterstützt mehr als 25 Plattformen, darunter auch die Universal Windows Plattform, welche auf der Hololens genutzt wird. Microsoft empfiehlt Unity zum Entwickeln von MR-Anwendungen für die Hololens, mit der Begründung, dass Unity 'die schnellste Methode zum Erstellen einer Mixed Reality-App' sei \cite{varnauld_mixed_nodate}.
-%Wie die MR Docs zitieren?
-In dieser Arbeit wurde Unity 2018.2.21f1 genutzt.
-
-\section{Mixed Reality Toolkit}
-
-Das \emph{Mixed Reality Toolkit} (MRTK) für Unity ist ein von Microsoft geleitetes Open Source Projekt zur Unterstützung und Beschleunigung der Entwicklung für die Hololens, Windows Mixed Reality immersive (VR) Headsets und OpenVR. Es enthält verschiedene Bauteile in Form von Skripten und vorgefertigten Objekten (Assets). 
-Eines dieser Assets ist das \emph{Input Manager Prefab}, das sich unter anderem aus einem \emph{Gaze Manager}, einem \emph{Input Manager} und einem \emph{Focus Manager} Skript zusammensetzt. Mit Hilfe dieser Skripte lässt sich der Blick des Nutzers verfolgen und Gesten erkennen. Die Verfolgung der Blickrichtung ermöglicht das Anzeigen eines Cursors für den Nutzer und dadurch das Anfokussieren einzelner Objekte in der Szene. So besteht die Möglichkeit, Objekte bei Fokussierung farblich hervorzuheben oder weitere Informationen anzuzeigen, die sonst nicht sichtbar sind. 
-In dieser Arbeit wurde die MRTK Version 2017.4.3.0 verwendet.
-%https://microsoft.github.io/MixedRealityToolkit-Unity/README.html 11.08.2019
-
-\section{Vuforia Augmented Reality SDK}
-
-Vuforia ist ein plattformübergreifendes Software Development Kit zur Entwicklung von Mixed Reality Anwendungen. Vuforia lässt sich sowohl mit iOS- und Android-Geräten als auch mit der Hololens nutzen. Es ist in Unity integriert und ermöglicht durch Methoden der Computer Vision das Tracken von Markern in verschiedenen Formen, wie z.B. das Tracken eines einzelnen Bildes, 3D-Konfigurationen mit mehreren Bildern oder eines 3D Objektes. Vuforia ist nicht open source. Die in dieser Arbeit genutzte Version der Vuforia Engine ist 8.0.10.
+Vuforia \footnote{https://developer.vuforia.com/} ist ein plattformübergreifendes Software Development Kit zur Entwicklung von Mixed Reality Anwendungen. Vuforia lässt sich sowohl mit iOS- und Android-Geräten als auch mit der Hololens nutzen. Es ist in Unity integriert und ermöglicht durch Methoden der Computer Vision das Tracken von Markern in verschiedenen Formen, wie z.B. das Tracken eines einzelnen Bildes, 3D-Konfigurationen mit mehreren Bildern oder eines 3D Objektes. Vuforia ist nicht open source. Die in dieser Arbeit genutzte Version der Vuforia Engine ist 8.0.10.
 
 Vuforia stellt in der Unity Szene ein eigenes Kamera-Asset zur Verfügung, welches in dieser Arbeit Anstelle des MixedRealityCameraParent-Assets aus dem Mixed Reality Toolkit verwendet wird.
 
 \subsection{Vuforia Model Targets}
 
 %https://library.vuforia.com/features/objects/model-targets.html 12.08.2019
-\emph{Vuforia Model Targets} ermöglichen es, Objekte aus der realen Welt basierend auf ihrer Form zu Tracken. Dabei kann es sich um ein kleines Objekt wie ein Spielzeugauto handeln, aber auch um ein großes Objekt, wie ein richtiges Auto. Eine Voraussetzung hierfür ist jedoch, dass ein 3D-Modell (bspw. ein CAD-Modell) des Objektes existiert. Damit das Tracking eines Model Targets gut funktioniert, müssen sowohl das Objekt, als auch das CAD-Modell einige Anforderungen erfüllen.   
+\emph{Vuforia Model Targets\footnote{https://library.vuforia.com/features/objects/model-targets.html (Stand 12.08.2019)}} ermöglichen es, Objekte aus der realen Welt basierend auf ihrer Form zu tracken. Dabei kann es sich um ein kleines Objekt wie ein Spielzeugauto handeln, aber auch um ein großes Objekt, wie ein richtiges Auto. Eine Voraussetzung hierfür ist jedoch, dass ein 3D-Modell (bspw. ein CAD-Modell) des Objektes existiert. Damit das Tracking eines Model Targets gut funktioniert, müssen sowohl das Objekt, als auch das CAD-Modell einige Anforderungen erfüllen.   
 
 Ein Objekt, das getrackt werden soll, sollte:
 \begin{itemize}
 %Fixed Position in Space
-\item Fix im Raum angebracht sein
+\item Unbeweglich im Raum angebracht sein
 
 %Colored or Patterned surface
 \item Eine farbige oder gemusterte Oberfläche besitzen
 
 %Sufficient Geometric Detail
-\item Komplex sein
+\item Eine komplexe geometrische Form mit vielen markanten Punkten besitzen
 
 %non-flexible and rigid
 \item Keine beweglichen Teile haben und nicht verformbar sein
 \end{itemize}
-%TODO genauer?
 
 
 Das CAD-Modell sollte:
@@ -153,17 +70,19 @@ Bei einer untrainierten Datenbank muss das zu trackende Objekt von einer bestimm
 \begin{figure}[ht]
 	\centering
 		\includegraphics[width=0.75\textwidth]{images/guideView.jpg}
-	\caption[Vuforia Guide View]{Guide View auf einem Android Gerät (https://library.vuforia.com/features/objects/model-targets.html) 13.08.2019}
+	\caption[Vuforia Guide View]{Guide View (weiße Silhouette) auf einem Android Gerät \footnotemark}
 	\label{fig:4.1}
 \end{figure}
+
+\footnotetext{https://library.vuforia.com/features/objects/model-targets.html (Stand 13.08.2019)}
 
 \subsection{Vuforia Image Targets}
 
 %https://library.vuforia.com/articles/Training/Image-Target-Guide 14.08.2019
 %https://library.vuforia.com/content/vuforia-library/en/articles/Training/Extended-Tracking.html
-Ein \emph{Vuforia Image Target} ist eine Art Fiducial, das von Vuforia getrackt werden kann. Dabei muss zuerst eine Datenbank im Target Manager des Vuforia Developer Portals angelegt werden. Anschließend kann diese als \emph{.unitypackage} heruntergeladen und in das Unityprojekt importiert werden. Die Vuforia Engine findet und trackt die natürlichen Merkmale in einem Target indem sie diese mit der Datenbank abgleicht. 
+Ein \emph{Vuforia Image Target\footnote{https://library.vuforia.com/articles/Training/Image-Target-Guide (Stand 14.08.2019)}} ist eine Art Fiducial, das von Vuforia getrackt werden kann. Dabei muss zuerst eine Datenbank im Target Manager des Vuforia Developer Portals angelegt werden. Anschließend kann diese als \emph{.unitypackage} heruntergeladen und in das Unityprojekt importiert werden. Die Vuforia Engine findet und trackt die natürlichen Merkmale in einem Target indem sie diese mit der Datenbank abgleicht. 
 
-In Unity kann einem Image Target ein GameObject als Kind hinzugefügt werden. Wird dieses Image Target erkannt und getrackt, wird das Kind des Image Targets gerendert. Vuforia trackt ein Target solange es teilweise im Sichtfeld der Kamera ist. Ist das Target nicht mehr im Sichtfeld der Kamera und kann somit nicht mehr getrackt werden, wird auch das Kind nicht mehr gerendert. Mit Hilfe von \emph{Extended Tracking} kann die Robustheit des Trackings erhöht werden. Extended Tracking bedeutet, dass die Pose des Targets bekannt bleibt, obwohl das Target sich nicht mehr im Sichtfeld des Gerätes befindet. Dies wird mit Hilfe des \emph{Positional Device Trackers} erreicht, der seit der Vuforia Engine 7.2 standardmäßig aktiviert ist. Durch Extended Tracking ist es möglich, komplexe Hologramme anzuzeigen, bei welchen das Target durch die Hologrammgröße bei Betrachtung nicht konstant im Sichtfeld ist oder bei welchen das Target durch Nutzung von Handgesten stellenweise verdeckt wird.
+Vuforia trackt ein Target solange es teilweise im Sichtfeld der Kamera ist. Ist das Target nicht mehr im Sichtfeld der Kamera und kann somit nicht mehr getrackt werden. Mit Hilfe von \emph{Extended Tracking\footnote{https://library.vuforia.com/content/vuforia-library/en/articles/Training/Extended-Tracking.html (Stand 14.08.2019)}} kann die Robustheit des Trackings erhöht werden. Extended Tracking bedeutet, dass die Pose des Targets bekannt bleibt, obwohl das Target sich nicht mehr im Sichtfeld des Gerätes befindet. Dies wird mit Hilfe des \emph{Positional Device Trackers} erreicht, der seit der Vuforia Engine 7.2 standardmäßig aktiviert ist. Durch Extended Tracking ist es möglich, komplexe Hologramme anzuzeigen, bei welchen das Target durch die Hologrammgröße bei Betrachtung nicht konstant im Sichtfeld ist oder bei welchen das Target durch Nutzung von Handgesten stellenweise verdeckt wird.
 
 \textbf{Image Target Optimierung}
 
@@ -174,12 +93,12 @@ Das Vuforia Developer Portal bietet eine Bewertung von 0 bis 5 Sternen für hoch
 \item keine sich wiederholenden Muster haben.
 \end{itemize} 
 
-Vuforia analysiert ein hochgeladenes Bild auf seine Merkmale und speichert Bild und Merkmale in einer Datenbank ab. Unter Merkmal versteht Vuforia "ein scharfes, spitzes, kantiges Detail im Bild". Desweiteren bezeichnet Vuforia die Merkmale als "kontrastbasierte Merkmale". Da Vuforia nicht open source ist, kann keine genauere Aussage über den von Vuforia genutzten Computer Vision Algorithmus zur Merkmalserkennung getroffen werden.
-Die gefundenen Merkmale eines Bildes werden im Target Manager des Vuforia Developer Portals als gelbe Kreuze angezeigt. 
+Vuforia analysiert ein hochgeladenes Bild auf seine Merkmale und speichert Bild und Merkmale in einer Datenbank ab. Unter Merkmal versteht Vuforia ein 'scharfes, spitzes, kantiges Detail im Bild". Desweiteren bezeichnet Vuforia die Merkmale als "kontrastbasierte Merkmale'. Da Vuforia nicht open source ist, kann keine genauere Aussage über den von Vuforia genutzten Computer Vision Algorithmus zur Merkmalserkennung getroffen werden.
+Die gefundenen Merkmale eines Bildes werden im Target Manager des Vuforia Developer Portals als gelbe Kreuze angezeigt. %TODO Vermutung? SIFT, SURF, ORB?
 
 \textbf{Genutzte Image Targets}
 
-Die in dieser Arbeit genutzten Marker wurden mit einem AR Marker Generator \footnote{https://shawnlehner.github.io/ARMaker/ (Stand 06.07.2019)} erstellt. Ihnen wurde eine Nummer in der linken oberen Ecke hinzugefügt, um sie unterscheidbar zu machen. Sie wurden auf nicht-glänzendem Papier in der Größe 5cm x 5cm gedruckt. Damit sie nicht flexibel sind, wurden sie auf einem Stück Pappe befestigt. Im Target Manager des Vuforia Developer Portals haben sie eine 5-Sterne-Bewertung erhalten, eignen sich also gut als Image Targets.
+Die in dieser Arbeit genutzten Marker wurden mit einem AR Marker Generator \footnote{https://shawnlehner.github.io/ARMaker/ (Stand 06.07.2019)} erstellt. Ihnen wurde eine Nummer in der linken oberen Ecke hinzugefügt, um sie unterscheidbar zu machen. Sie wurden auf nicht-glänzendem Papier in der Größe 5cm x 5cm gedruckt. Damit sie nicht flexibel sind, wurden sie auf einem Stück Pappe befestigt. Im Target Manager des Vuforia Developer Portals haben sie eine 5-Sterne-Bewertung erhalten, eignen sich also sehr gut als Image Targets.
 
 
 \begin{figure}[ht]
@@ -189,64 +108,73 @@ Die in dieser Arbeit genutzten Marker wurden mit einem AR Marker Generator \foot
 	\label{fig:4.2}
 \end{figure}
 
-\section{Versuchsaufbau}
+\section{Registrierung} \label{registrierung}
 
-Ziel dieser Arbeit ist, ein Hologramm mit Hilfe der Hololens ohne externes Tracking System an einem Phantom zu Registrieren. Dazu muss das Phantom während der Laufzeit von der Hololens getrackt werden können. Um dies zu erreichen, wurden mehrere Möglichkeiten diskutiert. Einige dieser Möglichkeiten waren Vuforia Cylinder Targets, Point Fiducials und Aruco Marker. 
+Ziel dieser Arbeit ist, ein Hologramm mit Hilfe der Hololens ohne externes Tracking System an einem Phantom zu Registrieren. Dazu muss das Phantom während der Laufzeit von der Hololens getrackt werden können. Implementiert wird Vuforia Model Target Tracking und Vuforia Image Target Tracking, worauf im Folgenden genauer einegegangen wird.
 
-Vuforia Cylinder Targets wurden ebenfalls von Frantz et al. für ihre Registrierung eines Schädels genutzt. %TODO cite
-Dabei handelt es sich um ein Bild, welches außen an einem Zylinder angebracht wird und getrackt werden kann auch wenn der Nutzer sich um den Zylinder herum bewegt. Diese Option wurde jedoch verworfen, da das in dieser Arbeit genutzte Phantom mit einem Torso wesentlich gößer als ein Schädel ist und es daher Probleme gegeben hätte, das Target immer im Blickfeld zu halten. Desweiteren hätte das Target nur schwierig stabil neben dem Phantom positioniert werden können.
+%TODO wohin damit? related work vll am ehesten, wie cylinder targets
+%Eine weitere Überlegung galt kreisförmigen einfarbigen Point Fiducials. In diesem Fall hätte auf den Kamerastream der Hololens zugegriffen werden müssen. In diesem hätten erst alle Pixel in der Farbe der Fiducials gefunden werden müssen und anschließend beispielsweise mit Hilfe der Hough-Transformation die Fiducials segmentiert werden müssen. Ein Vorteil bei kreisförmigen Fiducials ist, dass die Kreisform relativ invariant zu Verzerrungen ist. Allerdings käme es durch Unterschiede im Lichteinfall zu Farbvarianzen im Kamerastream, sodass es Probleme beim finden der korrekten Farbpixel gegeben hätte. Zusätzlich bietet ein kreisförmiger Fiducial keine 6DoF, sodass zu jeder Zeit mehrere Fiducials sichtbar sein müssten, um die Rotation der Kamera korrekt bestimmen zu können. Aus diesem Grund wurde auch diese Möglichkeit verworfen.
 
-Eine weitere Überlegung galt kreisförmigen einfarbigen Point Fiducials. In diesem Fall hätte auf den Kamerastream der Hololens zugegriffen werden müssen. In diesem hätten erst alle Pixel in der Farbe der Fiducials gefunden werden müssen und anschließend beispielsweise mit Hilfe der Hough-Transformation die Fiducials segmentiert werden müssen. Ein Vorteil bei kreisförmigen Fiducials ist, dass die Kreisform relativ invariant zu Verzerrungen ist. Allerdings käme es durch Unterschiede im Lichteinfall zu Farbvarianzen im Kamerastream, sodass es Probleme beim finden der korrekten Farbpixel gegeben hätte. Zusätzlich bietet ein kreisförmiger Fiducial keine 6DoF, sodass zu jeder Zeit mehrere Fiducials sichtbar sein müssten, um die Rotation der Kamera korrekt bestimmen zu können. Aus diesem Grund wurde auch diese Möglichkeit verworfen.
 
-%TODO cite Aruco Marker
-Bei der Nutzung von Aruco Markern bietet ein einzelner Marker durch seine planare quadratische Form 6DoF. Da mit Vuforia jedoch schon ein SDK existiert, welches ebenso Marker mit 6DoF bietet und schon in Unity integriert ist, wurden auch die Aruco Marker verworfen.
-Implementiert wurde Vuforia Model Target Tracking und Vuforia Image Target Tracking, worauf im Folgenden genauer einegegangen wird. 
 
-\subsection{Model Target Tracking am Phantom}
+\subsection{Registrierung über Model Target Tracking am Phantom}
 
-Es wurde ein Vuforia Model Target Tracking implementiert. Getrackt wurde die Bauchplatte des Phantoms, da nur diese vollständig unbedeckt sichtbar ist. Das CAD-Modell der Bauchplatte wurde in den Model Target Generator geladen. 
-%TODO genaueres über Model Target Generator (brauche Internet)
-%Wie lange dauert erstellen, wie wurde erstellt guide views etc.
-%wie sieht es aus wenn app läuft
-%erkennen von model target und wechseln zwischen guide views
 
-Ein Vorteile dieses Ansatzes ist, dass keine zusätzlichen Marker an den Patienten angebracht werden müssen, die etwas verdecken könnten.
-Allerdings ist dieser Ansatz dennoch nicht geeignet für eine Anwendung im medizinischen Bereich, da ein 3D-Modell eines realen Patienten nicht die Anforderungen erfüllt, die an ein Model Target gestellt werden. 
-%TODO
-Zusätzlich ist der zeitige Aufwand, den das Erstellen eines Model Targets mit dem Model Target Generator mit sich bringt sehr viel höher als das Nutzen von planaren Markern, welche an den Patienten angebracht werden. Aus diesem Grund wurde im weiteren Verlauf auf Model Targets verzichtet.
+Es wird ein Vuforia Model Target Tracking implementiert. Getrackt wird die Bauchplatte des Phantoms, da nur diese vollständig unbedeckt sichtbar ist. Das CAD-Modell der Bauchplatte wird in den Model Target Generator geladen. Im Model Target Generator werden Maße des Modells angegeben. Damit das Tracking beginnen kann, muss das Modell mit der Hololens aus einem bestimmten Winkel und von einer bestimmten Position aus angeschaut werden. Diese Posen werden im Modell Target Generator festgelegt, sowie die dazugehörigen Guide Views erstellt, um den Träger der Hololens beim Einnehmen dieser Positionen zu unterstützen. Es werden insgesamt vier Posen festgelegt, aus denen das Modell erkannt werden kann: von der linken Seite aus, von der rechten Seite aus, sowie vom oberen und unteren Ende des Phantoms (siehe Abb.\ref{fig:4.4}). Während der Laufzeit der Anwendung erkennt Vuforia, wenn das Phantom im Sichtfeld der Hololens ist und zeigt den dieser Perspektive entsprechenden Guide View an. Bewegt sich der Nutzer um das Phantom, wird automatisch zum der neuen Position entsprechenden Guide View gewechselt. Positioniert der Nutzer sich so, dass Guide View und Phantom übereinstimmen, beginnt das Tracking des Phantoms und das Hologramm wird angezeigt.
 
-\subsection{Image Target Tracking}
 
-Die Registrierung von Hologramm und Objekt in der realen Welt wurde mit Hilfe von Vuforia Image Targets durchgeführt. Da das Phantom nicht durchgehend verfügbar war, wurde eine Vive Pro Box als zusätzliches Objekt genutzt, an welchem ein in Unity aus einem Würfel erstelltes 3D-Modell registriert wurde. Der Großteil der Entwicklung der Anwendung wurde an dieser Box durchgeführt. %TODO Bilder von Phantom und Box mit Markern
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.75\textwidth]{images/guideviews.png}
+	\caption[Guide Views]{Guide Views der Anwendung; Oben: Guide Views der Seiten; Unten: Guide Views vom unteren und oberen Ende}
+	\label{fig:4.4}
+\end{figure}
+
+
+Das Model Tracking funktioniert gut, solange der Nutzer in einer Entfernung vom Phantom steht, in der die Hololens die Bauchplatte vollständig im Sichtfeld hat. Geht der Nutzer näher an das Phantom heran, stoppt das Tracking und das Hologramm wird nicht mehr an der korrekten Position angezeigt. Da das Ziel jedoch das ist, das Hologramm auch aus der Nähe betrachten zu können, sind Fiducials besser geeignet.
+
+
+
+\subsection{Registrierung über Fiducials} 
+
+Die Registrierung von Hologramm und Objekt in der realen Welt wird mit Hilfe von Vuforia Image Targets als Fiducials durchgeführt. Für Testzwecke wurde zunächst ein einfacher Quader als zusätzliches Objekt genutzt, an welchem ein in Unity aus einem Würfel erstelltes 3D-Modell registriert wurde.  
+
+An Box und Phantom werden Fiducials angebracht (Vgl. Abb.\ref{fig:4.3}). Sie werden so befestigt, dass sie mit der Hololens von möglichst vielen Positionen aus gut sichtbar sind. 
+Beim Phantom werden die Fiducials nicht auf der Bauchplatte angebracht, da diese abnehmbar ist und somit eine vorher durchgeführte Kalibrierung durch eine verschoben abgelegte Bauchplatte ungenau werden würde.
+
+Jedes Fiducial $i$ besitzt nach seiner Kalibrierung einen Positions- und Rotationsoffset in Form einer Transformationsmatrix $\mathit{offset_i}$ vom Fiducial zum Ursprung des entsprechenden Modells (Box oder Phantom). Jedes Fiducial kennt also die Pose, an der das 3D-Modell in Relation zu sich selbst liegt. Wird ein Fiducial während der Laufzeit erkannt und getrackt, wird dieser Offset zur Bestimmung der Transformationsmatrix $\mathit{poseH}$ des Hologramms genutzt.
+
+ \[poseH_i = \mathit{offset_i} \cdot pose_i\] 
+
+Da durch die planare und quadratische Form eines Fiducials seine Orientierung im Raum eindeutig festgestellt werden kann, wäre ein einzelnes Fiducial theoretisch ausreichend, um das Hologramm korrekt zu positionieren. Da sich der Träger der Hololens jedoch um das Phantom bzw. die Box herum bewegen kann, ist ein Fiducial nicht durchgehend sichtbar. Es kommt zusätzlich vor, dass aufgrund eines zu spitzen Winkels zwischen Fiducial und Hololenskamera die Rotation des Fiducials von Vuforia nicht korrekt erkannt wird. Aus diesen Gründen werden mehrere Fiducials angebracht. Es wird aus den Offsetvektoren aller zurzeit getrackten und kalibrierten Fiducials, sowie auch aus den Offsetquaternionen dieser Fiducials das arithmetische Mittel gebildet. Ziel davon ist es, die Positionierung stabiler und genauer gegenüber eventuellen Abweichungen im Tracking oder falscher Kalibrierung eines Fiducials zu machen.
 
 \begin{figure}[ht]
 	\centering
 		\includegraphics[width=1\textwidth]{images/BoxPhantomMarker.png}
-	\caption[ImageTargets]{Links: Marker an der Vive Pro Box, Rechts: Marker am Phantom}
-	\label{fig:4.2}
+	\caption[ImageTargets]{Links: Marker an der Box, Rechts: Fiducials am Phantom}
+	\label{fig:4.5}
 \end{figure}
 
-An Box und Phantom wurden Image Targets angebracht. Sie wurden so befestigt, dass sie mit der Hololens von möglichst vielen Positionen aus gut sichtbar sind. 
-Beim Phantom wurden die Marker nicht auf der Bauchplatte angebracht, da diese abnehmbar ist und somit eine vorher durchgeführte Kalibrierung durch eine verschoben abgelegte Bauchplatte ungenau werden würde.
+\textbf{Mittelwert von Quaternionen}
 
-In Unity hängen die 3D-Modelle von Box und Phantom jeweils an einem leeren Gameobjekt. Dieses Gameobjekt besitzt ein Script \emph{ModelPositionUpdater.cs} welches die Hologramme während der Laufzeit positioniert. Jedes Image Target hat ein \emph{TargetData.cs} Script, in welchem Positions- und Rotationsoffset vom Target zum Ursprung des entsprechenden Modells (Box oder Phantom) nach Kalibrierung festgehalten wird. Jedes ImageTarget kennt also die Pose, an der das 3D-Modell in Relation zu sich selbst liegt. Wird ein Target während der Laufzeit erkannt und getrackt, nutzt der ModelPositionUpdater diesen Offset zu Positionierung des Hologramms. Aufgrund der 6DoF der Target wäre ein einzelnes Target theoretisch ausreichend, um das Hologramm korrekt zu positionieren. Da sich der Träger der Hololens jedoch um das Phantom bzw. die Box herum bewegen kann, ist ein Target nicht durchgehend sichtbar. Es kommt zusätzlich vor, dass aufgrund eines zu spitzen Winkels zwischen Target und Hololenskamera die Rotation des Targets von Vuforia nicht korrekt erkannt wird. Aus diesen Gründen wurden mehrere Targets angebracht. Der ModelPositionUpdater bildet aus den Offsetvektoren aller zurzeit getrackten und kalibrierten Targets, sowie auch aus den Offsetquaternionen dieser Targets das arithmetische Mittel. Ziel davon ist es, die Positionierung stabiler und genauer gegenüber eventuellen Abweichungen im Tracking oder falscher Kalibrierung eines Markers zu machen.
+Um den Mittelwert von mehr als zwei Quaternionen zu bestimmen, muss getestet werden, ob der Quaternion im Vergleich zu den anderen Quaternionen invertierte Vorzeichen hat, da $q$ und $-q$ die gleiche Rotation beschreiben, aber nicht gemittelt werden können. Um dies herauszufinden, kann das Skalarprodukt der beiden Quaternionen verwendet werden. Das Skalarprodukt gibt den Cosinus des Winkels zwischen den beiden Quaternionen an. Ist der Cosinus kleiner als $0$, müssen die Vorzeichen des Quaternions invertiert werden. Anschließend werden die Quaternionen komponentenweise addiert und gemittelt. Zum Schluss wird der gemittelte Quaternion normalisiert 
+\footnote{http://wiki.unity3d.com/index.php/Averaging\_Quaternions\_and\_Vectors (Stand 02.09.2019)}
+\footnote{https://docs.unity3d.com/Manual/UnderstandingVectorArithmetic.html (Stand 02.09.2019)}.
 
-Soll der Mittelwert von zwei Quaternionen bestimmt werden, kann Slerp genutzt werden. Sollen mehr als zwei Quaternionen gemittelt werden, funktioniert diese Methode nicht mehr, da Slerp abhängig von der Reihenfolge der Ausführung andere Ergebnisse liefern würde.  Um den Mittelwert von mehr als zwei Quaternionen zu bestimmen, muss getestet werden, ob der Quaternion im Vergleich zu den anderen Quaternionen invertierte Vorzeichen hat, da $q$ und $-q$ die gleiche Rotation beschreiben, aber nicht gemittelt werden können. Um dies herauszufinden, kann das Skalarprodukt der beiden Quaternionen verwendet werden. Das Skalarprodukt gibt den Cosinus des Winkels zwischen den beiden Quaternionen an. Ist der Cosinus kleiner als $0$, müssen die Vorzeichen des Quaternions invertiert werden. Anschließend werden die Quaternionen komponentenweise addiert und gemittelt. Zum Schluss wird der gemittelte Quaternion normalisiert.
-
-\begin{figure}[ht]
+\begin{figure}[h!]
 	\centering
-		\includegraphics[width=0.5\textwidth]{images/modelpositionupdater.jpg}
-	\caption[Positionierung]{\textbf{(a)} Marker mit lokalem Koordinatensystem; \textbf{(b)} Vektor von Marker zu (c); \textbf{(c)} Position, an welcher das 3D-Modell in Relation zum Marker laut TargetData Script liegt; \textbf{(d)} gemittelte Position und somit Position, an welcher das Hologramm dargestellt wird}
-	\label{fig:4.3}
+		\includegraphics[width=0.75\textwidth]{images/poseberechnung.png}
+	\caption[Registrierung]{Beispiel der Berechnung der Hologramm-Pose $poseH$ mit zwei sichtbaren Fiducials $1$ und $2$. Die Position $pose_i$ und der Offset $\mathit{offset_i}$ beider Fiducials sind bekannt. Somit kann für jedes Fiducial eine Pose für das Phantom $poseH_i$ geschätzt werden. Durch die Mittelung wird die Position $poseH$ berechnet an der das Phantom angezeigt wird.}
+	\label{fig:4.6}
 \end{figure}
 
-\section{Kalibrierung}
+\section{Kalibrierung} \label{kalibrierung}
 
-Damit das 3D-Modell, welches angezeigt werden soll, vom ModelPositionUpdater positioniert werden kann, müssen die Marker kalibriert werden, also Offsetrotation und Offsetposition der Image Targets in das TargetData Script geschrieben werden. Diese Kalibrierung kann auf zwei Wege vorgenommen werden: mit Hilfe der Hololens direkt in der Anwendung oder mit Hilfe eines externen Trackingsystems wie der Polaris. 
+Damit das 3D-Modell, welches angezeigt werden soll, positioniert werden kann, müssen die Marker kalibriert werden, also Offsetrotation und Offsetposition der Image Targets in das TargetData Script geschrieben werden. Diese Kalibrierung kann auf zwei Wege vorgenommen werden: mit Hilfe der Hololens direkt in der Anwendung oder mit Hilfe eines externen Trackingsystems wie der Polaris. 
 
 \subsection{Kalibrierung mit der Hololens}
 
-Zu Beginn der Kalibrierung mit der Hololens hängt das Hologramm an einem beweglichen Image Target. Mit Hilfe dieses Image Targets kann das Hologramm frei im Raum bewegt werden. Der Träger der Hololens nutzt diesen Marker nun dazu, das Hologramm so gut wie möglich auf dem Objekt (Vive Pro Box oder Phantom) zu positionieren. Der Marker wird auf dem Objekt abgelegt. Sobald einer der fest am Objekt angebrachten Marker im Sichtfeld der Hololens ist, kann die tatsächliche Kalibrierung per Knopfdruck gestartet werden. 
+Zu Beginn der Kalibrierung mit der Hololens hängt das Hologramm an einem Image Target, das nicht am Phantom angebracht ist, so dass der Nutzer das Phantom beliebig im Raum bewegen kann. Mit Hilfe dieses Image Targets kann das Hologramm frei im Raum bewegt werden. Der Träger der Hololens nutzt diesen Marker nun dazu, das Hologramm so gut wie möglich auf dem Objekt (Box oder Phantom) zu positionieren. Der Marker wird auf dem Objekt abgelegt. Sobald einer der fest am Objekt angebrachten Marker im Sichtfeld der Hololens ist, kann die tatsächliche Kalibrierung per Knopfdruck gestartet werden. 
 
 Das Hologramm hängt nun nicht mehr an dem beweglichen Marker, sondern an den Markern die zum Zeitpunkt des Knopfdrucks sichtbar waren. Nun ist es möglich, das Hologramm über ein Interface entlang X-, Y- oder Z-Achse zu verschieben oder um eine Achse zu rotieren. Ist der Nutzer zufrieden mit der Ausrichtung des Hologramms, wird ein \emph{Save-Button} betätigt, welcher den Offset in Rotation und Position der zu diesem Zeitpunkt von der Kamera sichtbaren Marker in das jeweilige TargetData Script der Marker schreibt. Diese Marker gelten nun als kalibriert und werden von nun an zur Positionierung des Hologramms genutzt.
 
@@ -257,22 +185,20 @@ Der Nutzer kann nun von einer anderen Position im Raum schauen, ob die Position 
 Zur Anpassung der Pose (Position und Rotation) über das Interface wurde ein temporärer Offset (\emph{tempOffset}) eingeführt, welcher durch die Buttons des Interfaces geändert werden kann. Der Algorithmus zur Anpassung der Pose wurde in zwei Varianten implementiert. Diese zwei Varianten sehen in Pseudo-Code wie folgt aus: 
 
 \textbf{Variante 1}
-%TODO über arbeiten wie in scripten
-%TODO 
-%TODO dreimal weil wichtig
+
 \begin{itemize}
 \item[1] Initiale Positionierung des Hologramms mit Hilfe des beweglichen Markers
 \item[2] Sobald mindestens ein anderer Marker sichtbar ist, Start des Kalibrierungsprozesses über Button \emph{Start Calibration}, nutzen der zu diesem Zeitpunkt sichtbar gewesenen Marker zur Positionierung des Hologramms
 \item[3] Für als kalibriert markierte Marker gilt 
- \[poseHologram = \mathit{tempOffset} \cdot \mathit{markerOffset} \cdot poseMarker\] 
- wobei \emph{markerOffset} der bereits kalibrierte Offset im TargetData Script ist
+ \[poseH_i = \mathit{tempOffset_i} \cdot \mathit{offset_i} \cdot pose_i\] 
+ wobei \emph{markerOffset} der bereits kalibrierte Offset ist
 \item[4] Anpassen von \emph{tempOffset} über Interface Buttons
 \item[5] Speichern: für alle in diesem Moment sichtbaren Marker gilt 
-\[\mathit{markerOffset} = \mathit{tempOffset} \cdot \mathit{markerOffset}\] 
-Anschließend setzen von $\mathit{tempOffset}$ auf $id$ für alle Marker
+\[\mathit{offset_i} = \mathit{tempOffset_i} \cdot \mathit{offset_i}\] 
+Anschließend setzen von $\mathit{tempOffset_i}$ auf $identity$ für alle Marker
 \end{itemize}
 
-Wie in Abb(noch einzufügen) zu sehen ist, kann es durch diese Methode zu großen Sprüngen des Hologramms kommen, wenn Marker im Sichtfeld sind, von denen einige einen \emph{tempOffset} besitzen, bei anderen jedoch der $\mathit{tempOffset} = id $ ist. Aus diesem Grund wurde Variante 2 implementiert.
+Wie in Abb. \ref{fig:4.7} zu sehen ist, kann es durch diese Methode zu großen Sprüngen des Hologramms kommen, wenn Marker im Sichtfeld sind, von denen einige einen $\mathit{tempOffset}$ besitzen, bei anderen jedoch der $\mathit{tempOffset} = identity $ und somit äquivalent zu einem nicht vorhandenen Offset ist. Aus diesem Grund wurde Variante 2 implementiert. Statt für jedes Fiducial $i$ einen eigenen $\mathit{tempOffset_i}$ zu speichern, wird der $\mathit{tempOffset}$ auf die bereits gemittelte $poseH$ der zur Positionierung genutzten Fiducials aufgerechnet.
 
 \textbf{Variante 2}
 
@@ -280,37 +206,56 @@ Wie in Abb(noch einzufügen) zu sehen ist, kann es durch diese Methode zu große
 \item[1] Initiale Positionierung des Hologramms mit Hilfe des beweglichen Markers
 \item[2] Sobald mindestens ein anderer Marker sichtbar ist, Start des Kalibrierungsprozesses über Button \emph{Start Calibration}, nutzen der zu diesem Zeitpunkt sichtbar gewesenen Marker zur Positionierung des Hologramms
 \item[3] Für als kalibriert markierte Marker gilt 
- \[poseEstimationHologram = \mathit{markerOffset} \cdot poseMarker\] 
- \[poseHologramFinal = \mathit{tempOffset} \cdot poseEstimationHologram\]
-\item[4] Speichern: für alle in diesem Moment sichtbaren Marker wird der aktuelle Offset von Hologramm zu Marker abgespeichert und $\mathit{tempOffset} = id$ gesetzt
+ \[poseEstimationH_i = \mathit{offset_i} \cdot pose_i\] 
+ \[poseH = \mathit{tempOffset} \cdot poseEstimationH\]
+\item[4] Speichern: für alle in diesem Moment sichtbaren Marker wird der aktuelle Offset von Hologramm zu Marker abgespeichert und $\mathit{tempOffset} = identity$ gesetzt
 \end{itemize} 
 
-Zu Sprüngen wie in Fall 1 kommt es mit dieser Methode zwar immer noch, jedoch fallen diese deutlich kleiner aus (vgl. Abb.) und verbessern das Nutzererlebnis so erheblich.
-%TODO abbildung
+Zu Sprüngen wie in Fall 1 kommt es mit dieser Methode zwar immer noch, jedoch fallen diese deutlich kleiner aus (vgl. Abb. \ref{fig:4.8}) und verbessern das Nutzererlebnis so erheblich.
+
+\begin{figure}[h!]
+	\centering
+		\includegraphics[width=0.75\textwidth]{images/Kalibrierung1.png}
+	\caption[Registrierung]{Berechnung der Hologrammpose $poseH$ während des Kalibrierungsvorgangs mit zwei sichtbaren Fiducials. Der temporäre Offset $\mathit{tempOffset_i}$ wird auf den $\mathit{offset_i}$ aufmultipliziert. Durch Mittelung der geschätzten Posen $poseH_i$ wird die Hologrammpose $poseH$ bestimmt.}
+	\label{fig:4.7}
+\end{figure}
+
+
+\begin{figure}[h!]
+	\centering
+		\includegraphics[width=0.75\textwidth]{images/Kalibrierung2.png}
+	\caption[Registrierung]{Berechnung der Hologrammpose $poseH$ während des Kalibrierungsvorgangs mit zwei sichtbaren Fiducials. Der temporäre Offset $\mathit{tempOffset}$ wird auf die gemittelte Pose $poseEstimationH$  aufmultipliziert, wodurch die Hologrammpose $poseH$ erhalten wird.}
+	\label{fig:4.8}
+\end{figure}
 
 \subsection{Kalibrierung mit der Polaris}
 
-%TODO wie Sebastians Code zitieren?
-Es wurde zusätzlich eine Kalibrierung mit Hilfe der Polaris ausgeführt. Die Polaris besitzt ein kalibriertes Pointer-Tool, welches von der Polaris getrackt werden kann und bei dem der Abstand von Infrarot-Marker zur Spitze des Tools bekannt ist. Per Knopfdruck kann die Position der Pointer-Spitze in Polaris-Koordinaten abgespeichert werden. Am Phantom ist ebenso ein Polaris-Marker angebracht.
+Es wurde zusätzlich eine Kalibrierung mit Hilfe der Polaris ausgeführt. Die Polaris besitzt ein kalibriertes Pointer-Tool, welches von der Polaris getrackt werden kann und bei dem der Abstand von Infrarot-Marker zur Spitze des Tools bekannt ist. Per Knopfdruck kann die aktuelle Position der Pointer-Spitze in Polaris-Koordinaten abgespeichert werden. Am Phantom ist ebenso ein Polaris-Marker angebracht.
 
-Ziel ist es, den Offset von jedem Vuforia Marker zum Ursprung des Phantoms zu bestimmen. Dazu muss im ersten Schritt festgestellt werden, wie der Polaris-Marker relativ zum Ursprung des Phantoms liegt. Schon bekannt ist, wie gewisse Punkte auf dem Phantom relativ zu seinem Ursprung liegen. Die Punkte wurden mit dem Pointer in einer bestimmten Reihenfolge abgefahren und ihre Positionen in Polaris-Koordinaten abgespeichert. So wurde bekannt, wie diese Punkte relativ zum Polaris-Marker liegen. Anschließend konnte daraus berechnet werden, wie der Polaris-Marker relativ zum Ursprung des Phantoms liegt.
+Ziel ist es, den Offset $o_{iP}$ von jedem Fiducial $i$ zum Ursprung $P$ des Phantoms zu bestimmen. Dazu muss im ersten Schritt festgestellt werden, wie der Polaris-Marker $M$ relativ zum Ursprung des Phantoms liegt. Schon bekannt ist, wie gewisse Punkte auf dem Phantom relativ zu seinem Ursprung liegen. Die Punkte wurden mit dem Pointer in einer bestimmten Reihenfolge abgefahren und ihre Positionen in Polaris-Koordinaten abgespeichert. So wird bekannt, wie diese Punkte relativ zum Polaris-Marker liegen. Anschließend kann daraus berechnet werden, wie der Polaris-Marker relativ zum Ursprung des Phantoms liegt (Transformation $o_{MP}$).
 
-Im zweiten Schritt wurde auf die gleiche Weise der Abstand für jeden einzelnen Vuforia Marker zum Polaris Marker berechnet. Mit dem Pointer wurden die vier Ecken der Vuforia Marker abgefahren, wodurch anschließend bestimmt werden konnte, wie der Ursprung jedes Vuforia Markers zum Polaris-Marker liegt.  
+Im zweiten Schritt wurde auf die gleiche Weise die Transformation $o_{Mi}$ für jedes einzelne Fiducial $i$ zum Polaris Marker berechnet. Mit dem Pointer wurden die vier Ecken der Vuforia Marker abgefahren, wodurch anschließend bestimmt werden konnte, wie der Ursprung jedes Vuforia Markers zum Polaris-Marker liegt.  
 
-Nun ist die Transformation vom Polaris-Marker zum Phantom-Ursprung bekannt, sowie die Transformation vom Polaris-Marker zu den einzelnen Vuforia Markern. Um nun den Abstand der Vuforia Marker zum Phantom-Ursprung zu bestimmen, muss die Transformation von Polaris-Marker zu Vuforia Marker invertiert und mit der Transformation von Polaris-Marker zu Phantom-Ursprung multipliziert werden. Im letzten Schritt wurden die so erhaltenen Transformationen aus dem Polaris-Koordinatensystem in das Unity-Koordinatensystem übertragen.
+Nun ist die Transformation $o_{MP}$ vom Polaris-Marker $M$ zum Phantom-Ursprung $P$ bekannt, sowie die Transformation $o_{Mi}$ vom Polaris-Marker $M$ zu den einzelnen Fiducials $i$. Um nun die Transformation $o_{iP}$ der Fiducials $i$ zum Phantom-Ursprung $P$ zu bestimmen, muss die Transformation von Polaris-Marker zu Fiducial invertiert $o_{Mi}^{-1}$) und mit der Transformation $o_{MP}$ von Polaris-Marker zu Phantom-Ursprung multipliziert werden. Im letzten Schritt werden die so erhaltenen Transformationen aus dem Polaris-Koordinatensystem in das Unity-Koordinatensystem übertragen, da das Polaris-Koordinatenssystem linksdrehend mit der negativen X-Achse von der Polaris aus nach oben zeigend ist und in Millimetern rechnet, während das Unity-Koordinatensystem rechtsdrehend mit der Y-Achse in Welt-Koordinaten nach oben zeigend ist und in Metern rechnet.
+
+
+\begin{figure}[h!]
+	\centering
+		\includegraphics[width=0.75\textwidth]{images/KalibrierungPolaris.png}
+	\caption[Kalibrierung Polaris]{Kalibrierung mit der Polaris: Transformation $o_{MP}$ von Polaris Marker $M$ zum Ursprung $P$ des Phantoms, Tranformation $o_{Mi}$ vom Polaris Marker $M$ zum Fiducial $i$, sowie die gesuchte Transformation $o_{iP}$ vom Fiducial $i$ zum Ursprung $P$ des Phantoms.}
+	\label{fig:4.9}
+\end{figure}
 
 \section{GUI und Interaktion}
 
-%TODO abbildung
-Um bei der Kalibrierung mit der Hololens das Hologramm genauer ausrichten zu können, wurde ein Interface entwickelt. Dieses Interface besteht aus den visualisierten Achsen des lokalen Koordinatensystems des jeweiligen Hologramms (Vive Pro Box oder Phantom). Über drei Buttons kann eine Achse ausgewählt werden. Ist eine Achse ausgewählt, werden die anderen beiden Achsen aus- und Buttons in Form von Pfeilen eingeblendet (siehe Abb.). Mit Hilfe dieser Buttons ist es möglich, das Hologramm entlang der ausgewählten Achse in 1-cm-Schritten zu verschieben und um diese Achse in 1-Grad-Schritten zu rotieren. 
+Um bei der Kalibrierung mit der Hololens das Hologramm genauer ausrichten zu können, wurde ein Interface entwickelt. Dieses Interface besteht aus den visualisierten Achsen des lokalen Koordinatensystems des jeweiligen Hologramms (Box oder Phantom). Über drei Buttons kann eine Achse ausgewählt werden. Ist eine Achse ausgewählt, werden die anderen beiden Achsen aus- und Buttons in Form von Pfeilen eingeblendet (siehe Anhang \ref{appendix: a}). Mit Hilfe dieser Buttons ist es möglich, das Hologramm entlang der ausgewählten Achse in 1-cm-Schritten zu verschieben und um diese Achse in 1-Grad-Schritten zu rotieren. 
 
-Das Interface sollte möglichst intuitiv am Hologramm des Objektes angezeigt werden, weshalb  sich für die Visualisierung des Interfaces als Koordinatensystem entschieden wurde und entgegen einer Visualisierung über einfache quadratische Buttons. 
 Weiterhin gibt es zwei Möglichkeiten, das Interface dem Nutzer anzuzeigen:
 
 \begin{itemize}
 \item Das Material des Hologramms erhält Transparenz und das Interface wird in das Hologramm hineingelegt oder
-\item  das Hologramm wird ähnlich wie Layer in einem Bildbearbeitungsprogramm auf eine Layer gelegt, welche von allen anderen Layern überlagert wird. Realisieren lässt sich dies in Unity, indem eine zweite Kamera der Szene hinzugefügt wird, welche nur das Hologramm (Phantom oder Box) rendert. Die ursprüngliche Kamera rendert alles in der Szene außer dem Hologramm.
+\item Das Hologramm wird ähnlich wie Ebenen in einem Bildbearbeitungsprogramm auf eine Ebene gelegt, welche von allen anderen Ebenen überlagert wird. Realisieren lässt sich dies in Unity, indem eine zweite Kamera der Szene hinzugefügt wird, welche nur das Hologramm (Phantom oder Box) rendert. Die ursprüngliche Kamera rendert alles in der Szene außer dem Hologramm.
 \end{itemize}
-%TODO Vergleich Bild
+
 Ein Nachteil der ersten Variante ist, dass aufgrund des transparenten Materials der Box der Eindruck entstehen könnte, dass mit den angezeigten Pfeilen an den Achsen nicht interagiert werden kann, da sie innerhalb des Hologramms liegen. Da dieser Eindruck bei Variante zwei nicht entsteht, da das Koordinatensystem auf dem Hologramm gerendert wird, wurde diese Variante weiterhin genutzt.
 
