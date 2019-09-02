@@ -81,11 +81,11 @@ Die Boxplots \ref{fig:5.5} bis \ref{fig:5.7} zeigen an, wie ähnlich die Nutzer 
 
 Bei den abgebildeten Ausreißern ist zu beachten, dass zwei unterschiedliche Sätze von Eulerwinkeln durchaus das gleiche Quaternion beschreiben können (abhängig davon in welcher Reihenfolge Rotationen unterschiedlicher Größe um die einzelnen Achsen ausgeführt werden). Es ist folglich möglich, dass die als Ausreißer behandelten Werte ursprünglich ein gut vom Nutzer kalibriertes Quaternion beschrieben haben, welches in ungünstige Eulerwinkel umgerechnet wurde.
 
-Die Kalibrierung mit der Polaris wurde unter der Annahme genutzt, dass sie genauer ist als die Kalibrierungen der mit Hololens (quantitativ wurde diese Annahme durch die Probanden bestätigt). Um festzustellen, wie genau die Kalibrierung mit der Hololens im Schnitt ist, wurden die aus den Nutzerkalibrierungen erhaltenen Mittelwerte mit der Polariskalibrierung verglichen. Dabei fällt auf, dass gemittelt über alle ImageTargets, die Position im Schnitt um 2cm von der mit der Polaris kalibrierten Position abweicht, sowie die Rotation um die X-Achse sich um 1,49$^\circ$, die Rotation um die Y-Achse sich um 0,1$^\circ$ und die Rotation um die Z-Achse sich um 1,32$^\circ$ von den mit der Polaris kalibrierten Rotationen unterscheidet. 
+Die Kalibrierung mit der Polaris wurde unter der Annahme genutzt, dass sie genauer ist als die Kalibrierungen der mit Hololens (quantitativ wurde diese Annahme durch die Probanden bestätigt). Jedoch werden bei dieser Methode die zwei Matrizen $o_{Mi}$ (Transformation Polaris Marker $M$ zu Fiducial $i$) und $o_{MP}$ (Transformation Polaris Marker $M$ zu Phantom-Ursprung $P$) miteinander verrechnet, wodurch der Fehler potentiell größer werden kann. Um festzustellen, wie genau die Kalibrierung mit der Hololens im Schnitt ist, wurden die aus den Nutzerkalibrierungen erhaltenen Mittelwerte mit der Polariskalibrierung verglichen. Dabei fällt auf, dass gemittelt über alle ImageTargets, die Position im Schnitt um 2cm von der mit der Polaris kalibrierten Position abweicht, sowie die Rotation um die X-Achse sich um 1,49$^\circ$, die Rotation um die Y-Achse sich um 0,1$^\circ$ und die Rotation um die Z-Achse sich um 1,32$^\circ$ von den mit der Polaris kalibrierten Rotationen unterscheidet. 
 
 
 
-%TODO 2. Punkt anmerkung micha
+
 
 
 %
@@ -312,7 +312,7 @@ boxplot prepared={
 ] coordinates{ };
 \end{axis}
 \end{tikzpicture}
-\caption[Distanzen]{Distanzen zwischen gemittelter Position und kalibrierter Positionen der Nutzer in cm. Die Ausreißer (abzüglich an ImageTarget 7 und des zweiten Ausreißers an ImageTarget 10) wurden von demselben Probanden verursacht. Der Interquartilsabstand der Targets 1-8 (Targets an Box) ist geringer als der der Targets 9-16 (Targets an Phantom). Die von den Nutzern durchgeführten Positionierungen des Box-Hologramms sind sich folglich ähnlicher als die des Phantom-Hologramms.}
+\caption[Distanzen Box-Plots]{Distanzen zwischen gemittelter Position und kalibrierter Positionen der Nutzer in cm. Die Ausreißer (abzüglich an ImageTarget 7 und des zweiten Ausreißers an ImageTarget 10) wurden von demselben Probanden verursacht. Der Interquartilsabstand der Targets 1-8 (Targets an Box) ist geringer als der der Targets 9-16 (Targets an Phantom). Die von den Nutzern durchgeführten Positionierungen des Box-Hologramms sind sich folglich ähnlicher als die des Phantom-Hologramms.}
 \label{fig:5.3}
 \end{figure}
 
@@ -502,7 +502,7 @@ boxplot prepared={
 ] table [row sep=\\,y index=0]{-25.65875\\ 10.19672\\ };
 \end{axis}
 \end{tikzpicture}
-\caption[WinkelX]{Winkel zwischen gemittelter Rotation und kalibrierter Rotationen der Nutzer in Grad für X-Achse. Die Ausreißer an Targets 1-8 wurden von zwei Probanden verursacht. Der Großteil der Ausreißer an Targets 9-16 wurde ebenfalls von zwei Probanden verursacht. Die Box (Target 1-8) wurde von den meisten Nutzern zwischen 0 und -10$^\circ$ um die X-Achse gedreht, das Phantom zwischen 0-10$^\circ$. ImageTarget 5 hat einen sehr großen Interquartilsabstand, wobei jedoch der Median mit ungefähr -9$^\circ$ nicht auffällig verschoben ist im Vergleich zu den anderen Targets an der Box.}
+\caption[Eulerwinkel für Achse X Box-Plots]{Winkel zwischen gemittelter Rotation und kalibrierter Rotationen der Nutzer in Grad für X-Achse. Die Ausreißer an Targets 1-8 wurden von zwei Probanden verursacht. Der Großteil der Ausreißer an Targets 9-16 wurde ebenfalls von zwei Probanden verursacht. Die Box (Target 1-8) wurde von den meisten Nutzern zwischen 0 und -10$^\circ$ um die X-Achse gedreht, das Phantom zwischen 0-10$^\circ$. ImageTarget 5 hat einen sehr großen Interquartilsabstand, wobei jedoch der Median mit ungefähr -9$^\circ$ nicht auffällig verschoben ist im Vergleich zu den anderen Targets an der Box.}
 \label{fig:5.4}
 \end{figure}
 
@@ -692,7 +692,7 @@ boxplot prepared={
 ] table [row sep=\\,y index=0]{ 9.645788\\ };
 \end{axis}
 \end{tikzpicture}
-\caption[WinkelY]{Winkel zwischen gemittelter Rotation und kalibrierter Rotationen der Nutzer in Grad für Y-Achse. Der Großteil der Ausreißer an Target 1-8 stammt von demselben Probanden. Die Ausreißer an Target 9-16 wurden von unterschiedlichen Probanden verursacht. Der Interquartilsabstand der Plots ist sehr gering, außerdem siedeln sich die Plots bei 0$^\circ$ an.}
+\caption[Eulerwinkel für Achse Y Box-Plots]{Winkel zwischen gemittelter Rotation und kalibrierter Rotationen der Nutzer in Grad für Y-Achse. Der Großteil der Ausreißer an Target 1-8 stammt von demselben Probanden. Die Ausreißer an Target 9-16 wurden von unterschiedlichen Probanden verursacht. Der Interquartilsabstand der Plots ist sehr gering, außerdem siedeln sich die Plots bei 0$^\circ$ an.}
 \label{fig:5.5}
 \end{figure}
 
@@ -882,7 +882,7 @@ boxplot prepared={
 ] table [row sep=\\,y index=0]{ -10.63632\\ 22.72686\\ };
 \end{axis}
 \end{tikzpicture}
-\caption[WinkelZ]{Winkel zwischen gemittelter Rotation und kalibrierter Rotationen der Nutzer in Grad für Z-Achse. Der Großteil der Ausreißer an Target 1-8 stammen von demselben Probanden. Die Positiven Ausreißer an Targets 9-16 stammen von demselben Probanden (abzüglich des zweiten Ausreißers an Target 10). Die Kalibrierungen der Targets variieren im Bereich zwischen 10 und -10$^\circ$. Target 10 und 12, welche nah beieinander liegen, sind ähnlich kalibriert worden. Allerdings ist dies bei anderen Targets, welche nah beieinander lagen, nicht der Fall (bspw. 14 und 13).}
+\caption[Eulerwinkel für Achse Z Box-Plots]{Winkel zwischen gemittelter Rotation und kalibrierter Rotationen der Nutzer in Grad für Z-Achse. Der Großteil der Ausreißer an Target 1-8 stammen von demselben Probanden. Die Positiven Ausreißer an Targets 9-16 stammen von demselben Probanden (abzüglich des zweiten Ausreißers an Target 10). Die Kalibrierungen der Targets variieren im Bereich zwischen 10 und -10$^\circ$. Target 10 und 12, welche nah beieinander liegen, sind ähnlich kalibriert worden. Allerdings ist dies bei anderen Targets, welche nah beieinander lagen, nicht der Fall (bspw. 14 und 13).}
 \label{fig:5.6}
 \end{figure}
 

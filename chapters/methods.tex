@@ -9,7 +9,7 @@ Im Folgenden Kapitel wird eine Übersicht über den Versuchsaufbau und die evalu
 \begin{figure}[h!]
 	\centering
 		\includegraphics[width=1\textwidth]{images/versuchsaufbauBeschriftet.png}
-	\caption[Aufbau]{Aufbau der Anwendung; $P$: Phantom; $H$: Hologramm; $i$: Fiducial; $\mathit{poseHMD}$: Pose (Rotation und Position) des HMDs im Raum; $\mathit{poseH}$: ermittelte Pose des Phantoms im Raum und somit Pose, an welcher das Hologramm angezeigt wird; $\mathit{pose_i}$: Pose des Fiducials $i$ im Raum; $\mathit{offset_i}$: Offset des Fiducials $i$ zum Phantom; \textbf{(a)} Model Tracking, Tracking der Bauchplatte anhand von natürlichen Merkmalen; \textbf{(b)} Tracking eines Fiducials}
+	\caption[Aufbau der Anwendung]{Aufbau der Anwendung; $P$: Phantom; $H$: Hologramm; $i$: Fiducial; $\mathit{poseHMD}$: Pose (Rotation und Position) des HMDs im Raum; $\mathit{poseH}$: ermittelte Pose des Phantoms im Raum und somit Pose, an welcher das Hologramm angezeigt wird; $\mathit{pose_i}$: Pose des Fiducials $i$ im Raum; $\mathit{offset_i}$: Offset des Fiducials $i$ zum Phantom; \textbf{(a)} Model Tracking, Tracking der Bauchplatte anhand von natürlichen Merkmalen; \textbf{(b)} Tracking eines Fiducials}
 	\label{fig:4.1}
 \end{figure}
 
@@ -71,7 +71,7 @@ Bei einer untrainierten Datenbank muss das zu trackende Objekt von einer bestimm
 	\centering
 		\includegraphics[width=0.75\textwidth]{images/guideView.jpg}
 	\caption[Vuforia Guide View]{Guide View (weiße Silhouette) auf einem Android Gerät \footnotemark}
-	\label{fig:4.1}
+	\label{fig:4.2}
 \end{figure}
 
 \footnotetext{https://library.vuforia.com/features/objects/model-targets.html (Stand 13.08.2019)}
@@ -104,8 +104,8 @@ Die in dieser Arbeit genutzten Marker wurden mit einem AR Marker Generator \foot
 \begin{figure}[ht]
 	\centering
 		\includegraphics[width=1\textwidth]{images/features.png}
-	\caption[Features]{Links: Merkmale im Beispielbild von Vuforia, Rechts: Merkmale der in dieser Arbeit verwendeten Marker}
-	\label{fig:4.2}
+	\caption[Marker Features]{Links: Merkmale im Beispielbild von Vuforia, Rechts: Merkmale der in dieser Arbeit verwendeten Marker}
+	\label{fig:4.3}
 \end{figure}
 
 \section{Registrierung} \label{registrierung}
@@ -151,7 +151,7 @@ Da durch die planare und quadratische Form eines Fiducials seine Orientierung im
 \begin{figure}[ht]
 	\centering
 		\includegraphics[width=1\textwidth]{images/BoxPhantomMarker.png}
-	\caption[ImageTargets]{Links: Marker an der Box, Rechts: Fiducials am Phantom}
+	\caption[Fiducials an Box und Phantom]{Links: Marker an der Box, Rechts: Fiducials am Phantom}
 	\label{fig:4.5}
 \end{figure}
 
@@ -216,7 +216,7 @@ Zu Sprüngen wie in Fall 1 kommt es mit dieser Methode zwar immer noch, jedoch f
 \begin{figure}[h!]
 	\centering
 		\includegraphics[width=0.75\textwidth]{images/Kalibrierung1.png}
-	\caption[Registrierung]{Berechnung der Hologrammpose $poseH$ während des Kalibrierungsvorgangs mit zwei sichtbaren Fiducials. Der temporäre Offset $\mathit{tempOffset_i}$ wird auf den $\mathit{offset_i}$ aufmultipliziert. Durch Mittelung der geschätzten Posen $poseH_i$ wird die Hologrammpose $poseH$ bestimmt.}
+	\caption[Kalibrierung Methode 1]{Berechnung der Hologrammpose $poseH$ während des Kalibrierungsvorgangs mit zwei sichtbaren Fiducials. Der temporäre Offset $\mathit{tempOffset_i}$ wird auf den $\mathit{offset_i}$ aufmultipliziert. Durch Mittelung der geschätzten Posen $poseH_i$ wird die Hologrammpose $poseH$ bestimmt.}
 	\label{fig:4.7}
 \end{figure}
 
@@ -224,7 +224,7 @@ Zu Sprüngen wie in Fall 1 kommt es mit dieser Methode zwar immer noch, jedoch f
 \begin{figure}[h!]
 	\centering
 		\includegraphics[width=0.75\textwidth]{images/Kalibrierung2.png}
-	\caption[Registrierung]{Berechnung der Hologrammpose $poseH$ während des Kalibrierungsvorgangs mit zwei sichtbaren Fiducials. Der temporäre Offset $\mathit{tempOffset}$ wird auf die gemittelte Pose $poseEstimationH$  aufmultipliziert, wodurch die Hologrammpose $poseH$ erhalten wird.}
+	\caption[Kalibrierung Methode 2]{Berechnung der Hologrammpose $poseH$ während des Kalibrierungsvorgangs mit zwei sichtbaren Fiducials. Der temporäre Offset $\mathit{tempOffset}$ wird auf die gemittelte Pose $poseEstimationH$  aufmultipliziert, wodurch die Hologrammpose $poseH$ erhalten wird.}
 	\label{fig:4.8}
 \end{figure}
 

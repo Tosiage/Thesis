@@ -8,14 +8,11 @@ Zuerst wird das Mixed Reality Spektrum erläutert, anschließend das Prinzip der
 
 \section{Mixed Reality}
 
-%Bild einfügen MR Spektrum
 
 Der Begriff \emph{Mixed Reality} (MR) wurde zuerst von Milgram und Kishino \cite{milgram_taxonomy_1994} beschrieben. Dabei handelt es sich um ein Spektrum, welches sich zwischen der realen und der virtuellen Welt aufspannt (siehe Abb. \ref{fig:3.1}). Unter der virtuellen Welt wird hierbei die \emph{Virtuelle Realität} (VR) verstanden, welche sich dadurch kennzeichnet, dass der Nutzer vollständig in eine digitalisierte Umgebung eintaucht, ohne seine reale Umwelt direkt wahrnehmen zu können. Auf dem MR Spektrum sind reale und virtuelle Welt unterschiedich stark miteinander verschmolzen. Bei der \emph{Augmented Reality} (AR) werden der realen Welt virtuelle Objekte, wie bspw. der Avatar einer sich nicht im Raum befindlichen Person, hinzugefügt \cite{bray_what_nodate}. Bei der \emph{Augmented Virtuality} (AV) werden ausgehend von der virtuellen Welt Eigenschaften des realen Raumes übernommen, wie etwa Hindernisse \cite{bray_what_nodate}. 
 
 Heutzutage wird die MR nicht nur durch die Art des verwendeten Anzeigegerätes beschrieben, sondern zusätzlich durch die Fähigkeit des Geräts, sich im Raum lokalisieren zu können und bspw. Geräusche räumlich korrekt widergeben zu können \cite{bray_what_nodate}. 
 
-
-%TODO Verweis in Text auf Abbildung
 
 \begin{figure}[ht]
 	\centering
@@ -31,23 +28,20 @@ Um virtuelle Objekte in der realen Welt anzeigen zu können, werden Displays ben
 Im Bereich AR wird zwischen \emph{video see-through HMD} (VST-HMD) und \emph{optical see-through HMD} (OST-HMD) unterschieden.
 
 Bei VST-HMDs wird ein Video der Umwelt aufgenommen, in welches die virtuellen Objekte pixelgenau eingefügt werden \cite{billinghurst_survey_2015}. Es tritt keine Zeitverzögerung zwischen Bild der realen Welt und dem darauf angezeigtem virtuellem Objekt auf. 
-%Mittels Tiefenkameras kann eine korrekte räumliche Überlagerung von virtuellen Objekten durch reale Objekte garantiert werden. 
 Ein Nachteil von VST-HMDs ist die Tatsache, dass der Träger des HMDs die Welt nur über das Video wahrnimmt und es so zu Problemen aufgrund von begrenzter Auflösung und zeitlicher Verzögerung zwischen realer Welt und Video kommen kann \cite{billinghurst_survey_2015}.  
 
-OST-HMDs hingegen sind Displays, welche durchsichtig sind und so den Blick auf die reale Umgebung ermöglichen. Dadurch gibt es keine Zeitverzögerung zwischen realer Welt und Szene, die der Nutzer sieht, mehr. Allerdings kann es nun zur zeitlichen Verzögerung im Rendering des virtuellen Objektes kommen. Ein weiteres großes Problem ist das Registrieren der virtuellen Objekte mit der Umwelt, da bei OST-HMDs zum positionieren dieser Objekte keine Methoden der Computer Vision verwendet werden können \cite{billinghurst_survey_2015}. Die in dieser Arbeit verwendete Microsoft Hololens lässt sich zu den OST-HMDs zählen. 
+OST-HMDs hingegen sind Displays, welche durchsichtig sind und so den Blick auf die reale Umgebung ermöglichen. Dadurch gibt es keine Zeitverzögerung zwischen realer Welt und Szene, die der Nutzer sieht, mehr. Allerdings kann es nun zur zeitlichen Verzögerung im Rendering des virtuellen Objektes kommen. Ein weiteres großes Problem ist das Registrieren der virtuellen Objekte mit der Umwelt, da bei OST-HMDs die Kalibrierung abhängig von der räumlichen Beziehung zwischen den Augen des Nutzers und der Bildebene des Displays ist (bspw. verändert sich diese Beziehung, wenn das HMD verrutscht oder zwischenzeitlich abgenommen wird) \cite{billinghurst_survey_2015}. Die in dieser Arbeit verwendete Microsoft Hololens lässt sich zu den OST-HMDs zählen. 
 
-%TODO Michas Kommentar und nochmal in Quelle nachlesen
-
+Mittels Tiefenkameras kann eine korrekte räumliche Überlagerung von virtuellen Objekten durch reale Objekte garantiert werden. Sowohl VST-HMDs als auch OST-HMDs können ihre Umgebung mittels verschiedener Kameras wahrnehmen und sich im Idealfall selbst in dieser Umgebung orten.
 
 \section{Registrierung}
 
 Im medizinischen Bereich ist es wünschenswert, verschiedene Datensätze, welche bspw. durch unterschiedliche Bildgebende Verfahren oder zu verschiedenen Zeitpunkten im Krankheitsverlauf entstanden sind, in räumliche Übereinstimmung zu bringen. So können die Datensätze am gleichen Ort angezeigt werden, was die Interpretation erleichtern kann und das aufwändige Wechseln zwischen den verschiedenen Medien vermeidet. Dies ermöglicht eine Verbesserung von Diagnose, Planung und Therapie. Dieser Prozess des räumlichen in-Übereinstimmung-bringens wird \emph{Registrierung} genannt. %TODO quelle
 
-In der AR bezieht sich der Begriff Registrierung auf das Problem, die Objekte der virtuellen und realen Welt miteinander in Einklang zu bringen \cite{azuma_survey_1997}. 
+In der AR bezieht sich der Begriff Registrierung auf das Problem, die Objekte der virtuellen und realen Welt miteinander in Einklang zu bringen \cite{azuma_survey_1997}. Registrieren bedeutet, die Transformation zu finden, die das virtuelle Objekt an den korrekten Ort in der realen Welt platziert. Um diese Transformation zu berechnen, müssen Teile des Objektes im Raum wiedererkannt werden. Das Erkennen des Objektes sowie das Berechnen der Transformation kann vollautomatisch geschehen. Dafür ist die Voraussetzung, dass das reale Objekt markante Punkte besitzt, die detektiert werden können, sowie dass das virtuelle Objekt markante Punkte besitzt, die dem realen Objekt zugeordnet werden können. Alternativ können Fiducials genutzt werden, die detektiert werden können. Werden Fiducials genutzt, muss wiederum die Transformation dieser Fiducials zum Objekt berechnet werden. Dieser Vorgang wird Kalibrierung genannt. Die Kalibrierung kann automatisch, semi-automatisch oder manuell geschehen.
 
-%TODO ganz viel
 
-Es werden \emph{Ankerpunkte} (Anchor) benötigt, um die Hologramme am korrekten Ort anzuzeigen und dort zu halten, selbst wenn der Nutzer sich im Raum bewegt. Als Anchor können u.a. reale Objekte im Raum, bspw. Image Marker aus Papier, genutzt werden \cite{billinghurst_survey_2015}. Nach der initialen Registrierung, bei welcher die Position und Rotation (\emph{Pose}) des Nutzers in Relation zum Anchor bestimmt werden, müssen diese kontinuierlich aktualisiert werden, da der Nutzer sich im Raum bewegt \cite{billinghurst_survey_2015}. Im Folgenden werden verschiedene Tracking Methoden genannt.
+Nach der initialen Registrierung, bei welcher die Position und Rotation (\emph{Pose}) des Nutzers in Relation zum Marker bestimmt werden, müssen diese kontinuierlich aktualisiert werden, da der Nutzer sich im Raum bewegt \cite{billinghurst_survey_2015}. Im Folgenden werden verschiedene Tracking Methoden genannt.
 
 
 
@@ -116,8 +110,8 @@ Unter einem \emph{Phantom} wird in der Medizin die Nachbildung von Organen verst
 Das in dieser Arbeit genutzte Optical See-Through HMD ist die Hololens der ersten Generation. Die Hololens wurde 2016 von der Microsoft Corporation auf den Markt gebracht. Sie übertrifft andere kommerziell verfügbaren OST-HMDs in Kontrast und Stabilität der Bildwiederholrate und hat eine geringere Zeitverzögerung \cite{qian_comparison_2017}. Die Hololens ist nicht kabelgebunden, lässt sich über Handgesten sowie Sprachbefehle steuern und gefährdet somit nicht die Sterilität im Operationssaal \cite{pratt_through_2018}.
 
 Ein virtuelles Objekt, welches von der Hololens angezeigt wird, wird \emph{Hologramm} genannt. Die Hololens projiziert ein Hologramm auf zwei Durchsichtdisplays (\emph{Waveguides)}, für jedes Auge eines. Für jeden Waveguide gibt es eine \emph{Light Engine}, welche die holographischen Inhalte projiziert. Mit Hilfe von vier Umgebungssensoren und einer Time-of-Flight Tiefenkamera kann die Hololens eine Karte des Raumes erstellen (\emph{Spatial Mapping}) und sich selbst darin positionieren. Die Tiefenkamera wird zusätzlich zur Erkennung der Handgesten genutzt. \cite{varnauld_mixed_nodate}
-%TODO richtiges Zitat Mixed Reality Documentation
-%TODO Was sind umgebungssensoren?
+
+
 \\ \textbf{Technische Daten}
 
 \begin{figure}[h!]
