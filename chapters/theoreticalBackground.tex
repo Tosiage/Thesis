@@ -63,16 +63,16 @@ Beim Infrarot Tracking wird von einem Marker entweder Infrarot Strahlung ausgese
 %TODO Überarbeiten
 Mit Hilfe von Video Aufnahmen aus RGB-Kameras, wie sie bspw. die Hololens besitzt, lassen sich Objekte ebenso in der realen Welt erkennen und verfolgen. Die dazu verwendeten Methoden lassen sich in drei Techniken aufteilen, welche im Folgenden erläutert werden. 
 
-\textbf{Fiducial Tracking} 
-
-\emph{Fiducials} (auch als \emph{Marker} bezeichnet) sind phyische Objekte, die in der realen Welt platziert werden (siehe Abb.\ref{fig:3.2}). Sie können als Anchor für virtuelle Objekte genutzt werden, um diese im Raum zu positionieren. Wie ein Fiducial aussieht, ist stark von dem Algorithmus abhängig, der zum Erkennen genutzt wird. So gibt es einfarbige Fiducials, die per Color Matching getrackt werden können \cite{billinghurst_survey_2015}. Hierbei muss beachtet werden, dass ein einzelner, einfarbiger Marker nicht genügend Informationen enthält, um die Kamerapose zu bestimmen. Es müssen mindestens vier Punkte im Raum erkannt werden, um diese berechnen zu können \cite{billinghurst_survey_2015}. Es muss also darauf geachtet werden, die Marker so in der realen Welt zu positionieren, dass zu jeder Zeit mindestens vier einfarbige Fiducials sichtbar sind. Dieser Mehraufwand kann vermieden werden, indem planare quadratische Marker verwendet werden, deren Ecken als die vier bekannten Punkte dienen. Zusätzlich kann ein Bild dem Marker hinzugefügt werden, um zu ermöglichen, dass mehrere Marker zeitgleich verwendet und voneinander unterschieden werden können, sowie die Rotation um die vertikale Achse feststellen zu können \cite{billinghurst_survey_2015}.
-
 \begin{figure}[ht]
 	\centering
 		\includegraphics[width=0.75\textwidth]{images/fiducials.png}
 	\caption[Fiducials]{Beispiele für verschiedene Fiducials  \cite{billinghurst_survey_2015} }
 	\label{fig:3.2}
 \end{figure}
+
+\textbf{Fiducial Tracking} 
+
+\emph{Fiducials} (auch als \emph{Marker} bezeichnet) sind phyische Objekte, die in der realen Welt platziert werden (siehe Abb.\ref{fig:3.2}). Sie können als Anchor für virtuelle Objekte genutzt werden, um diese im Raum zu positionieren. Wie ein Fiducial aussieht, ist stark von dem Algorithmus abhängig, der zum Erkennen genutzt wird. So gibt es einfarbige Fiducials, die per Color Matching getrackt werden können \cite{billinghurst_survey_2015}. Hierbei muss beachtet werden, dass ein einzelner, einfarbiger Marker nicht genügend Informationen enthält, um die Kamerapose zu bestimmen. Es müssen mindestens vier Punkte im Raum erkannt werden, um diese berechnen zu können \cite{billinghurst_survey_2015}. Es muss also darauf geachtet werden, die Marker so in der realen Welt zu positionieren, dass zu jeder Zeit mindestens vier einfarbige Fiducials sichtbar sind. Dieser Mehraufwand kann vermieden werden, indem planare quadratische Marker verwendet werden, deren Ecken als die vier bekannten Punkte dienen. Zusätzlich kann ein Bild dem Marker hinzugefügt werden, um zu ermöglichen, dass mehrere Marker zeitgleich verwendet und voneinander unterschieden werden können, sowie die Rotation um die vertikale Achse feststellen zu können \cite{billinghurst_survey_2015}.
 
 
 \textbf{Natural Feature Tracking}
@@ -93,11 +93,6 @@ Es ist möglich, mit Hilfe von 3D-Kamerasystemen Tiefendaten zu erhalten. Diese 
 Bei strukturiertem Licht werden Muster auf eine Oberfläche projiziert. Durch die Oberfläche wird das projizierte Muster verzerrt. Mithilfe von optischer Triangulation kann nun die 3D Position der Punkte bestimmt werden \cite{szeliski_computer_nodate}. 
 Die Kinect nutzt strukturiertes Licht um 3D Modelle von Objekten und vom Raum zu erstellen, welche wiederum zum Tracken der Pose der Kamera genutzt werden \cite{billinghurst_survey_2015}. 
 
-
-\section{Phantom}
-
-Unter einem \emph{Phantom} wird in der Medizin die Nachbildung von Organen verstanden, an welchen Übungen und Experimente durchgeführt werden können. Das in dieser Arbeit verwendete Phantom ist das \emph{open-source Heidelberg laparoscopic phantom} (Open-HELP) \cite{noauthor_openhelp_nodate}. Es wurde nach dem CT-Scan des Torsos eines männlichen Patienten modelliert. Der Torso enthält naturgetreue Organe und eine abnehmbare Bauchdecke (siehe Abb. \ref{fig:3.3}). 
-
 \begin{figure}[ht]
 	\centering
 		\includegraphics[width=1\textwidth]{images/phantomBauchdecke.jpg}
@@ -105,18 +100,35 @@ Unter einem \emph{Phantom} wird in der Medizin die Nachbildung von Organen verst
 	\label{fig:3.3}
 \end{figure}
 
+\section{Phantom}
+
+Unter einem \emph{Phantom} wird in der Medizin die Nachbildung von Organen verstanden, an welchen Übungen und Experimente durchgeführt werden können. Das in dieser Arbeit verwendete Phantom ist das \emph{open-source Heidelberg laparoscopic phantom} (Open-HELP) \cite{noauthor_openhelp_nodate}. Es wurde nach dem CT-Scan des Torsos eines männlichen Patienten modelliert. Der Torso enthält naturgetreue Organe und eine abnehmbare Bauchdecke (siehe Abb. \ref{fig:3.3}). 
+
 \section{Microsoft Hololens}
 
-Das in dieser Arbeit genutzte Optical See-Through HMD ist die Hololens der ersten Generation. Die Hololens wurde 2016 von der Microsoft Corporation auf den Markt gebracht. Sie übertrifft andere kommerziell verfügbaren OST-HMDs in Kontrast und Stabilität der Bildwiederholrate und hat eine geringere Zeitverzögerung \cite{qian_comparison_2017}. Die Hololens ist nicht kabelgebunden, lässt sich über Handgesten sowie Sprachbefehle steuern und gefährdet somit nicht die Sterilität im Operationssaal \cite{pratt_through_2018}.
+Das in dieser Arbeit genutzte Optical See-Through HMD ist die Hololens der ersten Generation (siehe Abb. \ref{fig:3.4}). Die Hololens wurde 2016 von der Microsoft Corporation auf den Markt gebracht. Sie übertrifft andere kommerziell verfügbaren OST-HMDs in Kontrast und Stabilität der Bildwiederholrate und hat eine geringere Zeitverzögerung \cite{qian_comparison_2017}. Die Hololens ist nicht kabelgebunden, lässt sich über Handgesten sowie Sprachbefehle steuern und gefährdet somit nicht die Sterilität im Operationssaal \cite{pratt_through_2018}.
 
 Ein virtuelles Objekt, welches von der Hololens angezeigt wird, wird \emph{Hologramm} genannt. Die Hololens projiziert ein Hologramm auf zwei Durchsichtdisplays (\emph{Waveguides)}, für jedes Auge eines. Für jeden Waveguide gibt es eine \emph{Light Engine}, welche die holographischen Inhalte projiziert. Mit Hilfe von vier Umgebungssensoren und einer Time-of-Flight Tiefenkamera kann die Hololens eine Karte des Raumes erstellen (\emph{Spatial Mapping}) und sich selbst darin positionieren. Die Tiefenkamera wird zusätzlich zur Erkennung der Handgesten genutzt. \cite{varnauld_mixed_nodate}
 
 
-\\ \textbf{Technische Daten}
+\section{NDI Polaris Vega}
+
+Die Polaris Vega von Northern Digital Inc. (siehe Abb. \ref{fig:3.5}) ist ein Infrarot Tracking System zur Anwendung im medizinischen Bereich. Die Polaris ist als outside-looking-in System konfiguriert. Die zu trackenden Objekte werden mit Markern ausgestattet und von einem stationären Infrarotsensor verfolgt. Die Polaris kann sowohl aktive als auch passive Marker tracken. Aktive Marker werden durch ein elektrisches Signal aktiviert und senden Infrarotstrahlung aus. Passive Marker besitzen mindestens drei reflektive Kugeln. Der Infrarotsensor der Polaris sendet Infrarotstrahlung aus, welche von den passiven Markern reflektiert wird. Anhand der erhaltenen Informationen kann der Infrarotsensor die Position und Rotation der Marker bestimmen. 
+
+
+
+\section{Unity}
+
+\emph{Unity} ist eine Gaming Engine entwickelt von Unity Technologies. Sie kann zum Entwickeln von 3D- und 2D-Spielen genutzt werden, sowie unter anderem zum Erstellen von AR- und VR-Anwendungen. Unity unterstützt mehr als 25 Plattformen, darunter auch die Universal Windows Plattform, welche auf der Hololens genutzt wird. Microsoft empfiehlt Unity zum Entwickeln von MR-Anwendungen für die Hololens, mit der Begründung, dass Unity 'die schnellste Methode zum Erstellen einer Mixed Reality-App' sei \cite{varnauld_mixed_nodate}.
+%Wie die MR Docs zitieren?
+In dieser Arbeit wurde Unity in der Version 2018.2.21f1 genutzt.
+
+\newpage
 
 \begin{figure}[h!]
 \centering
 \begin{tabular}{ll}
+%\caption{Technische Daten der Microsoft Hololens}
 \hline
 \textbf{Komponente}    & \textbf{Daten}   \\
 \hline
@@ -149,18 +161,11 @@ Ein virtuelles Objekt, welches von der Hololens angezeigt wird, wird \emph{Holog
 \textbf{Betriebssystem} & Windows 10           \\
 \hline
 \end{tabular}
-\caption[Hololens Daten]{Quelle: Angaben des Herstellers\footnotemark}
+\caption[Hololens Daten]{Technische Daten Hololens; Quelle: Angaben des Herstellers\footnotemark}
 \label{fig:3.4} 
 \end{figure}
 
 \footnotetext{https://docs.microsoft.com/en-us/windows/mixed-reality/hololens-hardware-details (Stand: 02.09.2019)}
-
-
-\section{NDI Polaris Vega}
-
-Die Polaris Vega von Northern Digital Inc. ist ein Infrarot Tracking System zur Anwendung im medizinischen Bereich. Die Polaris ist als outside-looking-in System konfiguriert. Die zu trackenden Objekte werden mit Markern ausgestattet und von einem stationären Infrarotsensor verfolgt. Die Polaris kann sowohl aktive als auch passive Marker tracken. Aktive Marker werden durch ein elektrisches Signal aktiviert und senden Infrarotstrahlung aus. Passive Marker besitzen mindestens drei reflektive Kugeln. Der Infrarotsensor der Polaris sendet Infrarotstrahlung aus, welche von den passiven Markern reflektiert wird. Anhand der erhaltenen Informationen kann der Infrarotsensor die Position und Rotation der Marker bestimmen. 
-
-\textbf{Technische Daten}
 
 %https://www.ndigital.com/medical/products/polaris-family/ 11.08.2019
 
@@ -185,16 +190,11 @@ Die Polaris Vega von Northern Digital Inc. ist ein Infrarot Tracking System zur 
 &(Breite x Höhe x Tiefe)\\
 \hline
 \end{tabular}
-\caption[Polaris Daten]{Quelle: Angaben des Herstellers\footnotemark}
+\caption[Polaris Daten]{Technische Daten Polaris Vega; Quelle: Angaben des Herstellers\footnotemark}
 \label{fig:3.5}
 \end{figure} 
 
 \footnotetext{https://www.ndigital.com/medical/products/polaris-vega/ (Stand: 20.08.2019)}
-\section{Unity}
-
-\emph{Unity} ist eine Gaming Engine entwickelt von Unity Technologies. Sie kann zum Entwickeln von 3D- und 2D-Spielen genutzt werden, sowie unter anderem zum Erstellen von AR- und VR-Anwendungen. Unity unterstützt mehr als 25 Plattformen, darunter auch die Universal Windows Plattform, welche auf der Hololens genutzt wird. Microsoft empfiehlt Unity zum Entwickeln von MR-Anwendungen für die Hololens, mit der Begründung, dass Unity 'die schnellste Methode zum Erstellen einer Mixed Reality-App' sei \cite{varnauld_mixed_nodate}.
-%Wie die MR Docs zitieren?
-In dieser Arbeit wurde Unity in der Version 2018.2.21f1 genutzt.
 
 \section{Mixed Reality Toolkit}
 
@@ -202,3 +202,4 @@ Das \emph{Mixed Reality Toolkit \footnote{https://microsoft.github.io/MixedReali
 Eines dieser Assets ist das \emph{Input Manager Prefab}, das sich unter anderem aus einem \emph{Gaze Manager}, einem \emph{Input Manager} und einem \emph{Focus Manager} Skript zusammensetzt. Mit Hilfe dieser Skripte lässt sich der Kopfdrehung des Nutzers verfolgen und Gesten erkennen. Die Verfolgung der Kopfdrehung ermöglicht das Anzeigen eines Cursors für den Nutzer und dadurch das Anfokussieren einzelner Objekte in der Szene. So besteht die Möglichkeit, Objekte bei Fokussierung farblich hervorzuheben oder weitere Informationen anzuzeigen, die sonst nicht sichtbar sind. 
 In dieser Arbeit wurde die MRTK Version 2017.4.3.0 verwendet.
 %https://microsoft.github.io/MixedRealityToolkit-Unity/README.html 11.08.2019
+
