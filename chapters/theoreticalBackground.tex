@@ -27,7 +27,7 @@ Heutzutage wird die MR nicht nur durch die Art des verwendeten Anzeigegerätes b
 Um virtuelle Objekte in der realen Welt anzeigen zu können, werden Displays benötigt. Neben Displays, welche in der Hand gehalten werden und stationär befestigten Displays, gibt es \emph{Head Mounted Displays} (HMDs). Sie werden ähnlich einer Brille auf dem Kopf getragen, das Display befindet sich vor den Augen des Nutzers. 
 Im Bereich AR wird zwischen \emph{video see-through HMD} (VST-HMD) und \emph{optical see-through HMD} (OST-HMD) unterschieden.
 
-Bei VST-HMDs wird ein Video der Umwelt aufgenommen, in welches die virtuellen Objekte pixelgenau eingefügt werden \cite{billinghurst_survey_2015}. Es tritt keine Zeitverzögerung zwischen Bild der realen Welt und dem darauf angezeigtem virtuellem Objekt auf. 
+Bei VST-HMDs wird ein Video der Umwelt aufgenommen, in welches die virtuellen Objekte pixelgenau eingefügt werden \cite{billinghurst_survey_2015}. Es tritt keine Zeitverzögerung zwischen dem Videostream der realen Welt und dem darauf angezeigten virtuellen Objekt auf. 
 Ein Nachteil von VST-HMDs ist die Tatsache, dass der Träger des HMDs die Welt nur über das Video wahrnimmt und es so zu Problemen aufgrund von begrenzter Auflösung und zeitlicher Verzögerung zwischen realer Welt und Video kommen kann \cite{billinghurst_survey_2015}.  
 
 OST-HMDs hingegen sind Displays, welche durchsichtig sind und so den Blick auf die reale Umgebung ermöglichen. Dadurch gibt es keine Zeitverzögerung zwischen realer Welt und Szene, die der Nutzer sieht, mehr. Allerdings kann es nun zur zeitlichen Verzögerung im Rendering des virtuellen Objektes kommen. Ein weiteres großes Problem ist das Registrieren der virtuellen Objekte mit der Umwelt, da bei OST-HMDs die Kalibrierung abhängig von der räumlichen Beziehung zwischen den Augen des Nutzers und der Bildebene des Displays ist (bspw. verändert sich diese Beziehung, wenn das HMD verrutscht oder zwischenzeitlich abgenommen wird) \cite{billinghurst_survey_2015}. Die in dieser Arbeit verwendete Microsoft Hololens lässt sich zu den OST-HMDs zählen. 
@@ -36,7 +36,7 @@ Mittels Tiefenkameras kann eine korrekte räumliche Überlagerung von virtuellen
 
 \section{Registrierung}
 
-Im medizinischen Bereich ist es wünschenswert, verschiedene Datensätze, welche bspw. durch unterschiedliche Bildgebende Verfahren oder zu verschiedenen Zeitpunkten im Krankheitsverlauf entstanden sind, in räumliche Übereinstimmung zu bringen. So können die Datensätze am gleichen Ort angezeigt werden, was die Interpretation erleichtern kann und das aufwändige Wechseln zwischen den verschiedenen Medien vermeidet. Dies ermöglicht eine Verbesserung von Diagnose, Planung und Therapie. Dieser Prozess des räumlichen in-Übereinstimmung-bringens wird \emph{Registrierung} genannt. %TODO quelle
+Im medizinischen Bereich ist es wünschenswert, verschiedene Datensätze, welche bspw. durch unterschiedliche Bildgebende Verfahren oder zu verschiedenen Zeitpunkten im Krankheitsverlauf entstanden sind, in räumliche Übereinstimmung zu bringen \cite{hill2001medical}. So können die Datensätze am gleichen Ort angezeigt werden, was die Interpretation erleichtern kann und das aufwändige Wechseln zwischen den verschiedenen Medien vermeidet.  Dieser Prozess des räumlichen in-Übereinstimmung-bringens wird \emph{Registrierung} genannt. 
 
 In der AR bezieht sich der Begriff Registrierung auf das Problem, die Objekte der virtuellen und realen Welt miteinander in Einklang zu bringen \cite{azuma_survey_1997}. Registrieren bedeutet, die Transformation zu finden, die das virtuelle Objekt an den korrekten Ort in der realen Welt platziert. Um diese Transformation zu berechnen, müssen Teile des Objektes im Raum wiedererkannt werden. Das Erkennen des Objektes sowie das Berechnen der Transformation kann vollautomatisch geschehen. Dafür ist die Voraussetzung, dass das reale Objekt markante Punkte besitzt, die detektiert werden können, sowie dass das virtuelle Objekt markante Punkte besitzt, die dem realen Objekt zugeordnet werden können. Alternativ können Fiducials genutzt werden, die detektiert werden können. Werden Fiducials genutzt, muss wiederum die Transformation dieser Fiducials zum Objekt berechnet werden. Dieser Vorgang wird Kalibrierung genannt. Die Kalibrierung kann automatisch, semi-automatisch oder manuell geschehen.
 
@@ -60,7 +60,7 @@ Beim Infrarot Tracking wird von einem Marker entweder Infrarot Strahlung ausgese
 
 \subsection{Visible Light Tracking}
  
-%TODO Überarbeiten
+
 Mit Hilfe von Video Aufnahmen aus RGB-Kameras, wie sie bspw. die Hololens besitzt, lassen sich Objekte ebenso in der realen Welt erkennen und verfolgen. Die dazu verwendeten Methoden lassen sich in drei Techniken aufteilen, welche im Folgenden erläutert werden. 
 
 \begin{figure}[ht]

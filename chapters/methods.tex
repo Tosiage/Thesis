@@ -93,7 +93,7 @@ Das Vuforia Developer Portal bietet eine Bewertung von 0 bis 5 Sternen für hoch
 \item keine sich wiederholenden Muster haben.
 \end{itemize} 
 
-Vuforia analysiert ein hochgeladenes Bild auf seine Merkmale und speichert Bild und Merkmale in einer Datenbank ab. Unter Merkmal versteht Vuforia ein 'scharfes, spitzes, kantiges Detail im Bild". Desweiteren bezeichnet Vuforia die Merkmale als "kontrastbasierte Merkmale'. Da Vuforia nicht open source ist, kann keine genauere Aussage über den von Vuforia genutzten Computer Vision Algorithmus zur Merkmalserkennung getroffen werden, es lässt sich jedoch vermuten, dass es ein Algorithmus ähnlich zu SIFT, SURF oder ORB ist.
+Vuforia analysiert ein hochgeladenes Bild auf seine Merkmale und speichert Bild und Merkmale in einer Datenbank ab. Unter Merkmal versteht Vuforia ein 'scharfes, spitzes, kantiges Detail im Bild'. Desweiteren bezeichnet Vuforia die Merkmale als 'kontrastbasierte Merkmale'. Da Vuforia nicht open source ist, kann keine genauere Aussage über den von Vuforia genutzten Computer Vision Algorithmus zur Merkmalserkennung getroffen werden, es lässt sich jedoch vermuten, dass es ein Algorithmus ähnlich zu SIFT, SURF oder ORB ist.
 Die gefundenen Merkmale eines Bildes werden im Target Manager des Vuforia Developer Portals als gelbe Kreuze angezeigt. 
 
 \newpage
@@ -172,15 +172,15 @@ Um den Mittelwert von mehr als zwei Quaternionen zu bestimmen, muss getestet wer
 
 \section{Kalibrierung} \label{kalibrierung}
 
-Damit das 3D-Modell, welches angezeigt werden soll, positioniert werden kann, müssen die Marker kalibriert werden, also Offsetrotation und Offsetposition der Image Targets in das TargetData Script geschrieben werden. Diese Kalibrierung kann auf zwei Wege vorgenommen werden: mit Hilfe der Hololens direkt in der Anwendung oder mit Hilfe eines externen Trackingsystems wie der Polaris. 
+Damit das 3D-Modell, welches angezeigt werden soll, positioniert werden kann, müssen die Marker kalibriert werden, also Offsetrotation und Offsetposition der Fiducials bekannt werden. Diese Kalibrierung kann auf zwei Wege vorgenommen werden: mit Hilfe der Hololens direkt in der Anwendung oder mit Hilfe eines externen Trackingsystems wie der Polaris. 
 
 \subsection{Kalibrierung mit der Hololens}
 
-Zu Beginn der Kalibrierung mit der Hololens hängt das Hologramm an einem Image Target, das nicht am Phantom angebracht ist, so dass der Nutzer das Phantom beliebig im Raum bewegen kann. Mit Hilfe dieses Image Targets kann das Hologramm frei im Raum bewegt werden. Der Träger der Hololens nutzt diesen Marker nun dazu, das Hologramm so gut wie möglich auf dem Objekt (Box oder Phantom) zu positionieren. Der Marker wird auf dem Objekt abgelegt. Sobald einer der fest am Objekt angebrachten Marker im Sichtfeld der Hololens ist, kann die tatsächliche Kalibrierung per Knopfdruck gestartet werden. 
+Zu Beginn der Kalibrierung mit der Hololens hängt das Hologramm an einem Fiducial, das nicht am Phantom angebracht ist, so dass der Nutzer das Phantom beliebig im Raum bewegen kann. Mit Hilfe dieses Fiducialss kann das Hologramm frei im Raum bewegt werden. Der Träger der Hololens nutzt diesen Marker nun dazu, das Hologramm so gut wie möglich auf dem Objekt (Box oder Phantom) zu positionieren. Der Marker wird auf dem Objekt abgelegt. Sobald einer der fest am Objekt angebrachten Marker im Sichtfeld der Hololens ist, kann die tatsächliche Kalibrierung per Knopfdruck gestartet werden. 
 
-Das Hologramm hängt nun nicht mehr an dem beweglichen Marker, sondern an den Markern die zum Zeitpunkt des Knopfdrucks sichtbar waren. Nun ist es möglich, das Hologramm über ein Interface entlang X-, Y- oder Z-Achse zu verschieben oder um eine Achse zu rotieren. Ist der Nutzer zufrieden mit der Ausrichtung des Hologramms, wird ein \emph{Save-Button} betätigt, welcher den Offset in Rotation und Position der zu diesem Zeitpunkt von der Kamera sichtbaren Marker in das jeweilige TargetData Script der Marker schreibt. Diese Marker gelten nun als kalibriert und werden von nun an zur Positionierung des Hologramms genutzt.
+Das Hologramm hängt nun nicht mehr an dem beweglichen Marker, sondern an den Markern die zum Zeitpunkt des Knopfdrucks sichtbar waren. Nun ist es möglich, das Hologramm über ein Interface entlang X-, Y- oder Z-Achse zu verschieben oder um eine Achse zu rotieren. Ist der Nutzer zufrieden mit der Ausrichtung des Hologramms, wird ein \emph{Save-Button} betätigt, welcher den Offset in Rotation und Position der zu diesem Zeitpunkt von der Kamera sichtbaren Marker pro Marker abspeichert. Diese Marker gelten nun als kalibriert und werden von nun an zur Positionierung des Hologramms genutzt.
 
-Der Nutzer kann nun von einer anderen Position im Raum schauen, ob die Position des Hologramms korrekt ist. Ist sie dies nicht, kann weiterhin über das Interface eine Feinjustierung der Position und Rotation des Hologramms vorgenommen werden. Anschließend muss der Save-Button betätigt werden, um wiederum für alle zu diesem Zeitpunkt sichtbaren Marker den Offset in das TargetData Script zu schreiben und sie als kalibriert zu markieren. Ist ein bereits als kalibriert markierter Marker zu dem Zeitpunkt sichtbar, so wird der Offset in seinem TargetData Script überschrieben. Dieser Vorgang wird solange wiederholt, bis alle Marker als kalibriert markiert sind. Anschließend kann die Kalibrierung gespeichert und exportiert werden. Bei Neustart der Anwendung kann ebenso eine schon vorher abgeschlossene Kalibrierung geladen werden.
+Der Nutzer kann nun von einer anderen Position im Raum schauen, ob die Position des Hologramms korrekt ist. Ist sie dies nicht, kann weiterhin über das Interface eine Feinjustierung der Position und Rotation des Hologramms vorgenommen werden. Anschließend muss der Save-Button betätigt werden, um wiederum für alle zu diesem Zeitpunkt sichtbaren Marker den Offset zu speichern und sie als kalibriert zu markieren. Ist ein bereits als kalibriert markierter Marker zu dem Zeitpunkt sichtbar, so wird der Offset überschrieben. Dieser Vorgang wird solange wiederholt, bis alle Marker als kalibriert markiert sind. Anschließend kann die Kalibrierung gespeichert und exportiert werden. Bei Neustart der Anwendung kann ebenso eine schon vorher abgeschlossene Kalibrierung geladen werden.
 
 \textbf{Anpassung der Position über das Interface}
 
@@ -191,6 +191,9 @@ Zur Anpassung der Pose (Position und Rotation) über das Interface wurde ein tem
 \begin{itemize}
 \item[1] Initiale Positionierung des Hologramms mit Hilfe des beweglichen Markers
 \item[2] Sobald mindestens ein anderer Marker sichtbar ist, Start des Kalibrierungsprozesses über Button \emph{Start Calibration}, nutzen der zu diesem Zeitpunkt sichtbar gewesenen Marker zur Positionierung des Hologramms
+
+\newpage
+
 \item[3] Für als kalibriert markierte Marker gilt 
  \[poseH_i = \mathit{tempOffset_i} \cdot \mathit{offset_i} \cdot pose_i\] 
  wobei \emph{markerOffset} der bereits kalibrierte Offset ist
